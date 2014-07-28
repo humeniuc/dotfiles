@@ -38,7 +38,8 @@
     nnoremap [unite]r :<C-u>UniteResume -start-insert<cr>
     nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
     nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<cr>
-    nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert  buffer<cr>
+    nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<cr>
+    nnoremap [unite]g :<C-u>Unite grep:.<cr>
 
     " Custom mappings for the unite buffer
     autocmd FileType unite call s:unite_settings()

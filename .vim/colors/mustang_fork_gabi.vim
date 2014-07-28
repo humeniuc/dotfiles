@@ -40,7 +40,7 @@ hi SpecialKey   guifg=#808080 guibg=#202020 gui=none ctermfg=244 ctermbg=236
 hi Comment    guifg=#808080 gui=italic ctermfg=244
 hi Todo       guifg=#8f8f8f gui=italic ctermfg=245
 hi Boolean    guifg=#b1d631 gui=none ctermfg=148
-hi String     guifg=#b1d631 gui=italic ctermfg=148
+hi String     guifg=#b1d631 gui=none ctermfg=148
 " hi Identifier guifg=#b1d631 gui=none ctermfg=148
 hi Identifier guifg=#ff9800 gui=none ctermfg=208
 hi Function   guifg=#ffffff  ctermfg=255
