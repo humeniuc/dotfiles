@@ -34,12 +34,11 @@
     nnoremap [unite] <Nop>
     nmap <space> [unite]
 
-    "nnoremap [unite]t :<C-u>Unite -buffer-name=files   -start-insert file_rec/async:!<cr>
     nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<cr>
     nnoremap [unite]r :<C-u>UniteResume -start-insert<cr>
     nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
     nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<cr>
-    nnoremap [unite]b :<C-u>Unite -buffer-name=buffer  buffer<cr>
+    nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert  buffer<cr>
 
     " Custom mappings for the unite buffer
     autocmd FileType unite call s:unite_settings()
@@ -50,15 +49,6 @@
         imap <buffer> <C-j>   <Plug>(unite_select_next_line)
         imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
     endfunction
-
-    " ctrlp
-    let g:ctrlp_clear_cache_on_exit = 0
-    let g:ctrlp_show_hidden = 1
-    let g:ctrlp_max_files = 0
-    let g:ctrlp_match_window_bottom = 1
-    let g:ctrlp_match_window_reversed = 0
-    let g:ctrlp_max_height = 20
-    let g:ctrlp_working_path_mode = 0
 " }
 
 " Basics {
@@ -128,8 +118,6 @@
     set lazyredraw          " do not redraw while running macros
     set linespace=0         " don't insert any extra pixel lines
                             " betweens rows
-    set list                " we do what to show tabs, to ensure we get them
-                            " out of my files
     set nolist
     set listchars=tab:» ,eol:¶,trail:· " show tabs and trailing
     set showtabline=0
@@ -179,7 +167,7 @@
                       " >>, << and stuff like that
     set softtabstop=4 " when hitting tab or backspace, how many spaces
                        "should a tab be (see expandtab)
-    set tabstop=8 " real tabs should be 8, and they will show with
+    set tabstop=4 " real tabs should be 8, and they will show with
                    " set list on
 " }
 
