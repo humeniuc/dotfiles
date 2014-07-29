@@ -50,6 +50,14 @@
         imap <buffer> <C-j>   <Plug>(unite_select_next_line)
         imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
     endfunction
+
+
+    " NERDCommenter
+    " adauga un spatiu inainte si da comentariu
+    " adica:
+    " /* comentat */
+    " // comentat
+    let g:NERDSpaceDelims=1
 " }
 
 " Basics {
