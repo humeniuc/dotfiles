@@ -10,54 +10,69 @@
 
 " Plugin Settings {
     " pathogen
-    call pathogen#infect()
-    call pathogen#helptags()
 
-    " indent-guides
-    let g:indent_guides_indent_levels = 30
-    let g:indent_guides_auto_colors = 1
-    let g:indent_guides_color_change_percent = 5
-    let g:indent_guides_start_level = 2
-    let g:indent_guides_enable_on_vim_startup = 0
+    if version >= 702
+        call pathogen#infect()
+        call pathogen#helptags()
 
-    " Unite
-    let g:unite_source_history_yank_enable = 1
-    "call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    "versiunea initiala, preluata de pe net
-    "nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-    "nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-    "nnoremap <leader>ur :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-    "nnoremap <leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-    "nnoremap <leader>uy :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-    "nnoremap <leader>ue :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+        " indent-guides
+        let g:indent_guides_indent_levels = 30
+        let g:indent_guides_auto_colors = 1
+        let g:indent_guides_color_change_percent = 5
+        let g:indent_guides_start_level = 2
+        let g:indent_guides_enable_on_vim_startup = 0
 
-    nnoremap [unite] <Nop>
-    nmap <space> [unite]
+        " Unite
+        let g:unite_source_history_yank_enable = 1
+        "call unite#filters#matcher_default#use(['matcher_fuzzy'])
+        "versiunea initiala, preluata de pe net
+        "nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+        "nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+        "nnoremap <leader>ur :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+        "nnoremap <leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+        "nnoremap <leader>uy :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+        "nnoremap <leader>ue :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
-    nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<cr>
-    nnoremap [unite]r :<C-u>UniteResume -start-insert<cr>
-    nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
-    nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<cr>
-    nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<cr>
-    nnoremap [unite]g :<C-u>Unite grep:.<cr>
+        nnoremap [unite] <Nop>
+        nmap <space> [unite]
 
-    " Custom mappings for the unite buffer
-    autocmd FileType unite call s:unite_settings()
-    function! s:unite_settings()
-        " Play nice with supertab
-        let b:SuperTabDisabled=1
-        " Enable navigation with control-j and control-k in insert mode
-        imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-        imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-    endfunction
+        nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<cr>
+        nnoremap [unite]r :<C-u>UniteResume -start-insert<cr>
+        nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
+        nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<cr>
+        nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<cr>
+        nnoremap [unite]g :<C-u>Unite grep:.<cr>
+
+        " Custom mappings for the unite buffer
+        autocmd FileType unite call s:unite_settings()
+        function! s:unite_settings()
+            " Play nice with supertab
+            let b:SuperTabDisabled=1
+            " Enable navigation with control-j and control-k in insert mode
+            imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+            imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+        endfunction
 
 
-    " NERDCommenter
-    " adauga un spatiu inainte si da comentariu
-    " adica:
-    " /* comentat */
-    " // comentat
-    let g:NERDSpaceDelims=1
+        " NERDCommenter
+        " adauga un spatiu inainte si da comentariu
+        " adica:
+        " /* comentat */
+        " // comentat
+        let g:NERDSpaceDelims=1
+
+        " tabularize: spatiere dupa :
+        " todo: executa evenimentul de addtabularpattern dupa ce s-a incarcat
+        " plugin-ul
+        " posibila solutie aici:
+        " http://stackoverflow.com/questions/5010162/if-existscommand-fails-on-startup-using-pathogen
+        if exists(':Tabularize')
+            AddTabularPattern! asterisk /*/l1
+            AddTabularPattern! js_semicolons /^[^:]*:\s*\zs/l1l0
+            AddTabularPattern! js: /^[^:]*:\zs/l1l0
+        endif
+
+    endif
 " }
 
 " Basics {
@@ -240,15 +255,3 @@ endif
 "
 
 
-" tabularize: spatiere dupa :
-" todo: executa evenimentul de addtabularpattern dupa ce s-a incarcat
-" plugin-ul
-" posibila solutie aici:
-" http://stackoverflow.com/questions/5010162/if-existscommand-fails-on-startup-using-pathogen
-if !exists(':Tabularize')
-    finish " Give up here; the Tabular plugin musn't have been loaded
-endif
-
-AddTabularPattern! asterisk /*/l1
-AddTabularPattern! js_semicolons /^[^:]*:\s*\zs/l1l0
-AddTabularPattern! js: /^[^:]*:\zs/l1l0
