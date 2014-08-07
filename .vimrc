@@ -36,12 +36,12 @@
         nnoremap [unite] <Nop>
         nmap <space> [unite]
 
-        nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<cr>
-        nnoremap [unite]r :<C-u>UniteResume -start-insert<cr>
-        nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<cr>
-        nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<cr>
-        nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<cr>
-        nnoremap [unite]g :<C-u>Unite grep:.<cr>
+        nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
+        nnoremap [unite]r :<C-u>UniteResume -start-insert<CR>
+        nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
+        nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<CR>
+        nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
+        nnoremap [unite]g :<C-u>Unite grep:.<CR>
 
         " Custom mappings for the unite buffer
         autocmd FileType unite call s:unite_settings()
@@ -53,6 +53,7 @@
             imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
         endfunction
 
+        map <F2> <ESC>:NERDTreeToggle<CR>
 
         " NERDCommenter
         " adauga un spatiu inainte si da comentariu
@@ -200,7 +201,7 @@
 
 " Mappings {
     " space / shift-space scroll in normal mode
-    map <F2> <ESC>:set paste!<RETURN>
+    map <F3> <ESC>:set paste!<RETURN>
     map <F4> <ESC>:IndentGuidesToggle<RETURN>
     "map <F5> <ESC>:bp<RETURN>
     "map <F6> <ESC>:bn<RETURN>
