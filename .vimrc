@@ -41,6 +41,8 @@
         nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
         nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<CR>
         nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
+        nnoremap [unite]tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
+        nnoremap [unite]t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
         nnoremap [unite]g :<C-u>Unite grep:.<CR>
 
         " Custom mappings for the unite buffer
@@ -77,7 +79,7 @@
             AddTabularPattern! f, /^[^,]*,\s*\zs/l1l0
             " first =
             " util in php cand vrei sa aranjezi dupa primul =
-            AddTabularPattern! f= /^[^=]*=\zs/l1l0
+            AddTabularPattern! f= /^[^=]*\zs=/l1l1
         endif
 
     endif
