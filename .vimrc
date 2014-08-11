@@ -75,6 +75,9 @@
             " first ,
             " util in php cand vrei sa aranjezi dupa primul ,
             AddTabularPattern! f, /^[^,]*,\s*\zs/l1l0
+            " first =
+            " util in php cand vrei sa aranjezi dupa primul =
+            AddTabularPattern! f= /^[^=]*=\zs/l1l0
         endif
 
     endif
