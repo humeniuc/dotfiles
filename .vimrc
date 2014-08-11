@@ -69,8 +69,12 @@
         " http://stackoverflow.com/questions/5010162/if-existscommand-fails-on-startup-using-pathogen
         if exists(':Tabularize')
             AddTabularPattern! asterisk /*/l1
-            AddTabularPattern! js_semicolons /^[^:]*:\s*\zs/l1l0
-            AddTabularPattern! js: /^[^:]*:\zs/l1l0
+            " first :
+            " util in js cand vrei sa aranjezi dupa primul :
+            AddTabularPattern! f: /^[^:]*:\s*\zs/l1l0
+            " first ,
+            " util in php cand vrei sa aranjezi dupa primul ,
+            AddTabularPattern! f, /^[^,]*,\s*\zs/l1l0
         endif
 
     endif
