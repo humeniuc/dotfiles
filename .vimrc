@@ -73,7 +73,9 @@
             AddTabularPattern! asterisk /*/l1
             " first :
             " util in js cand vrei sa aranjezi dupa primul :
-            AddTabularPattern! f: /^[^:]*:\s*\zs/l1l0
+            " nu l-am denumit f: pentru ca : este un caracer special
+            " acronimul este 'first double colon'
+            AddTabularPattern! fdc /^[^:]*:\s*\zs/l1l0
             " first ,
             " util in php cand vrei sa aranjezi dupa primul ,
             AddTabularPattern! f, /^[^,]*,\s*\zs/l1l0
@@ -87,54 +89,22 @@
 
 " Basics {
     set nocompatible " explicitly get out of vi-compatible mode
-    set noexrc " don't use local version of .(g)vimrc, .exrc
-    set background=dark " we plan to use a dark background
-    set cpoptions=aABceFsmq
-    "             |||||||||
-    "             ||||||||+-- When joining lines, leave the cursor
-    "             |||||||      between joined lines
-    "             |||||||+-- When a new match is created (showmatch)
-    "             ||||||      pause for .5
-    "             ||||||+-- Set buffer options when entering the
-    "             |||||      buffer
-    "             |||||+-- :write command updates current file name
-    "             ||||+-- Automatically add <CR> to the last line
-    "             |||      when using :@r
-    "             |||+-- Searching continues at the end of the match
-    "             ||      at the cursor position
-    "             ||+-- A backslash has no special meaning in mappings
-    "             |+-- :write updates alternative file name
-    "             +-- :read updates alternative file name
     syntax on " syntax highlighting on
 " }
 
 " General {
     filetype plugin indent on " load filetype plugins/indent settings
     set backspace=indent,eol,start " make backspace a more flexible
-    set backup " make backup files
     set nobackup "++ nu vreau fisiere de backup
     set nowritebackup "++ nu vreau fisiere de backup
-    set backupdir=~/.vim/backup " where to put backup files
-    set clipboard+=unnamed " share windows clipboard
-    set directory=~/.vim/tmp " directory to place swap files in
+    " set clipboard+=unnamed " share windows clipboard
     set noswapfile "++ nu vreau swap
     set fileformats=unix,dos,mac " support all three, in this order
     set hidden " you can change buffers without saving
     " (XXX: #VIM/tpope warns the line below could break things)
-    set iskeyword+=_,$,@,%,# " none of these are word dividers
+    " set iskeyword+=_,$,@,%,# " none of these are word dividers
     set mouse=a " use mouse everywhere
     set noerrorbells " don't make noise
-    set whichwrap=b,s,h,l,<,>,~,[,] " everything wraps
-    "             | | | | | | | | |
-    "             | | | | | | | | +-- "]" Insert and Replace
-    "             | | | | | | | +-- "[" Insert and Replace
-    "             | | | | | | +-- "~" Normal
-    "             | | | | | +-- <Right> Normal and Visual
-    "             | | | | +-- <Left> Normal and Visual
-    "             | | | +-- "l" Normal and Visual (not recommended)
-    "             | | +-- "h" Normal and Visual (not recommended)
-    "             | +-- <Space> Normal and Visual
-    "             +-- <BS> Normal and Visual
     set wildmenu " turn on command line completion wild style
     " ignore these list file extensions
     set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
@@ -154,22 +124,22 @@
                             " betweens rows
     set nolist
     set listchars=tab:» ,eol:¶,trail:· " show tabs and trailing
-    set showtabline=0
     set matchtime=5         " how many tenths of a second to blink
                             " matching brackets for
-    set nohlsearch          " do not highlight searched for phrases
+    set nohlsearch          " o data ce s-a cautat ceva si se highlight-uiesc potrivirile
+                            " cand se iese din cautare, ascunde highlight-urilek
     set nostartofline       " leave my cursor where it was
     set novisualbell        " don't blink
     set number              " turn on line numbers
     set numberwidth=5       " We are good up to 99999 lines
     set report=0            " tell us when anything is changed via :...
     set ruler               " Always show current positions along the bottom
-    set scrolloff=10        " Keep 10 lines (top/bottom) for scope
+    set scrolloff=5         " 5 linii sus-jos, pentru 'context'
     set shortmess=aOstT     " shortens messages to avoid
                             " 'press a key' prompt
     set showcmd             " show the command being typed
     set showmatch           " show matching brackets
-    set sidescrolloff=10    " Keep 5 lines at the size
+    set sidescrolloff=5     " Keep 5 lines at the size
     set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
     "              | | | | |  |   |      |  |     |    |
     "              | | | | |  |   |      |  |     |    + current
@@ -205,19 +175,13 @@
                    " set list on
 " }
 
-" Folding {
-" }
-
 " Mappings {
-    " space / shift-space scroll in normal mode
     map <F3> <ESC>:set paste!<RETURN>
     map <F4> <ESC>:IndentGuidesToggle<RETURN>
-    "map <F5> <ESC>:bp<RETURN>
-    "map <F6> <ESC>:bn<RETURN>
-    nmap <C-h> <ESC>:bp<RETURN>
-    nmap <C-l> <ESC>:bn<RETURN>
-    imap <C-h> <ESC>:bp<RETURN>
-    imap <C-l> <ESC>:bn<RETURN>
+    " nmap <C-h> <ESC>:bp<RETURN>
+    " nmap <C-l> <ESC>:bn<RETURN>
+    " imap <C-h> <ESC>:bp<RETURN>
+    " imap <C-l> <ESC>:bn<RETURN>
 " }
 
 " Autocommands {
@@ -227,6 +191,8 @@
 
     " fisierele less sunt tratate ca css
     au BufNewFile,BufRead *.less setlocal filetype=css
+
+    " fisierele *.js au indent de 2 spatii
     au BufNewFile,BufRead *.js setlocal softtabstop=2
     au BufNewFile,BufRead *.js setlocal shiftwidth=2
     au BufNewFile,BufRead *.js setlocal softtabstop=2
@@ -238,27 +204,18 @@
 
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
-colorscheme mustang_fork_gabi
+colorscheme mustangg
+
 if has("gui_running")
     " Basics {
-        "colorscheme hybrid
-        set columns=180 " perfect size for me
         set guifont=DejaVu\ Sans\ Mono\ 8 " My favorite font
         "set guioptions=ce
         set guioptions=cei
         "              ||
         "              |+-- use simple dialogs rather than pop-ups
         "              +  use GUI tabs, not console style tabs
-        set lines=55 " perfect size for me
+        " set lines=55 " perfect size for me
         set mousehide " hide the mouse cursor when typing
-    " }
-
-    " Font Switching Binds {
-        map <F8> <ESC>:set guifont=DejaVu\ Sans\ Mono\ 8<RETURN>
-        map <F9> <ESC>:set guifont=DejaVu\ Sans\ Mono\ 10<RETURN>
-        map <F10> <ESC>:set guifont=DejaVu\ Sans\ Mono\ 12<RETURN>
-        map <F11> <ESC>:set guifont=DejaVu\ Sans\ Mono\ 16<RETURN>
-        map <F12> <ESC>:set guifont=DejaVu\ Sans\ Mono\ 20<RETURN>
     " }
 endif
 " }
