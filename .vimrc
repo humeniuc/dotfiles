@@ -129,7 +129,7 @@
     set nohlsearch          " o data ce s-a cautat ceva si se highlight-uiesc potrivirile
                             " cand se iese din cautare, ascunde highlight-urilek
     set nostartofline       " leave my cursor where it was
-    set novisualbell        " don't blink
+    set visualbell          " don't blink
     set number              " turn on line numbers
     set numberwidth=5       " We are good up to 99999 lines
     set report=0            " tell us when anything is changed via :...
