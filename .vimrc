@@ -24,7 +24,7 @@
 
         " Unite
         let g:unite_source_history_yank_enable = 1
-        "call unite#filters#matcher_default#use(['matcher_fuzzy'])
+        call unite#filters#matcher_default#use(['matcher_fuzzy'])
         "versiunea initiala, preluata de pe net
         "nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
         "nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
