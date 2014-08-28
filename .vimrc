@@ -63,27 +63,6 @@
         " /* comentat */
         " // comentat
         let g:NERDSpaceDelims=1
-
-        " tabularize: spatiere dupa :
-        " todo: executa evenimentul de addtabularpattern dupa ce s-a incarcat
-        " plugin-ul
-        " posibila solutie aici:
-        " http://stackoverflow.com/questions/5010162/if-existscommand-fails-on-startup-using-pathogen
-        if exists(':Tabularize')
-            AddTabularPattern! asterisk /*/l1
-            " first :
-            " util in js cand vrei sa aranjezi dupa primul :
-            " nu l-am denumit f: pentru ca : este un caracer special
-            " acronimul este 'first double colon'
-            AddTabularPattern! fdc /^[^:]*:\s*\zs/l1l0
-            " first ,
-            " util in php cand vrei sa aranjezi dupa primul ,
-            AddTabularPattern! f, /^[^,]*,\s*\zs/l1l0
-            " first =
-            " util in php cand vrei sa aranjezi dupa primul =
-            AddTabularPattern! f= /^[^=]*\zs=/l1l1
-        endif
-
     endif
 " }
 
@@ -116,7 +95,7 @@
 " Vim UI {
     set nocursorcolumn      " highlight the current column
     set cursorline          " highlight current line
-    set incsearch           " BUT do highlight as you type you
+    set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
     set lazyredraw          " do not redraw while running macros
@@ -158,7 +137,7 @@
 " }
 
 " Text Formatting/Layout {
-    set completeopt= " don't use a pop up menu for completions
+    set completeopt=longest,menuone
     set expandtab " no real tabs please!
     set formatoptions=rq " Automatically insert comment leader on return,
                           " and let gq format comments
