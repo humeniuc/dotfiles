@@ -16,4 +16,7 @@ if exists(':Tabularize')
     " first =
     " util in php cand vrei sa aranjezi dupa primul =
     AddTabularPattern! f= /^[^=]*\zs=/l1l1
+    " first =>
+    " util in php cand vrei sa aranjezi dupa primul =>
+    AddTabularPattern! f=> /^[^=]*\zs=>/l1l1
 endif
