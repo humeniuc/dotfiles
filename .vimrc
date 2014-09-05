@@ -55,8 +55,6 @@
             imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
         endfunction
 
-        map <F2> <ESC>:NERDTreeToggle<CR>
-
         " NERDCommenter
         " adauga un spatiu inainte si da comentariu
         " adica:
