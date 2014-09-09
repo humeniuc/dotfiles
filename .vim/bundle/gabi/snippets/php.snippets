@@ -1,0 +1,18 @@
+# debug
+snippet db
+	debug(${1});${2}
+# debug request
+snippet dbr
+	debug_request();${2}
+# debug line
+snippet dbl
+	debug('line '. __LINE__. "<br/>\n");
+# debug file and line
+snippet dbfl
+	var_dump(__FILE__. ' #'. __LINE__. "<br/>\n");
+# echo line and file and exit
+snippet dl
+	echo PHP_EOL, __file__, ' #', __line__, PHP_EOL; exit;
+# var_dump
+snippet vd
+	var_dump(${1});${2}
