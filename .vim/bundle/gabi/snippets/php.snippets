@@ -16,3 +16,31 @@ snippet dl
 # var_dump
 snippet vd
 	var_dump(${1});${2}
+# try catch
+snippet try
+	try {
+		${1}
+	} catch (${2}Exception $exception) {
+		${3}
+		throw $exception;
+	}
+
+#snippets specifici yii
+#yii.app
+snippet yiia
+	Yii::app()${1}
+#yii.trace
+snippet yiitr
+	Yii::trace(${1:message}, ${2:'category'});${3}
+#yii.log
+snippet yiilog
+	Yii::log(${1:message}, ${2:level}, ${3:category});${4}
+#yii.request
+snippet yiireq Yii::app()->request
+	Yii::app()->request${1}
+#yii.request.post
+snippet yiireq Yii::app()->request->getPost()
+	Yii::app()->request->getPost(${1})${2}
+#yii.request.query
+snippet yiireq Yii::app()->request->getQuery()
+	Yii::app()->request->getQuery(${1})${2}
