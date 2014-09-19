@@ -24,7 +24,15 @@ snippet try
 		${3}
 		throw $exception;
 	}
-
+# acolade
+snippet {
+	{
+		${1}
+	}
+snippet ['
+	['${1}']${2}
+snippet [
+	[${1}]${2}
 #snippets specifici yii
 #yii.app
 snippet yiia
@@ -44,3 +52,11 @@ snippet yiireq Yii::app()->request->getPost()
 #yii.request.query
 snippet yiireq Yii::app()->request->getQuery()
 	Yii::app()->request->getQuery(${1})${2}
+#yii.findByPk
+snippet yiifpk
+	findByPk(${1})${2}
+#yii.findByAttributes
+snippet yiifba
+	findByAttributes(array('${1:key}' => ${2:value}))${3}
+snippet yiiparam
+	Yii::app()->params['${1}']${2}
