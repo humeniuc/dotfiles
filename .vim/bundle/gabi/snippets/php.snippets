@@ -60,3 +60,8 @@ snippet yiifba
 	findByAttributes(array('${1:key}' => ${2:value}))${3}
 snippet yiiparam
 	Yii::app()->params['${1}']${2}
+snippet yiiflash setFlash
+	Yii::app()->user->setFlash('success', ${1});${2}
+snippet yiiflash addFlash
+	Yii::app()->user->addFlash('success',${1});${2}
+
