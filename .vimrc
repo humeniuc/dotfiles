@@ -167,7 +167,9 @@
     "au BufNewFile,BufRead * setlocal bufhidden=delete
 
     " fisierele less sunt tratate ca css
-    au BufNewFile,BufRead *.less setlocal filetype=css
+    " au BufNewFile,BufRead *.less setlocal filetype=css
+    au BufNewFile,BufRead *.less set filetype=less
+
 
     " fisierele *.js au indent de 2 spatii
     au BufNewFile,BufRead *.js setlocal softtabstop=2
