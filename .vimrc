@@ -159,6 +159,9 @@
     " nmap <C-l> <ESC>:bn<RETURN>
     " imap <C-h> <ESC>:bp<RETURN>
     " imap <C-l> <ESC>:bn<RETURN>
+
+    " in modul insert, fa textul cuvantului curent uppercase
+    inoremap <C-u> <ESC>mzgUiw`za
 " }
 
 " Autocommands {
