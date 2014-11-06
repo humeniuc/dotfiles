@@ -67,4 +67,7 @@ snippet yiiflash setFlash
 	Yii::app()->user->setFlash('success', ${1});${2}
 snippet yiiflash addFlash
 	Yii::app()->user->addFlash('success',${1});${2}
+snippet yiiprof
+	Yii::beginProfile('${1:}');${2}
+	Yii::endProfile('$1');
 

@@ -88,6 +88,7 @@
                     \*.jpg,*.gif,*.png,*/CVS/**,*/usr/img/db/**
     set wildmode=list:longest " turn on wild mode huge list
     set history=500
+	set cscopequickfix=s-,c-,d-,i-,t-,e-
 " }
 
 " Vim UI {
