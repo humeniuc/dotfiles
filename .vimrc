@@ -1,73 +1,57 @@
-" Modeline and Notes {
-"
-"   This is my personal .vimrc, I don't recommend you copy it, just
-"   use the "   pieces you want(and understand!).  When you copy a
-"   .vimrc in its entirety, weird and unexpected things can happen.
-"
-"   If you find an obvious mistake hit me up at:
-"   http://robertmelton.com/contact (many forms of communication)
-" }
+if version >= 702
+    call pathogen#infect()
+    call pathogen#helptags()
 
-" Plugin Settings {
-    " pathogen
+    " indent-guides
+    let g:indent_guides_indent_levels = 30
+    let g:indent_guides_auto_colors = 1
+    let g:indent_guides_color_change_percent = 5
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_enable_on_vim_startup = 0
 
-    if version >= 702
-        call pathogen#infect()
-        call pathogen#helptags()
+    " Unite
+    let g:unite_source_history_yank_enable = 1
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    "versiunea initiala, preluata de pe net
+    "nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
+    "nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
+    "nnoremap <leader>ur :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
+    "nnoremap <leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
+    "nnoremap <leader>uy :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
+    "nnoremap <leader>ue :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
-        " indent-guides
-        let g:indent_guides_indent_levels = 30
-        let g:indent_guides_auto_colors = 1
-        let g:indent_guides_color_change_percent = 5
-        let g:indent_guides_start_level = 2
-        let g:indent_guides_enable_on_vim_startup = 0
+    nnoremap [unite] <Nop>
+    nmap <space> [unite]
 
-        " Unite
-        let g:unite_source_history_yank_enable = 1
-        call unite#filters#matcher_default#use(['matcher_fuzzy'])
-        "versiunea initiala, preluata de pe net
-        "nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-        "nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-        "nnoremap <leader>ur :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-        "nnoremap <leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-        "nnoremap <leader>uy :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-        "nnoremap <leader>ue :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
+    nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
+    nnoremap [unite]r :<C-u>UniteResume -start-insert<CR>
+    nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
+    nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<CR>
+    nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
+    nnoremap [unite]tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
+    nnoremap [unite]t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
+    nnoremap [unite]g :<C-u>Unite grep:.<CR>
 
-        nnoremap [unite] <Nop>
-        nmap <space> [unite]
+    " Custom mappings for the unite buffer
+    autocmd FileType unite call s:unite_settings()
+    function! s:unite_settings()
+        " Play nice with supertab
+        let b:SuperTabDisabled=1
+        " Enable navigation with control-j and control-k in insert mode
+        imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+        imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+    endfunction
 
-        nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
-        nnoremap [unite]r :<C-u>UniteResume -start-insert<CR>
-        nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
-        nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-        nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
-        nnoremap [unite]tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
-        nnoremap [unite]t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
-        nnoremap [unite]g :<C-u>Unite grep:.<CR>
+    " NERDCommenter
+    " adauga un spatiu inainte si da comentariu
+    " adica:
+    " /* comentat */
+    " // comentat
+    let g:NERDSpaceDelims=1
+endif
 
-        " Custom mappings for the unite buffer
-        autocmd FileType unite call s:unite_settings()
-        function! s:unite_settings()
-            " Play nice with supertab
-            let b:SuperTabDisabled=1
-            " Enable navigation with control-j and control-k in insert mode
-            imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-            imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-        endfunction
-
-        " NERDCommenter
-        " adauga un spatiu inainte si da comentariu
-        " adica:
-        " /* comentat */
-        " // comentat
-        let g:NERDSpaceDelims=1
-    endif
-" }
-
-" Basics {
-    set nocompatible " explicitly get out of vi-compatible mode
-    syntax on " syntax highlighting on
-" }
+set nocompatible " explicitly get out of vi-compatible mode
+syntax on " syntax highlighting on
 
 " General {
     filetype plugin indent on " load filetype plugins/indent settings
@@ -98,8 +82,7 @@
                             " search phrase
     set laststatus=2        " always show the status line
     set lazyredraw          " do not redraw while running macros
-    set linespace=0         " don't insert any extra pixel lines
-                            " betweens rows
+    set linespace=0         " don't insert any extra pixel lines betweens rows
     set nolist
     set listchars=tab:» ,eol:¶,trail:· " show tabs and trailing
     set matchtime=5         " how many tenths of a second to blink
@@ -153,53 +136,34 @@
                    " set list on
 " }
 
-" Mappings {
-    map <F3> <ESC>:set paste!<RETURN>
-    map <F4> <ESC>:IndentGuidesToggle<RETURN>
-    " nmap <C-h> <ESC>:bp<RETURN>
-    " nmap <C-l> <ESC>:bn<RETURN>
-    " imap <C-h> <ESC>:bp<RETURN>
-    " imap <C-l> <ESC>:bn<RETURN>
+" Maps
+map <F3> <ESC>:set paste!<RETURN>
+map <F4> <ESC>:IndentGuidesToggle<RETURN>
+" in modul insert, fa textul cuvantului curent uppercase
+inoremap <C-u> <ESC>mzgUiw`za
 
-    " in modul insert, fa textul cuvantului curent uppercase
-    inoremap <C-u> <ESC>mzgUiw`za
-" }
-
-" Autocommands {
-    au BufNewFile,BufRead *.ahk setf ahk
-    " cand se inchide un tab sa se inchida si bufferul asociat
-    "au BufNewFile,BufRead * setlocal bufhidden=delete
-
-    " fisierele less sunt tratate ca css
-    " au BufNewFile,BufRead *.less setlocal filetype=css
-    au BufNewFile,BufRead *.less set filetype=less
-
-
-    " fisierele *.js au indent de 2 spatii
-    au BufNewFile,BufRead *.js setlocal softtabstop=2
-    au BufNewFile,BufRead *.js setlocal shiftwidth=2
-    au BufNewFile,BufRead *.js setlocal softtabstop=2
-    au BufNewFile,BufRead *.js setlocal tabstop=2
+" autogroup
+augroup ft
+    autocmd!
+    au BufNewFile,BufRead *.less setlocal filetype=less
+    au BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
     " eliminare automata trailing spaces
     autocmd BufWritePre * :%s/\s\+$//e
-" }
+augroup END
 
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
 colorscheme mustangg
 
 if has("gui_running")
-    " Basics {
-        set guifont=DejaVu\ Sans\ Mono\ 8 " My favorite font
-        "set guioptions=ce
-        set guioptions=cei
-        "              ||
-        "              |+-- use simple dialogs rather than pop-ups
-        "              +  use GUI tabs, not console style tabs
-        " set lines=55 " perfect size for me
-        set mousehide " hide the mouse cursor when typing
-    " }
+    set guifont=DejaVu\ Sans\ Mono\ 8 " My favorite font
+    "set guioptions=ce
+    set guioptions=cei
+    "              ||
+    "              |+-- use simple dialogs rather than pop-ups
+    "              +  use GUI tabs, not console style tabs
+    set mousehide " hide the mouse cursor when typing
 endif
 " }
 "
