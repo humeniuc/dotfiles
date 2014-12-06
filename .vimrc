@@ -48,6 +48,18 @@ if version >= 702
     " /* comentat */
     " // comentat
     let g:NERDSpaceDelims=1
+
+    " Conoline
+    " plugin pentru schimbat cuoarea liniei cursorului
+    " in functie de modul de editare
+    " cand sunt in modul normal, se pastreaza cursorul default
+    " cand sunt in modul insert se foloseste culoarea din
+    " g:conoline_color_insert_{dark|light}
+    "
+    " cand sunt mai multe ferestre, cursorline-ul se dezactiveaza ferestrele inactive
+
+    let g:conoline_use_colorscheme_default_normal=1
+    let g:conoline_use_colorscheme_default_insert=0
 endif
 
 set nocompatible " explicitly get out of vi-compatible mode
@@ -155,6 +167,7 @@ augroup END
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
 colorscheme mustangg
+set background=dark
 
 if has("gui_running")
     set guifont=DejaVu\ Sans\ Mono\ 8 " My favorite font
