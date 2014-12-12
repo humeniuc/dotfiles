@@ -49,3 +49,12 @@
 [submodule ".vim/bundle/conoline.vim"]
 	path = .vim/bundle/conoline.vim
 	url = https://github.com/miyakogi/conoline.vim.git
+[submodule ".vim/bundle/neomru.vim"]
+	path = .vim/bundle/neomru.vim
+	url = https://github.com/Shougo/neomru.vim.git
+[submodule ".vim/bundle/smarty.vim"]
+	path = .vim/bundle/smarty.vim
+	url = https://github.com/blueyed/smarty.vim.git
+[submodule ".vim/bundle/smartpairs.vim"]
+	path = .vim/bundle/smartpairs.vim
+	url = https://github.com/gorkunov/smartpairs.vim.git

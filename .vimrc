@@ -60,6 +60,11 @@ if version >= 702
 
     let g:conoline_use_colorscheme_default_normal=1
     let g:conoline_use_colorscheme_default_insert=0
+
+    let g:conoline_color_insert_light = "guibg=#000000 ctermbg=232"
+    let g:conoline_color_insert_nr_light = "guibg=#000000 ctermbg=232"
+    let g:conoline_color_insert_dark = "guibg=#000000 ctermbg=232"
+    let g:conoline_color_insert_nr_dark = "guibg=#000000 ctermbg=232"
 endif
 
 set nocompatible " explicitly get out of vi-compatible mode
@@ -167,7 +172,6 @@ augroup END
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
 colorscheme mustangg
-set background=dark
 
 if has("gui_running")
     set guifont=DejaVu\ Sans\ Mono\ 8 " My favorite font
