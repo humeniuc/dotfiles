@@ -1,4 +1,5 @@
 if version >= 702
+    filetype off
     call pathogen#infect()
     call pathogen#helptags()
 
@@ -48,48 +49,34 @@ if version >= 702
     " /* comentat */
     " // comentat
     let g:NERDSpaceDelims=1
-
-    " Conoline
-    " plugin pentru schimbat cuoarea liniei cursorului
-    " in functie de modul de editare
-    " cand sunt in modul normal, se pastreaza cursorul default
-    " cand sunt in modul insert se foloseste culoarea din
-    " g:conoline_color_insert_{dark|light}
-    "
-    " cand sunt mai multe ferestre, cursorline-ul se dezactiveaza ferestrele inactive
-
-    let g:conoline_use_colorscheme_default_normal=1
-    let g:conoline_use_colorscheme_default_insert=0
-
-    let g:conoline_color_insert_light = "guibg=#000000 ctermbg=232"
-    let g:conoline_color_insert_nr_light = "guibg=#000000 ctermbg=232"
-    let g:conoline_color_insert_dark = "guibg=#000000 ctermbg=232"
-    let g:conoline_color_insert_nr_dark = "guibg=#000000 ctermbg=232"
 endif
 
 set nocompatible " explicitly get out of vi-compatible mode
 syntax on " syntax highlighting on
 
 " General {
-    filetype plugin indent on " load filetype plugins/indent settings
-    set backspace=indent,eol,start " make backspace a more flexible
-    set nobackup "++ nu vreau fisiere de backup
-    set nowritebackup "++ nu vreau fisiere de backup
-    " set clipboard+=unnamed " share windows clipboard
-    set noswapfile "++ nu vreau swap
-    set fileformats=unix,dos,mac " support all three, in this order
-    set hidden " you can change buffers without saving
-    " (XXX: #VIM/tpope warns the line below could break things)
-    " set iskeyword+=_,$,@,%,# " none of these are word dividers
-    set mouse=a " use mouse everywhere
-    set noerrorbells " don't make noise
-    set wildmenu " turn on command line completion wild style
-    " ignore these list file extensions
-    set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,
-                    \*.jpg,*.gif,*.png,*/CVS/**,*/usr/img/db/**
-    set wildmode=list:longest " turn on wild mode huge list
-    set history=500
-	set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+filetype plugin indent on
+set backspace=indent,eol,start
+set nobackup
+set nowritebackup
+set noswapfile
+set fileformats=unix,dos,mac
+set hidden
+set mouse=a
+set noerrorbells
+set wildmenu
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*/CVS/**,*/usr/img/db/**
+set wildmode=list:longest
+set history=500
+set cscopequickfix=s-,c-,d-,i-,t-,e-
+
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
 " }
 
 " Vim UI {
@@ -154,10 +141,24 @@ syntax on " syntax highlighting on
 " }
 
 " Maps
-map <F3> <ESC>:set paste!<RETURN>
-map <F4> <ESC>:IndentGuidesToggle<RETURN>
-" in modul insert, fa textul cuvantului curent uppercase
+nnoremap <F1> <NOP>
+inoremap <F1> <NOP>
+nnoremap <F3> <ESC>:set paste!<RETURN>
+nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
+
+" current word, make-it uppercase
 inoremap <C-u> <ESC>mzgUiw`za
+
+nnoremap / /\v
+vnoremap / /\v
+
+" changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc
+for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%' ]
+    execute 'xnoremap i'. char. ' :<C-u>normal! T'. char. 'vt'. char. '<CR>'
+    execute 'onoremap i'. char. ' :<C-u>normal! T'. char. 'vt'. char. '<CR>'
+    execute 'xnoremap a'. char. ' :<C-u>normal! F'. char. 'vf'. char. '<CR>'
+    execute 'onoremap a'. char. ' :<C-u>normal! F'. char. 'vf'. char. '<CR>'
+endfor
 
 " autogroup
 augroup ft
