@@ -3,23 +3,19 @@ if version >= 702
     call pathogen#infect()
     call pathogen#helptags()
 
-    " indent-guides
+    " plugin: checksyntax
+    let g:checksyntax#async_runner = ''
+
+    " plugin: indent-guides
     let g:indent_guides_indent_levels = 30
     let g:indent_guides_auto_colors = 1
     let g:indent_guides_color_change_percent = 5
     let g:indent_guides_start_level = 2
     let g:indent_guides_enable_on_vim_startup = 0
 
-    " Unite
+    " plugin; unite
     let g:unite_source_history_yank_enable = 1
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    "versiunea initiala, preluata de pe net
-    "nnoremap <leader>ut :<C-u>Unite -no-split -buffer-name=files   -start-insert file_rec/async:!<cr>
-    "nnoremap <leader>uf :<C-u>Unite -no-split -buffer-name=files   -start-insert file<cr>
-    "nnoremap <leader>ur :<C-u>Unite -no-split -buffer-name=mru     -start-insert file_mru<cr>
-    "nnoremap <leader>uo :<C-u>Unite -no-split -buffer-name=outline -start-insert outline<cr>
-    "nnoremap <leader>uy :<C-u>Unite -no-split -buffer-name=yank    history/yank<cr>
-    "nnoremap <leader>ue :<C-u>Unite -no-split -buffer-name=buffer  buffer<cr>
 
     nnoremap [unite] <Nop>
     nmap <space> [unite]
@@ -43,7 +39,7 @@ if version >= 702
         imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
     endfunction
 
-    " NERDCommenter
+    " plugin: NERDCommenter
     " adauga un spatiu inainte si da comentariu
     " adica:
     " /* comentat */
@@ -123,21 +119,16 @@ set ttimeoutlen=10
 " }
 
 " Text Formatting/Layout {
-    set completeopt=longest,menuone
-    set expandtab " no real tabs please!
-    set formatoptions=rq " Automatically insert comment leader on return,
-                          " and let gq format comments
-    set ignorecase " case insensitive by default
-    set infercase " case inferred by default
-    set nowrap " do not wrap line
-    set shiftround " when at 3 spaces, and I hit > ... go to 4, not 5
-    set smartcase " if there are caps, go case-sensitive
-    set shiftwidth=4 " auto-indent amount when using cindent,
-                      " >>, << and stuff like that
-    set softtabstop=4 " when hitting tab or backspace, how many spaces
-                       "should a tab be (see expandtab)
-    set tabstop=4 " real tabs should be 8, and they will show with
-                   " set list on
+set completeopt=longest,menuone
+set ignorecase
+set infercase " case inferred by default
+set nowrap
+set smartcase " if there are caps, go case-sensitive
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set shiftround " when at 3 spaces, and I hit > ... go to 4, not 7 (3 + 4)
+set expandtab
 " }
 
 " Maps
@@ -173,9 +164,9 @@ augroup END
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
 colorscheme mustangg
+set guifont=DejaVu\ Sans\ Mono\ 8
 
 if has("gui_running")
-    set guifont=DejaVu\ Sans\ Mono\ 8 " My favorite font
     "set guioptions=ce
     set guioptions=cei
     "              ||
