@@ -140,8 +140,8 @@ nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
 " current word, make-it uppercase
 inoremap <C-u> <ESC>mzgUiw`za
 
-nnoremap / /\v
-vnoremap / /\v
+nnoremap / /\v\c
+vnoremap / /\v\c
 
 " changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc
 for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%' ]
