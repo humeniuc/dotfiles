@@ -134,6 +134,7 @@ set expandtab
 " Maps
 nnoremap <F1> <NOP>
 inoremap <F1> <NOP>
+" nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR>
 nnoremap <F3> <ESC>:set paste!<RETURN>
 nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
 

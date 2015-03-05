@@ -36,6 +36,9 @@ hi Folded       guifg=#a0a8b0 guibg=#202020 gui=none ctermbg=4 ctermfg=248
 hi Title        guifg=#f6f3e8 guibg=NONE	   ctermfg=254
 hi Visual       guifg=#faf4c6 guibg=#3c414c gui=none ctermfg=254 ctermbg=4
 hi SpecialKey   guifg=#808080 guibg=#202020 gui=none ctermfg=244 ctermbg=236
+hi diffAdded    guifg=#ff9800 ctermfg=208
+hi diffRemoved  guifg=#b1d631 ctermfg=148
+
 
 " Syntax highlighting
 hi Comment    guifg=#808080 gui=italic ctermfg=244
@@ -52,7 +55,6 @@ hi Constant   guifg=#ff9800 gui=none  ctermfg=208
 hi Number     guifg=#ff9800 gui=none ctermfg=208
 hi Special    guifg=#ff9800 gui=none ctermfg=208
 hi PreProc    guifg=#faf4c6 gui=none ctermfg=230
-hi Todo       guifg=#000000 guibg=#e6ea50 gui=italic
 
 " Code-specific colors
 hi pythonOperator guifg=#7e8aa2 gui=none ctermfg=103
