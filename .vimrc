@@ -143,6 +143,7 @@ inoremap <C-u> <ESC>mzgUiw`za
 
 nnoremap / /\v\c
 vnoremap / /\v\c
+vnoremap Q <NOP> "dezactivez ex mode
 
 " changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc
 for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%' ]
