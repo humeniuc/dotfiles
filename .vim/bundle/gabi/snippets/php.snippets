@@ -1,21 +1,31 @@
+# phpl phpline
+snippet phpl
+	<?php ${1} ?>
+#
 # debug
 snippet db
 	debug(${1});${2}
+#
 # debug request
 snippet dbr
 	debug_request();${2}
+#
 # debug line
 snippet dbl
 	debug('line '. __LINE__. "<br/>\n");
+#
 # debug file and line
 snippet dbfl
 	var_dump(__FILE__. ' #'. __LINE__. "<br/>\n");
+#
 # echo line and file and exit
 snippet dl
 	echo PHP_EOL, __file__, ' #', __line__, PHP_EOL; exit;
+#
 # var_dump
 snippet vd
 	var_dump(${1});${2}
+#
 # try catch
 snippet try
 	try {
@@ -24,20 +34,31 @@ snippet try
 		${3}
 		throw $exception;
 	}
+#
 # acolade
 snippet {
 	{
 		${1}
 	}
+#
 snippet ['
 	['${1}']${2}
+#
 snippet [
 	[${1}]${2}
+#
 # snippet pentru smarty
 snippet {php
 	{php}?>
 	${1}
 	<?php{/php}
+#
+# echo sprintf("ceva %s\n", $altceva);
+snippet ecspf
+	echo sprintf("${1}\n", ${2});${3}
+#
+#
+#
 #snippets specifici yii
 #yii.app
 snippet yiia
