@@ -134,7 +134,7 @@ set expandtab
 " Maps
 nnoremap <F1> <NOP>
 inoremap <F1> <NOP>
-" nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR>
+nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR>
 nnoremap <F3> <ESC>:set paste!<RETURN>
 nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
 
@@ -143,7 +143,7 @@ inoremap <C-u> <ESC>mzgUiw`za
 
 nnoremap / /\v\c
 vnoremap / /\v\c
-vnoremap Q <NOP> "dezactivez ex mode
+nnoremap Q <Nop>
 
 " changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc
 for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%' ]
@@ -165,7 +165,8 @@ augroup END
 
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
-colorscheme mustangg
+" colorscheme mustangg
+colorscheme apprentice
 set guifont=DejaVu\ Sans\ Mono\ 8
 
 if has("gui_running")
