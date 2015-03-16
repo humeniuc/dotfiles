@@ -166,6 +166,7 @@ augroup END
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
 colorscheme mustangg
+
 set guifont=DejaVu\ Sans\ Mono\ 8
 
 if has("gui_running")
