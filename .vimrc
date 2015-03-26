@@ -45,6 +45,13 @@ if version >= 702
     " /* comentat */
     " // comentat
     let g:NERDSpaceDelims=1
+
+    " localvimrc
+    let g:localvimrc_sandbox=0
+    let g:localvimrc_ask=0
+    let g:localvimrc_name=['.myproject.lvimrc']
+    " let g:localvimrc_event=['BufWinEnter']
+    let g:localvimrc_event=['BufEnter']
 endif
 
 set nocompatible " explicitly get out of vi-compatible mode
@@ -101,21 +108,6 @@ set ttimeoutlen=10
     set showcmd             " show the command being typed
     set showmatch           " show matching brackets
     set sidescrolloff=5     " Keep 5 lines at the size
-    set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
-    "              | | | | |  |   |      |  |     |    |
-    "              | | | | |  |   |      |  |     |    + current
-    "              | | | | |  |   |      |  |     |       column
-    "              | | | | |  |   |      |  |     +-- current line
-    "              | | | | |  |   |      |  +-- current % into file
-    "              | | | | |  |   |      +-- current syntax in
-    "              | | | | |  |   |          square brackets
-    "              | | | | |  |   +-- current fileformat
-    "              | | | | |  +-- number of lines
-    "              | | | | +-- preview flag in square brackets
-    "              | | | +-- help flag in square brackets
-    "              | | +-- readonly flag in square brackets
-    "              | +-- rodified flag in square brackets
-    "              +-- full path to file in the buffer
 " }
 
 " Text Formatting/Layout {
@@ -168,15 +160,7 @@ set t_Co=256 "suport pentru 256 de culori
 " colorscheme mustangg
 colorscheme apprentice
 set guifont=DejaVu\ Sans\ Mono\ 8
-
-if has("gui_running")
-    "set guioptions=ce
-    set guioptions=cei
-    "              ||
-    "              |+-- use simple dialogs rather than pop-ups
-    "              +  use GUI tabs, not console style tabs
-    set mousehide " hide the mouse cursor when typing
-endif
+set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
 " }
 "
 " Protect large files from sourcing and other overhead.
@@ -196,4 +180,5 @@ if !exists("my_auto_commands_loaded")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
 augroup END
 endif
+
 
