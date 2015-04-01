@@ -16,12 +16,12 @@ snippet {
 		${1}
 	}
 #
-snippet thenf
+snippet then
 	then(function() {
 		${1}
 	})${2}
 #
-snippet failf
+snippet fail
 	fail(function() {
 		${1}
 	})${2}
@@ -33,3 +33,19 @@ snippet thenfail
 	fail(function() {
 		${2}
 	})${3}
+#
+snippet deferred
+	$.Deferred(function(def) {
+		${1}
+	}).promise();
+	${2}
+#
+snippet when
+	$.when(${1:promise1}, ${2:promise2}).
+	then(function() {
+		${3}
+	}).
+	fail(function() {
+		${4}
+	});
+	${5}
