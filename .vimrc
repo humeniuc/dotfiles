@@ -84,7 +84,7 @@ set ttimeoutlen=10
 
 " Vim UI {
     set nocursorcolumn      " highlight the current column
-    set cursorline          " highlight current line
+    " set cursorline          " highlight current line
     set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
