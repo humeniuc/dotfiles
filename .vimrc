@@ -84,7 +84,7 @@ set ttimeoutlen=10
 
 " Vim UI {
     set nocursorcolumn      " highlight the current column
-    set cursorline          " highlight current line
+    " set cursorline          " highlight current line
     set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
@@ -180,5 +180,4 @@ if !exists("my_auto_commands_loaded")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
 augroup END
 endif
-
 
