@@ -1,0 +1,25 @@
+# 256 de culori
+term screen-256color
+#term xterm-256color
+#term rxvt-256color
+
+attrcolor b ".I"    # allow bold colors - necessary for some reason
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'   # tell screen how to set colors. AB = background, AF=foreground
+#defbce on    # use current bg color for erased chars
+
+caption string "%?%F%{= Bk}%? %C%A %D %d-%m-%Y %{= kB} %t%= %?%F%{= Bk}%:%{= wk}%? %n "
+hardstatus alwayslastline
+hardstatus string '%{= kG}[ %{G}%H %{g}][%= %{= kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B} %d/%m %{W}%c %{g}]'
+
+# Start windows and panes at 1, not 0
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+screen 1
+
+# ca sa mearga CTRL-Pu C-Pd
+#term xterm
+
+maptimeout 5
+
+defscrollback 1000
