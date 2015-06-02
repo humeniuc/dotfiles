@@ -26,13 +26,21 @@ snippet fail
 		${1}
 	})${2}
 #
+snippet always
+	always(function() {
+		${1}
+	})${2}
+#
 snippet thenfail
-	then(function() {
+	always(function() {
 		${1}
 	}).
-	fail(function() {
+	then(function() {
 		${2}
-	})${3}
+	}).
+	fail(function() {
+		${3}
+	})${4}
 #
 snippet deferred
 	$.Deferred(function(def) {

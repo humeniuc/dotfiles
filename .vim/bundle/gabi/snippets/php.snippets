@@ -2,6 +2,9 @@
 snippet phpl
 	<?php ${1} ?>
 #
+snippet phpe
+	<?php echo ${1} ?>
+#
 # debug
 snippet db
 	debug(${1});${2}
@@ -107,6 +110,18 @@ snippet yiiflash setFlash
 #
 snippet yiiflash addFlash
 	Yii::app()->user->addFlash('success',${1});${2}
+#
+snippet yiistate setState
+	Yii::app()->user->setState('${1}', ${2});
+#
+snippet yiistate getState
+	Yii::app()->user->getState('${1}');
+#
+snippet yiicache Yii::app()->cache->get
+	Yii::app()->cache->get('${1:key}');
+#
+snippet yiicache Yii::app()->cache->set
+	Yii::app()->cache->set('${1:key}', ${2:data}, ${3:3600});
 #
 snippet yiiprof
 	Yii::beginProfile('${1:}');${2}
