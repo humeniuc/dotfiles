@@ -22,3 +22,8 @@ then
 fi
 
 #bash ~/scripts/keyboard/fix_enter.bash
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# Enable programmable sdb completion features.
+if [ -f ~/.sdb/.sdb-completion.bash ]; then
+ source ~/.sdb/.sdb-completion.bash
+fi
