@@ -1,58 +1,65 @@
-if version >= 702
-    filetype off
-    call pathogen#infect()
-    call pathogen#helptags()
+filetype off
+call pathogen#infect()
+call pathogen#helptags()
 
-    " plugin: checksyntax
-    let g:checksyntax#async_runner = ''
-
-    " plugin: indent-guides
-    let g:indent_guides_indent_levels = 30
-    let g:indent_guides_auto_colors = 1
-    let g:indent_guides_color_change_percent = 5
-    let g:indent_guides_start_level = 2
-    let g:indent_guides_enable_on_vim_startup = 0
-
-    " plugin; unite
-    let g:unite_source_history_yank_enable = 1
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
-    nnoremap [unite] <Nop>
-    nmap <space> [unite]
-
-    nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
-    nnoremap [unite]r :<C-u>UniteResume -start-insert<CR>
-    nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
-    nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-    nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
-    nnoremap [unite]tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
-    nnoremap [unite]t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
-    nnoremap [unite]g :<C-u>Unite grep:.<CR>
-
-    " Custom mappings for the unite buffer
-    autocmd FileType unite call s:unite_settings()
-    function! s:unite_settings()
-        " Play nice with supertab
-        let b:SuperTabDisabled=1
-        " Enable navigation with control-j and control-k in insert mode
-        imap <buffer> <C-j>   <Plug>(unite_select_next_line)
-        imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-    endfunction
-
-    " plugin: NERDCommenter
-    " adauga un spatiu inainte si da comentariu
-    " adica:
-    " /* comentat */
-    " // comentat
-    let g:NERDSpaceDelims=1
-
-    " localvimrc
-    let g:localvimrc_sandbox=0
-    let g:localvimrc_ask=0
-    let g:localvimrc_name=['.myproject.lvimrc']
-    " let g:localvimrc_event=['BufWinEnter']
-    let g:localvimrc_event=['BufEnter']
+if !exists('myruntime')
+    let myruntime = split(&rtp, ',')[0]
 endif
+
+" plugin: checksyntax
+let g:checksyntax#async_runner = ''
+
+" plugin: indent-guides
+let g:indent_guides_indent_levels = 30
+let g:indent_guides_auto_colors = 1
+let g:indent_guides_color_change_percent = 5
+let g:indent_guides_start_level = 2
+let g:indent_guides_enable_on_vim_startup = 0
+
+" plugin; unite
+let g:unite_source_history_yank_enable = 1
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+nnoremap [unite] <Nop>
+nmap <space> [unite]
+
+nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
+nnoremap [unite]l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
+nnoremap [unite]r :<C-u>UniteResume -start-insert<CR>
+nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
+nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<CR>
+nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
+nnoremap [unite]tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
+nnoremap [unite]t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
+nnoremap [unite]g :<C-u>Unite grep:.<CR>
+
+" Custom mappings for the unite buffer
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+    " Play nice with supertab
+    let b:SuperTabDisabled=1
+    " Enable navigation with control-j and control-k in insert mode
+    imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+    imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+endfunction
+
+"implicit este dezactivat.se activeaza la nivel de proiect
+let g:gutentags_enabled=0
+let g:gutentags_generate_on_missing=0
+let g:gutentags_generate_on_new=0
+let g:gutentags_generate_on_write=0
+let g:gutentags_define_advanced_commands=1
+
+" localvimrc
+let g:localvimrc_sandbox=0
+let g:localvimrc_ask=0
+let g:localvimrc_name=['.myproject.lvimrc']
+" let g:localvimrc_event=['BufWinEnter']
+let g:localvimrc_event=['BufEnter']
+
+"snipmate
+let g:snippets_dir = myruntime . '/bundle/gabi/snippets/'
+
 
 set nocompatible " explicitly get out of vi-compatible mode
 syntax on " syntax highlighting on
@@ -69,7 +76,7 @@ set hidden
 set mouse=a
 set noerrorbells
 set wildmenu
-set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*/CVS/**,*/usr/img/db/**
+set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*/CVS/**
 set wildmode=list:longest
 set history=500
 set cscopequickfix=s-,c-,d-,i-,t-,e-
@@ -83,8 +90,8 @@ set ttimeoutlen=10
 " }
 
 " Vim UI {
-    set nocursorcolumn      " highlight the current column
-    " set cursorline          " highlight current line
+    set nocursorcolumn
+    set nocursorline
     set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
@@ -148,11 +155,16 @@ endfor
 " autogroup
 augroup ft
     autocmd!
-    au BufNewFile,BufRead *.less setlocal filetype=less
-    au BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
+    autocmd BufNewFile,BufRead *.less setlocal filetype=less
+    autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
-    " eliminare automata trailing spaces
+    " remove trailing spaces
     autocmd BufWritePre * :%s/\s\+$//e
+    au InsertLeave * set nopaste
+
+    "de debug
+    "autocmd BufEnter * echom "enter ". expand('%')
+    "autocmd BufLeave * echom "leave ". expand('%')
 augroup END
 
 " GUI Settings {
@@ -180,4 +192,6 @@ if !exists("my_auto_commands_loaded")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
 augroup END
 endif
+
+
 
