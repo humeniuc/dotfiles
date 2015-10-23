@@ -1,11 +1,10 @@
-#
-# ~/.bashrc
-#
-
 export EDITOR=vim
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+# daca nu sunt in tmux sau screen setez terminaul pe xterm-256color
+[ -z "$TMUX" -a -z "$STY" ] && export TERM=xterm-256color
 
 alias ls='ls --color=auto'
 alias gvr='gvim --remote'
@@ -21,8 +20,6 @@ then
     bash ~/.bashrc_local
 fi
 
-#bash ~/scripts/keyboard/fix_enter.bash
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # Enable programmable sdb completion features.
 if [ -f ~/.sdb/.sdb-completion.bash ]; then
  source ~/.sdb/.sdb-completion.bash
