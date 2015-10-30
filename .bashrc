@@ -6,6 +6,9 @@ export EDITOR=vim
 # daca nu sunt in tmux sau screen setez terminaul pe xterm-256color
 [ -z "$TMUX" -a -z "$STY" ] && export TERM=xterm-256color
 
+# alias pentru xclip
+[[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
+
 alias ls='ls --color=auto'
 alias gvr='gvim --remote'
 PS1='[\u@\h \W]\$ '
