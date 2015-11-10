@@ -1,0 +1,24 @@
+function randomchars {
+    tr -dc A-Za-z0-9 </dev/urandom |  head -c $1
+}
+
+
+function isTmux {
+    [ ! -z "$TMUX" ]
+}
+
+
+function isScreen {
+    [ ! -z "$STY" ]
+}
+
+
+function isMultiplexer {
+    [ ! -z "$TMUX" -o ! -z "$STY" ]
+}
+
+function tmuxSessionName {
+    tmux display-message -p '#S'
+}
+
+
