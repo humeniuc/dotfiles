@@ -5,6 +5,12 @@ snippet php
 snippet phpe
 	<?php echo ${1} ?>
 #
+snippet phpeh
+	<?php echo htmlspecialchars(${1}); ?>
+#
+snippet phpehh
+	<?php echo h(${1}); ?>
+#
 # debug
 snippet db
 	debug(${1});${2}
@@ -23,6 +29,9 @@ snippet dl
 #
 snippet vd
 	var_dump(${1});${2}
+#
+snippet vdx
+	var_dump(${1});exit;
 #
 snippet try
 	try {
@@ -178,4 +187,27 @@ snippet yiiscript
 	${1://script here}
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
+snippet yiitransaction
+	$dbConn = Yii::app()->db;
+
+	if ($dbConn->getCurrentTransaction()) {
+		$transaction = null;
+	} else {
+		$transaction = $dbConn->beginTransaction();
+	}
+
+	try {
+
+		if ($transaction) {
+			$transaction->commit();
+		}
+
+	} catch (Exception $e) {
+		if ($transaction) {
+			$transaction->rollback();
+		}
+
+		throw $e;
+	}
+
 

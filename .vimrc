@@ -1,3 +1,5 @@
+let mapleader ="\<Space>"
+
 filetype off
 call pathogen#infect()
 call pathogen#helptags()
@@ -18,20 +20,18 @@ let g:indent_guides_enable_on_vim_startup = 0
 
 " plugin; unite
 let g:unite_source_history_yank_enable = 1
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
+"call unite#filters#matcher_default#use(['matcher_fuzzy'])
 
-nnoremap [unite] <Nop>
-nmap <space> [unite]
+"nnoremap [unite] <Nop>
+"nmap <space> [unite]
 
-nnoremap [unite]f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
-nnoremap [unite]l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
-nnoremap [unite]r :<C-u>UniteResume -start-insert<CR>
-nnoremap [unite]o :<C-u>Unite -buffer-name=outline -start-insert outline<CR>
-nnoremap [unite]y :<C-u>Unite -buffer-name=yank    history/yank<CR>
-nnoremap [unite]b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
-nnoremap [unite]tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
-nnoremap [unite]t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
-nnoremap [unite]g :<C-u>Unite grep:.<CR>
+nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
+nnoremap <leader>l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
+nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
+nnoremap <leader>b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
+nnoremap <leader>tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
+nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
+nnoremap <leader>g :<C-u>Unite grep:.<CR>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -137,6 +137,14 @@ nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR
 nnoremap <F3> <ESC>:set paste!<RETURN>
 nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
 
+
+" in 'proiecte' leader-u este pentru a deschide unite cu lista de fisiere
+" daca nu sunt intr-un fisier din proiecte ar insemna undo.
+" pentru a preveni undo-urile inutile dezactivez <u> cand este prefixat de
+" <leader>
+nnoremap <leader>u <NOP>
+nnoremap <leader>w <ESC>:w<CR><ESC>
+
 " current word, make-it uppercase
 inoremap <C-u> <ESC>mzgUiw`za
 
@@ -160,6 +168,7 @@ augroup ft
 
     " remove trailing spaces
     autocmd BufWritePre * :%s/\s\+$//e
+    " cand se paraseste modul insert se renunta la paste
     au InsertLeave * set nopaste
 
     "de debug
