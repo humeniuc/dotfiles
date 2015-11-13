@@ -1,35 +1,38 @@
 # phpl phpline
-snippet phpl
+snippet php
 	<?php ${1} ?>
 #
 snippet phpe
 	<?php echo ${1} ?>
 #
+snippet phpeh
+	<?php echo htmlspecialchars(${1}); ?>
+#
+snippet phpehh
+	<?php echo h(${1}); ?>
+#
 # debug
 snippet db
 	debug(${1});${2}
 #
-# debug request
 snippet dbr
 	debug_request();${2}
 #
-# debug line
 snippet dbl
 	debug('line '. __LINE__. "<br/>\n");
 #
-# debug file and line
 snippet dbfl
 	var_dump(__FILE__. ' #'. __LINE__. "<br/>\n");
 #
-# echo line and file and exit
 snippet dl
 	echo PHP_EOL, __file__, ' #', __line__, PHP_EOL; exit;
 #
-# var_dump
 snippet vd
 	var_dump(${1});${2}
 #
-# try catch
+snippet vdx
+	var_dump(${1});exit;
+#
 snippet try
 	try {
 		${1}
@@ -60,9 +63,45 @@ snippet {php
 snippet ecspf
 	echo sprintf("${1}\n", ${2});${3}
 #
+
+
+# Tertiary conditional
+snippet =?:
+	$${1:foo} = ${2:true} ? ${3:a} : ${4};
+snippet ?:
+	${1:true} ? ${2:a} : ${3}
 #
+
+snippet C
+	$_COOKIE['${1:variable}']${2}
+snippet E
+	$_ENV['${1:variable}']${2}
+snippet F
+	$_FILES['${1:variable}']${2}
+snippet G
+	$_GET['${1:variable}']${2}
+snippet P
+	$_POST['${1:variable}']${2}
+snippet R
+	$_REQUEST['${1:variable}']${2}
+snippet S
+	$_SERVER['${1:variable}']${2}
+snippet SS
+	$_SESSION['${1:variable}']${2}
 #
-#snippets specifici yii
+snippet armap
+	array_map(${1:'callback'}, ${2:$array})
+snippet imp
+	implode(${1:', '}, ${2:$array})
+snippet ark
+	array_key_exists(${1:'key'}, ${2:$array})
+
+#
+
+##########
+#YII
+##########
+#
 #yii.app
 snippet yiia
 	Yii::app()${1}
@@ -136,6 +175,9 @@ snippet yiiend
 snippet yiius
 	Yii::app()->user${1}
 #
+snippet yiiuser
+	Yii::app()->user${1}
+#
 snippet yiiacc
 	Yii::app()->user->account${1}
 #
@@ -148,4 +190,27 @@ snippet yiiscript
 	${1://script here}
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
+snippet yiitransaction
+	$dbConn = Yii::app()->db;
+
+	if ($dbConn->getCurrentTransaction()) {
+		$transaction = null;
+	} else {
+		$transaction = $dbConn->beginTransaction();
+	}
+
+	try {
+
+		if ($transaction) {
+			$transaction->commit();
+		}
+
+	} catch (Exception $e) {
+		if ($transaction) {
+			$transaction->rollback();
+		}
+
+		throw $e;
+	}
+
 
