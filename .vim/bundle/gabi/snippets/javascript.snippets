@@ -1310,3 +1310,196 @@ snippet bbr
 # backbone collection definition
 snippet bbc
 	Backbone.Collection.extend({${1}});
+#
+#
+# metrological
+# metrological button
+snippet metrobutton
+	var ${1:aButton} = new MAF.control.TextButton({
+		label: $_('${2:aButton}'),
+		styles: {
+			width: ${3:400},
+			height: ${4:60},
+			hOffset: ${5:200},
+			vOffset: ${6:300}
+		},
+		textStyles: {
+			anchorStyle: 'center'
+		},
+		events: {
+			onSelect: function () {
+				${7://do something on select}
+			}
+		}
+	}).appendTo(view);
+#
+#metrological alert
+snippet mafalert
+	new MAF.dialogs.Alert({
+		title:'${1:title}',
+		message: '${2:message}',
+		buttons: [
+		{
+			label:"${3:label}",
+			callback: function () {
+			//${4}
+			}
+		},
+		{
+			label:"${5:label}",
+			callback: function () {
+			//${6}
+			}
+		}
+		],
+		cancelCallback: function () {
+		}
+	}).show();
+#
+#metrologicala view
+snippet mafview
+	var ${1:MyView} = new MAF.Class({
+		ClassName: '$1',
+
+		Extends: MAF.system.FullscreenView,
+		//Extends: MAF.system.OptionSelectView,
+		//Extends: MAF.system.SidebarView,
+		//Extends: MAF.system.WindowedView,
+
+		initialize: function () {
+			log('initialize $1');
+			var view = this;
+			view.parent();
+			view.registerMessageCenterListenerCallback(view.dataHasChanged);
+		},
+
+		dataHasChanged: function (event) {
+			log('dataHasChanged $1');
+			var view = this;
+
+			if (event.payload.key === '${2:viewData}') {
+				var data = event.payload.value;
+			}
+		},
+
+
+		initView: function () {
+			log('initView $1');
+			var view = this;
+			view.parent();
+		},
+
+
+		createView: function () {
+			log('createView $1');
+			var view = this;
+			view.parent();
+		},
+
+
+		updateView: function () {
+			log('updateView $1');
+			var view = this;
+			view.parent();
+
+			if (view.backParams.reset !== false && !MAF.messages.exists('$2')) {
+				api.$2();
+			}
+		},
+
+
+		selectView: function () {
+			log('selectView $1');
+			var view = this;
+			view.parent();
+		},
+
+
+		focusView: function () {
+			log('focusView $1');
+			var view = this;
+			view.parent();
+		},
+
+
+		unselectView: function () {
+			log('unselectView $1');
+			var view = this;
+			view.parent();
+		},
+
+
+		hideView: function () {
+			log('hideView $1');
+			var view = this;
+			view.parent();
+		},
+
+
+		destroyView: function () {
+			log('destroyView $1');
+			var view = this;
+			view.parent();
+		}
+	});
+#
+# metrological request
+snippet mafreq
+	MAF.utility.WaitIndicator.up();
+	new Request({
+		url: 'http://cdn.metrological.com/examples/alphabet.json',
+
+		// onSucces, this function is called when the server returns state 200, after this it will send data through the chosen parameter name.
+		onSuccess: function (json) {
+			console.log('succes', json);
+			MAF.utility.WaitIndicator.down();
+		},
+		// onFailure, this function is called when the server returns something else than state 200.
+		onFailure: function (error) {
+			console.log('failure', error);
+			MAF.utility.WaitIndicator.down();
+		},
+		// onError, this function is called when an error has occured during either the onSucces, or onFailure event.
+		onError: function (error) {
+			console.log('error', error);
+			MAF.utility.WaitIndicator.down();
+		}
+	}).send();
+#
+snippet mafbutton
+	view.controls['${1:id}'] = new MAF.control.TextButton({
+		guid: '$1',
+		theme: false, // Remove default theme
+		label: $_('${2:label}'),
+		styles: {
+			height: 80,
+			width: 400,
+			//vOffset: 150 + (i * 100),
+			//hOffset: (view.width - 400) / 2,
+			borderRadius: 10
+		},
+		textStyles: {
+			fontSize: 35,
+			anchorStyle: 'center'
+		},
+		events: {
+			onFocus: function () {
+				log('button $1 focus');
+				this.setStyle('backgroundColor', Theme.getStyles('BaseFocus', 'backgroundColor'));
+			},
+			onBlur: function () {
+				log('button $1 blur');
+				this.setStyle('backgroundColor', null);
+			},
+			onSelect: function (event) {
+				log('button $1 select');
+				${3}
+			}
+		}
+	}).appendTo(view);
+#
+snippet mafloadview
+	MAF.application.loadView();
+#
+snippet maflog
+	log(${1});${2}
