@@ -1505,29 +1505,18 @@ snippet mafloadview
 snippet maflog
 	log(${1});${2}
 #
-snippet mafmess MAF.messages
-	MAF.messages()${1}
+snippet maflogclear
+	log("\n".repeat(20));${1}
 #
-snippet mafmess MAF.messages.exists()
-	MAF.messages.exists('${1:key}')${2}
+snippet mafmess fetch
+	MAF.messages.fetch('${1:key}');
 #
-snippet mafmess MAF.messages.fetch()
-	MAF.messages.fetch('${1:key}')${2}
+snippet mafmess store
+	MAF.messages.store('${1:key}', ${2:value});
 #
-snippet mafmess MAF.messages.remove()
-	MAF.messages.remove('${1:key}');${2}
+snippet mafmess exist
+	MAF.messages.exist('${1:key}');
 #
-snippet mafmess MAF.messages.store()
-	MAF.messages.remove('${1:key}', ${2|value})${3}
-
+snippet mafmess remove
+	MAF.messages.remove('${1:key}');
 #
-#
-# Q.framework
-snippet qpr
-	Q.Promise(function(resolve, reject, notify) {
-		${1}
-		resolve('value');
-		// reject('an errror');
-	})${2}
-#
-
