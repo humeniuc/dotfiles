@@ -167,7 +167,10 @@ augroup ft
     autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
     " remove trailing spaces
+    autocmd BufWritePre * :normal mz
     autocmd BufWritePre * :%s/\s\+$//e
+    autocmd BufWritePre * :normal `z
+
     " cand se paraseste modul insert se renunta la paste
     au InsertLeave * set nopaste
 
