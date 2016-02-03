@@ -91,7 +91,7 @@ set ttimeoutlen=10
 
 " Vim UI {
     set nocursorcolumn
-    set nocursorline
+    set cursorline
     set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
