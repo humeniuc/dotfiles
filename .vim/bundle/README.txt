@@ -13,6 +13,8 @@ need to be run every time a new submodule is added.
 $ git submodule foreach git pull
 command is used to pull latest upstream changes.
 
+――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
+
 submodule deinit
 
 git submodule deinit nerdcommenter

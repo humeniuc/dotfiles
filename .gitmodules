@@ -19,9 +19,6 @@
 [submodule ".vim/bundle/vimproc.vim"]
 	path = .vim/bundle/vimproc.vim
 	url = https://github.com/Shougo/vimproc.vim.git
-[submodule ".vim/bundle/unite-tag"]
-	path = .vim/bundle/unite-tag
-	url = https://github.com/tsukkee/unite-tag.git
 [submodule ".vim/bundle/restart"]
 	path = .vim/bundle/restart
 	url = https://github.com/vim-scripts/restart.vim.git
