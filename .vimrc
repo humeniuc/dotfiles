@@ -168,9 +168,7 @@ augroup ft
     autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
     " remove trailing spaces
-    autocmd BufWritePre * :normal mz
-    autocmd BufWritePre * :%s/\s\+$//e
-    autocmd BufWritePre * :normal `z
+    autocmd BufWritePre * let b:winview=winsaveview() | %s/\s\+$//e | call winrestview(b:winview)
 
     " cand se paraseste modul insert se renunta la paste
     au InsertLeave * set nopaste
@@ -182,7 +180,8 @@ augroup END
 
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
-colorscheme apprentice
+"colorscheme apprentice
+colorscheme sourcerer
 set guifont=DejaVu\ Sans\ Mono\ 8
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
 " }
@@ -204,6 +203,4 @@ if !exists("my_auto_commands_loaded")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
 augroup END
 endif
-
-
 
