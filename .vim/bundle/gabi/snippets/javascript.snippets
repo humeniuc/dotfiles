@@ -1448,6 +1448,7 @@ snippet mafreq
 	MAF.utility.WaitIndicator.up();
 	new Request({
 		url: 'http://cdn.metrological.com/examples/alphabet.json',
+		data: _.extend({"controller":"${1:controller}", "_action":"${2:action}"}, data, api.defaultParams),
 
 		// onSucces, this function is called when the server returns state 200, after this it will send data through the chosen parameter name.
 		onSuccess: function (json) {
@@ -1509,9 +1510,13 @@ snippet maflogclear
 #
 snippet mafmess fetch
 	MAF.messages.fetch('${1:key}');
+#
 snippet mafmess store
 	MAF.messages.store('${1:key}', ${2:value});
+#
 snippet mafmess exist
 	MAF.messages.exist('${1:key}');
+#
 snippet mafmess remove
 	MAF.messages.remove('${1:key}');
+#
