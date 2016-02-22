@@ -51,7 +51,7 @@
 	url = https://github.com/ludovicchabant/vim-gutentags.git
 [submodule ".vim/bundle/vim-commentary"]
 	path = .vim/bundle/vim-commentary
-	url = https://github.com/tpope/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
 [submodule ".vim/bundle/vim-qlist"]
 	path = .vim/bundle/vim-qlist
 	url = https://github.com/romainl/vim-qlist.git

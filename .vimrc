@@ -53,6 +53,9 @@ let g:localvimrc_event=['BufEnter']
 "snipmate
 let g:snippets_dir = myruntime . '/bundle/gabi/snippets/'
 
+" gutentags
+let g:gutentags_project_root += ['CVS']
+
 
 set nocompatible " explicitly get out of vi-compatible mode
 syntax on " syntax highlighting on
