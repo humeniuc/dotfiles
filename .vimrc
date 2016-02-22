@@ -54,7 +54,9 @@ let g:localvimrc_event=['BufEnter']
 let g:snippets_dir = myruntime . '/bundle/gabi/snippets/'
 
 " gutentags
-let g:gutentags_project_root += ['CVS']
+" pentru CVS nu exista "root dir", nu se poate folosi "CVS" pentru ca apare in
+" toate directoarele. este necesar director custom
+let g:gutentags_project_root = ['.myproject']
 
 
 set nocompatible " explicitly get out of vi-compatible mode
