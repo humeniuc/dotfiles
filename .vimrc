@@ -169,7 +169,12 @@ augroup ft
     autocmd BufWritePre * let b:winview=winsaveview() | %s/\s\+$//e | call winrestview(b:winview)
 
     " cand se paraseste modul insert se renunta la paste
-    au InsertLeave * set nopaste
+    autocmd InsertLeave * set nopaste
+
+    " autocmd WinEnter * :setlocal number
+    " autocmd WinLeave * :setlocal nonumber
+    autocmd WinEnter * :setlocal cursorline
+    autocmd WinLeave * :setlocal nocursorline
 
     "de debug
     "autocmd BufEnter * echom "enter ". expand('%')
