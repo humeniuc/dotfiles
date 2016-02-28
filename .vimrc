@@ -43,13 +43,6 @@ function! s:unite_settings()
     imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
 endfunction
 
-"implicit este dezactivat.se activeaza la nivel de proiect
-let g:gutentags_enabled=0
-let g:gutentags_generate_on_missing=0
-let g:gutentags_generate_on_new=0
-let g:gutentags_generate_on_write=0
-let g:gutentags_define_advanced_commands=1
-
 " localvimrc
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
@@ -59,6 +52,11 @@ let g:localvimrc_event=['BufEnter']
 
 "snipmate
 let g:snippets_dir = myruntime . '/bundle/gabi/snippets/'
+
+" gutentags
+" pentru CVS nu exista "root dir", nu se poate folosi "CVS" pentru ca apare in
+" toate directoarele. este necesar director custom
+let g:gutentags_project_root = ['.myproject']
 
 
 set nocompatible " explicitly get out of vi-compatible mode
@@ -91,7 +89,7 @@ set ttimeoutlen=10
 
 " Vim UI {
     set nocursorcolumn
-    set nocursorline
+    set cursorline
     set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
@@ -143,7 +141,7 @@ nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
 " pentru a preveni undo-urile inutile dezactivez <u> cand este prefixat de
 " <leader>
 nnoremap <leader>u <NOP>
-nnoremap <leader>w <ESC>:w<CR><ESC>
+nnoremap <leader>w <ESC>:update<CR><ESC>
 
 " current word, make-it uppercase
 inoremap <C-u> <ESC>mzgUiw`za
@@ -151,6 +149,7 @@ inoremap <C-u> <ESC>mzgUiw`za
 nnoremap / /\v\c
 vnoremap / /\v\c
 nnoremap Q <Nop>
+nnoremap <leader>/l /\%=line('.')l\v\c
 
 " changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc
 for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%' ]
@@ -167,7 +166,8 @@ augroup ft
     autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
     " remove trailing spaces
-    autocmd BufWritePre * :%s/\s\+$//e
+    autocmd BufWritePre * let b:winview=winsaveview() | %s/\s\+$//e | call winrestview(b:winview)
+
     " cand se paraseste modul insert se renunta la paste
     au InsertLeave * set nopaste
 
@@ -178,7 +178,6 @@ augroup END
 
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
-" colorscheme mustangg
 colorscheme apprentice
 set guifont=DejaVu\ Sans\ Mono\ 8
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
@@ -201,6 +200,4 @@ if !exists("my_auto_commands_loaded")
     autocmd BufReadPre * let f=expand("<afile>") | if getfsize(f) > g:LargeFile | set eventignore+=FileType | setlocal noswapfile bufhidden=unload buftype=nowrite undolevels=-1 | else | set eventignore-=FileType | endif
 augroup END
 endif
-
-
 

@@ -11,6 +11,12 @@ snippet phpeh
 snippet phpehh
 	<?php echo h(${1}); ?>
 #
+snippet fun
+	${1:public }function ${2:FunctionName}(${3})
+	{
+		${4:// code...}
+	}
+#
 # debug
 snippet db
 	debug(${1});${2}
@@ -191,6 +197,7 @@ snippet yiiscript
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
 snippet yiitransaction
+	// <transaction>
 	$dbConn = Yii::app()->db;
 
 	if ($dbConn->getCurrentTransaction()) {
@@ -200,6 +207,7 @@ snippet yiitransaction
 	}
 
 	try {
+		${1}
 
 		if ($transaction) {
 			$transaction->commit();
@@ -212,5 +220,6 @@ snippet yiitransaction
 
 		throw $e;
 	}
-
+	// </transaction>
+#
 
