@@ -20,11 +20,6 @@ let g:indent_guides_enable_on_vim_startup = 0
 
 " plugin; unite
 let g:unite_source_history_yank_enable = 1
-"call unite#filters#matcher_default#use(['matcher_fuzzy'])
-
-"nnoremap [unite] <Nop>
-"nmap <space> [unite]
-
 nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
 nnoremap <leader>l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
 nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
@@ -47,19 +42,18 @@ endfunction
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
 let g:localvimrc_name=['.myproject.lvimrc']
-" let g:localvimrc_event=['BufWinEnter']
 let g:localvimrc_event=['BufEnter']
 
 "snipmate
-let g:snippets_dir = myruntime . '/bundle/gabi/snippets/'
+" let g:snippets_dir = myruntime . '/bundle/gabi/snippets/'
+let g:snippets_dir = myruntime . '/snippets/'
 
 " gutentags
 " pentru CVS nu exista "root dir", nu se poate folosi "CVS" pentru ca apare in
 " toate directoarele. este necesar director custom
 let g:gutentags_project_root = ['.myproject']
+let g:gutentags_generate_on_new = 0
 
-
-set nocompatible " explicitly get out of vi-compatible mode
 syntax on " syntax highlighting on
 
 " General {
