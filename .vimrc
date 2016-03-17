@@ -90,7 +90,7 @@ set ttimeoutlen=10
     set lazyredraw          " do not redraw while running macros
     set linespace=0         " don't insert any extra pixel lines betweens rows
     set nolist
-    set listchars=tab:» ,eol:¶,trail:· " show tabs and trailing
+    set listchars=tab:» ,eol:¶,extends:›,precedes:‹,nbsp:·,trail:·
     set matchtime=5         " how many tenths of a second to blink
                             " matching brackets for
     set nohlsearch          " o data ce s-a cautat ceva si se highlight-uiesc potrivirile
