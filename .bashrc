@@ -25,10 +25,7 @@ PS1='[\u@\h \W]\$ '
 # posibilitatea de a avea pe langa bashrc-ul generic, din repository, a unui bashrc local
 if [ -f ~/.bashrc_local ]
 then
-    bash ~/.bashrc_local
+    source ~/.bashrc_local
 fi
 
 # Enable programmable sdb completion features.
-if [ -f ~/.sdb/.sdb-completion.bash ]; then
- source ~/.sdb/.sdb-completion.bash
-fi

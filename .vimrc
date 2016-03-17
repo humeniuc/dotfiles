@@ -140,13 +140,18 @@ nnoremap <leader>w <ESC>:update<CR><ESC>
 " current word, make-it uppercase
 inoremap <C-u> <ESC>mzgUiw`za
 
-nnoremap / /\v\c
-vnoremap / /\v\c
+" dezactivat intrarea in ex mode
 nnoremap Q <Nop>
-nnoremap <leader>/l /\%=line('.')l\v\c
+" cautarea automata sa fie cu regular expressions, si case insensitive
+nnoremap / /\v\c
+
+" cautare restrictionata la linia curenta. ex daca esti pe linia 150 cu regular expression, case insensitive: /\%150\v\c
+nnoremap <leader>/l /\%<C-R>=line('.')<CR>\vc
+" search and replace cu cuvantul de sub cursor
+nnoremap <leader>% :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
 " changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc
-for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%' ]
+for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%', '-' ]
     execute 'xnoremap i'. char. ' :<C-u>normal! T'. char. 'vt'. char. '<CR>'
     execute 'onoremap i'. char. ' :<C-u>normal! T'. char. 'vt'. char. '<CR>'
     execute 'xnoremap a'. char. ' :<C-u>normal! F'. char. 'vf'. char. '<CR>'

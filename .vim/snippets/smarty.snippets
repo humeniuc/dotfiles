@@ -1,8 +1,34 @@
+snippet {t
+	{${1:label}}{/$1}
+#
 snippet {php
 	{php} ${1} {/php}
+#
 snippet {html
 	{php}?> ${1} <?php{/php}
+#
 snippet {js
 	{php}?> {
 	${1}
 	} <?php{/php}
+#
+snippet {if
+	{if ${1}}
+	${2}
+	{/if}
+#
+snippet {ife
+	{if ${1}}
+	${2}
+	{else}
+	{/if}
+#
+snippet {iif
+	{if ${1}}${2}{/if}
+#
+snippet {iife
+	{if ${1}}${2}{else}${3}{/if}
+#
+snippet {f
+	{foreach from=$${1} item=${2}}
+	{/foreach}
