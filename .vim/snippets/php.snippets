@@ -167,13 +167,16 @@ snippet yiireq Yii::app()->request->getUserHostAddress()
 snippet yiireq Yii::app()->request->cookies[]
 	Yii::app()->request->cookies['${1}']
 #
-#yii.findByPk
-snippet yiifpk
-	findByPk(${1})${2}
+snippet yiireq Yii::app()->request->getIsPostRequest
+	Yii::app()->request->getIsPostRequest()
+#
+#
+snippet yiimf
+	model()->findByPk(${1|pk})
 #
 #yii.findByAttributes
-snippet yiifba
-	findByAttributes(array('${1:key}' => ${2:value}))${3}
+snippet yiimfa
+	model()->findByAttributes(array('${1:key}' => ${2:value}))${3}
 #
 snippet yiip
 	Yii::app()->params['${1}']${2}
