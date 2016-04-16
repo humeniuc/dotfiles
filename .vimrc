@@ -135,7 +135,7 @@ nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
 " pentru a preveni undo-urile inutile dezactivez <u> cand este prefixat de
 " <leader>
 nnoremap <leader>u <NOP>
-nnoremap <leader>w <ESC>:update<CR><ESC>
+nnoremap <leader><CR> <ESC>:update<CR><ESC>
 
 " current word, make-it uppercase
 inoremap <C-u> <ESC>mzgUiw`za
