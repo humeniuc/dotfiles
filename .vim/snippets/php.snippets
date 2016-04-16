@@ -123,6 +123,11 @@ snippet foreachkil
 	<?php foreach ($${1:variable} as $${2:key} => $${3:value}): ?>
 		${4:<!-- html... -->}
 	<?php endforeach; ?>
+#
+snippet nl
+	PHP_EOL
+#
+
 
 ##########
 #YII
@@ -159,15 +164,21 @@ snippet yiireq Yii::app()->request->getQuery()
 snippet yiireq Yii::app()->request->getUserHostAddress()
 	Yii::app()->request->getUserHostAddress()${1}
 #
-#yii.findByPk
-snippet yiifpk
-	findByPk(${1})${2}
+snippet yiireq Yii::app()->request->cookies[]
+	Yii::app()->request->cookies['${1}']
+#
+snippet yiireq Yii::app()->request->getIsPostRequest
+	Yii::app()->request->getIsPostRequest()
+#
+#
+snippet yiimf
+	model()->findByPk(${1|pk})
 #
 #yii.findByAttributes
-snippet yiifba
-	findByAttributes(array('${1:key}' => ${2:value}))${3}
+snippet yiimfa
+	model()->findByAttributes(array('${1:key}' => ${2:value}))${3}
 #
-snippet yiiparam
+snippet yiip
 	Yii::app()->params['${1}']${2}
 #
 snippet yiiflash setFlash
@@ -207,9 +218,6 @@ snippet yiiuser
 snippet yiiacc
 	Yii::app()->user->account${1}
 #
-snippet yiic
-	Yii::app()->request->cookies['${1}']
-#
 snippet yiiscript
 	<script>
 	<?php ob_start();?>
@@ -242,4 +250,3 @@ snippet yiitransaction
 	}
 	// </transaction>
 #
-

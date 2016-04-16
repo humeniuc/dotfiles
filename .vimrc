@@ -1,5 +1,8 @@
 let mapleader ="\<Space>"
 
+" plugin: vimwiki
+let g:vimwiki_map_prefix = '<Leader>q'
+
 filetype off
 call pathogen#infect()
 call pathogen#helptags()
@@ -52,7 +55,11 @@ let g:snippets_dir = myruntime . '/snippets/'
 " pentru CVS nu exista "root dir", nu se poate folosi "CVS" pentru ca apare in
 " toate directoarele. este necesar director custom
 let g:gutentags_project_root = ['.myproject']
+let g:gutentags_generate_on_missing = 0
 let g:gutentags_generate_on_new = 0
+
+
+let g:vimwiki_list = [{'path': '~/Dropbox/Desktop/notes/vimwiki', 'path_html': '~/Dropbox/Desktop/notes/vimwiki'}]
 
 syntax on " syntax highlighting on
 
