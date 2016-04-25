@@ -25,9 +25,6 @@ if [ "$(isMultiplexer)" == 0 ] ; then
     fi
 fi
 
-
-echo "Term is $TERM"
-
 # alias pentru xclip
 [[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
 
