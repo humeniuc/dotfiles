@@ -4,22 +4,35 @@ function randomchars {
 
 
 function isTmux {
-    [ ! -z "$TMUX" ]
+    if [ ! -z "$TMUX" ]; then
+        echo 1
+    else
+        echo 0
+    fi
 }
 
-
 function isScreen {
-    [ ! -z "$STY" ]
+    if [ ! -z "$STY" ]; then
+        echo 1
+    else
+        echo 0
+    fi
 }
 
 
 function isMultiplexer {
-    [ ! -z "$TMUX" -o ! -z "$STY" ]
+    if [ ! -z "$TMUX" -o ! -z "$STY" ]; then
+        echo 1
+    else
+        echo 0
+    fi
 }
+
 
 function tmuxSessionName {
     tmux display-message -p '#S'
 }
+
 
 function tmuxfixenv {
     tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g"
