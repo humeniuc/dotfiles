@@ -16,7 +16,7 @@ if [ "$(isMultiplexer)" == 0 ] ; then
     # de aici https://www.reddit.com/r/vim/comments/4e8wl9/my_vim_setup/d1ycifnk
     if [ $TERM == "xterm" ] ; then
         if [ -n $COLORTERM ] ; then
-            if [ $COLORTERM = "gnome-terminal" -o $COLORTERM = "xfce-terminal" ] ; then
+            if [ $COLORTERM == "gnome-terminal" -o $COLORTERM == "xfce-terminal" -o $COLORTERM == "xfce4-terminal" ] ; then
                 export TERM=xterm-256color
             fi
         elif [ -n "$VTE_VERSION" ] ; then
