@@ -104,8 +104,8 @@ set ttimeoutlen=10
                             " cand se iese din cautare, ascunde highlight-urilek
     set nostartofline       " leave my cursor where it was
     set visualbell          " don't blink
-    set number              " turn on line numbers
-    set numberwidth=5       " We are good up to 99999 lines
+    " set number              " turn on line numbers
+    " set numberwidth=5       " We are good up to 99999 lines
     set report=0            " tell us when anything is changed via :...
     set ruler               " Always show current positions along the bottom
     set scrolloff=5         " 5 linii sus-jos, pentru 'context'
@@ -157,6 +157,11 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>\vc
 " search and replace cu cuvantul de sub cursor
 nnoremap <leader>% :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
+if ! has('clipboard')
+    vnoremap <silent> "+y :w !xclip -i -selection clipboard<CR>
+    noremap <silent> "+p :r!xclip -o -selection clipboard<CR>
+endif
+
 " changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc
 for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%', '-' ]
     execute 'xnoremap i'. char. ' :<C-u>normal! T'. char. 'vt'. char. '<CR>'
@@ -174,18 +179,22 @@ augroup ft
     " remove trailing spaces
     autocmd BufWritePre * let b:winview=winsaveview() | %s/\s\+$//e | call winrestview(b:winview)
 
-    " cand se paraseste modul insert se renunta la paste
+    " on leaving insert mode, drop nopaste
     autocmd InsertLeave * set nopaste
 
-    " autocmd WinEnter * :setlocal number
-    " autocmd WinLeave * :setlocal nonumber
+    " show cursorline only in active window
     autocmd WinEnter * :setlocal cursorline
     autocmd WinLeave * :setlocal nocursorline
+
+    "test pentru evenimente
+    "autocmd BufEnter * :call system('echo "$(date) BufEnter" >> /tmp/vim_events_test')
+    "autocmd BufLeave * :call system('echo "$(date) BufLeave" >> /tmp/vim_events_test')
 
     "de debug
     "autocmd BufEnter * echom "enter ". expand('%')
     "autocmd BufLeave * echom "leave ". expand('%')
 augroup END
+
 
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
