@@ -170,6 +170,11 @@ for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%', 
     execute 'onoremap a'. char. ' :<C-u>normal! F'. char. 'vf'. char. '<CR>'
 endfor
 
+inoremap (<TAB> ()<ESC>i
+inoremap [<TAB> []<ESC>i
+inoremap ['<TAB> ['']<ESC><LEFT>i
+inoremap ["<TAB> [""]<ESC><LEFT>i
+
 " autogroup
 augroup ft
     autocmd!

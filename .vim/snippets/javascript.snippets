@@ -249,6 +249,11 @@ snippet :
 	${1:property_name} : ${2:value}
 # functie, ca si proprietate. vezi si :m
 snippet :f
+	${1:method_name} : function(${2}) {
+		${3}
+	}
+# "inline" function
+snippet :if
 	${1:method_name} : function(${2}) {${3}}
 # metoda
 snippet :m
@@ -256,6 +261,9 @@ snippet :m
 	{
 		${3}
 	}
+#
+snippet :'
+	${1:method_name} : '${2}'${3}
 #
 #
 #
