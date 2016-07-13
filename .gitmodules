@@ -1,63 +1,63 @@
 [submodule ".vim/bundle/checksyntax_vim"]
 	path = .vim/bundle/checksyntax_vim
-	url = https://github.com/tomtom/checksyntax_vim.git
+	url = git@github.com:tomtom/checksyntax_vim.git
 [submodule ".vim/bundle/tabular"]
 	path = .vim/bundle/tabular
-	url = https://github.com/godlygeek/tabular.git
+	url = git@github.com:godlygeek/tabular.git
 [submodule ".vim/bundle/unite.vim"]
 	path = .vim/bundle/unite.vim
-	url = https://github.com/Shougo/unite.vim.git
+	url = git@github.com:Shougo/unite.vim.git
 [submodule ".vim/bundle/vim-indent-guides"]
 	path = .vim/bundle/vim-indent-guides
 	url = git://github.com/nathanaelkane/vim-indent-guides.git
 [submodule ".vim/bundle/vim-javascript"]
 	path = .vim/bundle/vim-javascript
-	url = https://github.com/pangloss/vim-javascript.git
+	url = git@github.com:pangloss/vim-javascript.git
 [submodule ".vim/bundle/vim-surround"]
 	path = .vim/bundle/vim-surround
-	url = https://github.com/tpope/vim-surround.git
+	url = git@github.com:tpope/vim-surround.git
 [submodule ".vim/bundle/vimproc.vim"]
 	path = .vim/bundle/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim.git
+	url = git@github.com:Shougo/vimproc.vim.git
 [submodule ".vim/bundle/restart"]
 	path = .vim/bundle/restart
-	url = https://github.com/vim-scripts/restart.vim.git
+	url = git@github.com:vim-scripts/restart.vim.git
 [submodule ".vim/bundle/vim-css-color"]
 	path = .vim/bundle/vim-css-color
-	url = https://github.com/ap/vim-css-color
+	url = git@github.com:ap/vim-css-color
 [submodule ".vim/bundle/snipmate.vim"]
 	path = .vim/bundle/snipmate.vim
-	url = https://github.com/msanders/snipmate.vim.git
+	url = git@github.com:msanders/snipmate.vim.git
 [submodule ".vim/bundle/vim-localvimrc"]
 	path = .vim/bundle/vim-localvimrc
-	url = https://github.com/embear/vim-localvimrc.git
+	url = git@github.com:embear/vim-localvimrc.git
 [submodule ".vim/bundle/vim-less"]
 	path = .vim/bundle/vim-less
-	url = https://github.com/genoma/vim-less.git
+	url = git@github.com:genoma/vim-less.git
 [submodule "bundle/vim-less"]
 	path = bundle/vim-less
-	url = https://github.com/genoma/vim-less.git
+	url = git@github.com:genoma/vim-less.git
 [submodule ".vim/bundle/neomru.vim"]
 	path = .vim/bundle/neomru.vim
-	url = https://github.com/Shougo/neomru.vim.git
+	url = git@github.com:Shougo/neomru.vim.git
 [submodule ".vim/bundle/smarty.vim"]
 	path = .vim/bundle/smarty.vim
-	url = https://github.com/blueyed/smarty.vim.git
+	url = git@github.com:blueyed/smarty.vim.git
 [submodule ".vim/bundle/vim-notgrep"]
 	path = .vim/bundle/vim-notgrep
-	url = https://github.com/idbrii/vim-notgrep.git
+	url = git@github.com:idbrii/vim-notgrep.git
 [submodule ".vim/bundle/vim-gutentags"]
 	path = .vim/bundle/vim-gutentags
-	url = https://github.com/ludovicchabant/vim-gutentags.git
+	url = git@github.com:ludovicchabant/vim-gutentags.git
 [submodule ".vim/bundle/vim-commentary"]
 	path = .vim/bundle/vim-commentary
 	url = git@github.com:tpope/vim-commentary.git
 [submodule ".vim/bundle/vim-qlist"]
 	path = .vim/bundle/vim-qlist
-	url = https://github.com/romainl/vim-qlist.git
+	url = git@github.com:romainl/vim-qlist.git
 [submodule ".vim/bundle/vim-fugitive"]
 	path = .vim/bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive.git
+	url = git@github.com:tpope/vim-fugitive.git
 [submodule ".vim/bundle/php.vim"]
 	path = .vim/bundle/php.vim
-	url = https://github.com/StanAngeloff/php.vim.git
+	url = git@github.com:StanAngeloff/php.vim.git
