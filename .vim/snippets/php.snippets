@@ -112,17 +112,17 @@ snippet foreach
 		${3:// code...}
 	}
 snippet foreachil
-	<?php foreach ($${1:variable} as $${2:value}): ?>
+	<?php foreach ($${1:variable} as $${2:value}) { ?>
 		${3:<!-- html... -->}
-	<?php endforeach; ?>
+	<?php } ?>
 snippet foreachk
 	foreach ($${1:variable} as $${2:key} => $${3:value}) {
 		${4:// code...}
 	}
 snippet foreachkil
-	<?php foreach ($${1:variable} as $${2:key} => $${3:value}): ?>
+	<?php foreach ($${1:variable} as $${2:key} => $${3:value}) { ?>
 		${4:<!-- html... -->}
-	<?php endforeach; ?>
+	<?php } ?>
 #
 snippet nl
 	PHP_EOL
