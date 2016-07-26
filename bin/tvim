@@ -1,0 +1,53 @@
+#!/bin/bash
+filepath="$1"
+
+if [ -z "$filepath" ]; then
+    echo "specifica un fisier"
+    exit
+fi
+
+
+if [ -z "$TMUX" ];
+then
+    exec vim "$1"
+    exit
+fi
+
+target_id=''
+
+if [ "${filepath:0:1}" != "/" ];
+then
+    filepath="$(pwd)/$filepath"
+fi
+
+while read id current_command
+do
+    if [ "$current_command" == "vim" ]; then
+        target_id="$id"
+        break
+    fi
+done < <( tmux list-panes -s -F "#{pane_id} #{pane_current_command}" )
+# TODO vezi mai multe despre sintaxa cu  < <(...)
+
+if [ -z "$target_id" ];
+then
+    # mut toate ferestrele o pozitie la dreapta
+    # pentru a putea adauga o fereastra cu vim pe pozitia 1
+    tmux list-window -F "#{window_index}" | sort -r | while read window_id
+    do
+        tmux move-window -s :"$window_id" -t "$(($window_id+1))"
+    done
+
+    # adaug o fereastra noua, pe prima pozitie
+    target_id=$(tmux new-window -t 1 -P -F "#{pane_id}" bash)
+    tmux send-keys -t "$target_id" vim C-m
+    sleep 0.2
+    # renumerotez ferestrele incepand cu 1
+    tmux move-window -r -t "1"
+fi
+
+# trimit tastele care imi deschide in vim fisierul catre editare
+tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
+tmux select-pane -t "$target_id"
+tmux select-window -t "$target_id"
+
