@@ -1,0 +1,40 @@
+#!/bin/bash
+
+set -e
+
+path="$(pwd)"
+
+
+while [[ "$path" != "/" ]];
+do
+    dir="$path/.myproject"
+    if [[ -e "$dir" ]];
+    then
+        echo "$dir is -e"
+        cd "$dir"
+
+        case $1 in
+            "-f" )
+                bash ./findex.sh
+                ;;
+
+            "-g" )
+                bash ./cindex.sh
+                ;;
+
+            "-t" )
+                bash ./ctags.sh
+                ;;
+
+
+            "-a" | * )
+                bash ./index_all.sh
+                ;;
+        esac
+
+        break
+    fi
+
+    path="$(dirname "$path")"
+done
+
