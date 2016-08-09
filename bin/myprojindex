@@ -1,9 +1,6 @@
 #!/bin/bash
 
-set -e
-
 path="$(pwd)"
-
 
 while [[ "$path" != "/" ]];
 do
@@ -14,6 +11,17 @@ do
         cd "$dir"
 
         case $1 in
+            "-h" )
+                echo "reindexeaza proiectul curent"
+                echo "merge rulat din directorul proiectului sau din orice subdirector (cauta \"in sus\")"
+                echo ""
+                echo "-f files"
+                echo "-g googlecode"
+                echo "-t ctags"
+                echo ""
+                echo "-a (default) toate cele de mai sus"
+                ;;
+
             "-f" )
                 bash ./findex.sh
                 ;;
