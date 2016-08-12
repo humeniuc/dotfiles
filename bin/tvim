@@ -47,6 +47,12 @@ then
 fi
 
 # trimit tastele care imi deschide in vim fisierul catre editare
+#tmux send-keys -t "$target_id" Escape ":" C-u "edit \"$filepath\"" C-m
+#tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
+# filepath=ul trebuie esacpe-uit ca path corect
+# de asemenea in command line-ul vim caracterul % se escape-uieste
+# TODO: de vazut ce alte caractere mai trebuie escape-uite
+filepath=$(printf "%q" "$filepath" | sed -r "s/%/\\\\%/g")
 tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
 tmux select-pane -t "$target_id"
 tmux select-window -t "$target_id"
