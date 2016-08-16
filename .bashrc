@@ -1,3 +1,8 @@
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 if [[ -e "${HOME}/.bash_utils" ]];
 then
      source "${HOME}/.bash_utils"
