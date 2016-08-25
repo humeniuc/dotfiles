@@ -1,3 +1,8 @@
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
 if [[ -e "${HOME}/.bash_utils" ]];
 then
      source "${HOME}/.bash_utils"
@@ -5,7 +10,7 @@ else
     echo -e "\e[31mbash_utils not found\e[0m" >&2
 fi
 
-export PATH="~/dotfiles/bin:$PATH"
+export PATH=~/dotfiles/bin:$PATH
 export EDITOR=vim
 
 # If not running interactively, don't do anything

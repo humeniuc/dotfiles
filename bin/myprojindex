@@ -1,0 +1,48 @@
+#!/bin/bash
+
+path="$(pwd)"
+
+while [[ "$path" != "/" ]];
+do
+    dir="$path/.myproject"
+    if [[ -e "$dir" ]];
+    then
+        echo "$dir is -e"
+        cd "$dir"
+
+        case $1 in
+            "-h" )
+                echo "reindexeaza proiectul curent"
+                echo "merge rulat din directorul proiectului sau din orice subdirector (cauta \"in sus\")"
+                echo ""
+                echo "-f files"
+                echo "-g googlecode"
+                echo "-t ctags"
+                echo ""
+                echo "-a (default) toate cele de mai sus"
+                ;;
+
+            "-f" )
+                bash ./findex.sh
+                ;;
+
+            "-g" )
+                bash ./cindex.sh
+                ;;
+
+            "-t" )
+                bash ./ctags.sh
+                ;;
+
+
+            "-a" | * )
+                bash ./index_all.sh
+                ;;
+        esac
+
+        break
+    fi
+
+    path="$(dirname "$path")"
+done
+
