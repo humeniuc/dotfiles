@@ -68,6 +68,13 @@ snippet ['
 snippet [
 	[${1}]${2}
 #
+snippet ob
+	ob_start();
+	?>
+	${1}
+	<?php
+	$content = ob_get_clean();
+
 # snippet pentru smarty
 snippet {php
 	{php}?>
