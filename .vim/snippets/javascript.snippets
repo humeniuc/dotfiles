@@ -415,13 +415,19 @@ snippet ready
 	});
 # jquery collection
 snippet $
-	$("${1}")${2}
+	$('${1}')${2}
 # jquery id
 snippet $#
-	$("#${1}")${2}
+	$('#${1}')${2}
 # jquery class
 snippet $.
-	$(".${1}")${2}
+	$('.${1}')${2}
+snippet $d
+	$('[data-${1}]')${2}
+snippet ('d
+	('[data-${1}="${2}"]')${3}
+snippet ('dp
+	('[data-provider="${1}"]')${2}
 # common jquery patterns
 # WIP
 # AJAX
