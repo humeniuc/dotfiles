@@ -142,6 +142,81 @@ snippet retn
 snippet reta
 	return array(${1});
 
+snippet header00
+	header('HTTP/1.1 100 Continue', true, 100);
+snippet header101
+	header('HTTP/1.1 101 Switching Protocols', true, 101);
+snippet header200
+	header('HTTP/1.1 200 OK', true, 200);
+snippet header201
+	header('HTTP/1.1 201 Created', true, 201);
+snippet header202
+	header('HTTP/1.1 202 Accepted', true, 202);
+snippet header203
+	header('HTTP/1.1 203 Non-Authoritative Information', true, 203);
+snippet header204
+	header('HTTP/1.1 204 No Content', true, 204);
+snippet header205
+	header('HTTP/1.1 205 Reset Content', true, 205);
+snippet header206
+	header('HTTP/1.1 206 Partial Content', true, 206);
+snippet header300
+	header('HTTP/1.1 300 Multiple Choices', true, 300);
+snippet header301
+	header('HTTP/1.1 301 Moved Permanently', true, 301);
+	header('Location: '. ${1:$url});
+snippet header302
+	header('HTTP/1.1 302 Moved Temporarily', true, 302);
+snippet header303
+	header('HTTP/1.1 303 See Other', true, 303);
+snippet header304
+	header('HTTP/1.1 304 Not Modified', true, 304);
+snippet header305
+	header('HTTP/1.1 305 Use Proxy', true, 305);
+snippet header400
+	header('HTTP/1.1 400 Bad Request', true, 400);
+snippet header401
+	header('HTTP/1.1 401 Unauthorized', true, 401);
+snippet header402
+	header('HTTP/1.1 402 Payment Required', true, 402);
+snippet header403
+	header('HTTP/1.1 403 Forbidden', true, 403);
+snippet header404
+	header('HTTP/1.1 404 Not Found', true, 404);
+snippet header405
+	header('HTTP/1.1 405 Method Not Allowed', true, 405);
+snippet header406
+	header('HTTP/1.1 406 Not Acceptable', true, 406);
+snippet header407
+	header('HTTP/1.1 407 Proxy Authentication Required', true, 407);
+snippet header408
+	header('HTTP/1.1 408 Request Time-out', true, 408);
+snippet header409
+	header('HTTP/1.1 409 Conflict', true, 409);
+snippet header410
+	header('HTTP/1.1 410 Gone', true, 410);
+snippet header411
+	header('HTTP/1.1 411 Length Required', true, 411);
+snippet header412
+	header('HTTP/1.1 412 Precondition Failed', true, 412);
+snippet header413
+	header('HTTP/1.1 413 Request Entity Too Large', true, 413);
+snippet header414
+	header('HTTP/1.1 414 Request-URI Too Large', true, 414);
+snippet header415
+	header('HTTP/1.1 415 Unsupported Media Type', true, 415);
+snippet header500
+	header('HTTP/1.1 500 Internal Server Error', true, 500);
+snippet header501
+	header('HTTP/1.1 501 Not Implemented', true, 501);
+snippet header502
+	header('HTTP/1.1 502 Bad Gateway', true, 502);
+snippet header503
+	header('HTTP/1.1 503 Service Unavailable', true, 503);
+snippet header504
+	header('HTTP/1.1 504 Gateway Time-out', true, 504);
+snippet header505
+	header('HTTP/1.1 505 HTTP Version not supported', true, 505);
 
 ##########
 #YII
