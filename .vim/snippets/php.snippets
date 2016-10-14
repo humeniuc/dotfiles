@@ -37,7 +37,7 @@ snippet vd
 	var_dump(${1});${2}
 #
 snippet gcm
-	get_class_methods()
+	get_class_methods(${1})
 #
 snippet gif
 	get_included_files()
@@ -284,7 +284,7 @@ snippet yiitransaction
 	}
 	// </transaction>
 #
-snippet yiiform
+snippet yiihtmlform
 	<div id="<?php echo $formContainerId = uniqid('FormContainer'); ?>" class="form">
 	<?php echo $form->renderBegin(); ?>
 	<?php $formWidget = $form->activeFormWidget; ?>
@@ -328,6 +328,33 @@ snippet yiitextfield
 			</div>
 		</div>
 	</div>
+snippet yiiform
+	$model = new DemoModel();
+
+	$form = new CForm(array(
+		'id' => 'theForm',
+
+		'elements' => array(
+			'var' => array('type' => 'text',),
+			'var' => array('type' => 'dropdownlist',),
+		),
+
+		'buttons' => array(
+			'submit' => array(
+				'type'  => 'htmlSubmit',
+				'label' => 'Trimite',
+			)
+		),
+	), $model);
+
+	if ($form->submitted()) {
+		$form->loadData();
+		$form->validate();
+	}
+
+	$this->renderPartial('index', array(
+		'form' => $form,
+	));
 #
 #
 #
@@ -339,5 +366,13 @@ snippet bootstrap form-inline
 	<button type="submit" class="btn btn-default">Submit</button>
 	</form>
 
+snippet bootstrap button-a
+	<a class="btn btn-default" href="#" role="button">Link</a>
+snippet bootstrap button-button
+	<button class="btn btn-default" type="submit">Button</button>
+snippet bootstrap button-input-b
+	<input class="btn btn-default" type="button" value="Input">
+snippet bootstrap button-submit
+	<input class="btn btn-default" type="submit" value="Submit">
 
 
