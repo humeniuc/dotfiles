@@ -37,7 +37,10 @@ snippet vd
 	var_dump(${1});${2}
 #
 snippet gcm
-	get_class_metods()
+	get_class_methods()
+#
+snippet gif
+	get_included_files()
 #
 snippet fga
 	func_get_args()
@@ -65,6 +68,13 @@ snippet ['
 snippet [
 	[${1}]${2}
 #
+snippet ob
+	ob_start();
+	?>
+	${1}
+	<?php
+	$content = ob_get_clean();
+
 # snippet pentru smarty
 snippet {php
 	{php}?>
