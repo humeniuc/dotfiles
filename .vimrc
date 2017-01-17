@@ -13,6 +13,8 @@ endif
 
 " plugin: checksyntax
 let g:checksyntax#async_runner = ''
+let g:checksyntax_key_single = '<F4>'   "{{{2
+let g:checksyntax_key_all = '<C-F4>'   "{{{2
 
 " plugin: indent-guides
 let g:indent_guides_indent_levels = 30
@@ -134,7 +136,6 @@ nnoremap <F1> <NOP>
 inoremap <F1> <NOP>
 nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR>
 nnoremap <F3> <ESC>:set paste!<RETURN>
-nnoremap <F4> <ESC>:IndentGuidesToggle<RETURN>
 
 
 " in 'proiecte' leader-u este pentru a deschide unite cu lista de fisiere

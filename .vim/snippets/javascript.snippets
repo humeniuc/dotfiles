@@ -1541,3 +1541,31 @@ snippet mafmess exist
 snippet mafmess remove
 	MAF.messages.remove('${1:key}');
 #
+
+#
+snippet xhr xhr.get
+	var xhr = new XMLHttpRequest();
+	xhr.open('GET', '${1:url}', true);
+	xhr.onload = function () {
+		// console.log('loaded');
+	};
+	xhr.send(null);
+
+snippet xhr xhr.post
+	var xhr = new xmlhttprequest();
+	xhr.open('post', '${1:url}', true);
+
+	//send the proper header information along with the request
+	xhr.setrequestheader("content-type", "application/x-www-form-urlencoded");
+
+	xhr.onreadystatechange = function() {//call a function when the state changes.
+		if(xhr.readystate == xmlhttprequest.done && xhr.status == 200) {
+			// request finished. do processing here.
+		}
+	}
+	xhr.send("foo=bar&lorem=ipsum");
+	// xhr.send('string');
+	// xhr.send(new blob());
+	// xhr.send(new int8array());
+	// xhr.send({ form: 'data' });
+	// xhr.send(document);
