@@ -38,3 +38,21 @@ function tmuxfixenv {
     tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g"
     eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
 }
+
+
+# function proj_demo {
+#     local proj="demo"
+#     if ! tmux has-session -t "$proj" ; then
+#         tmux new-session -s "$proj" -d  -c "/var/www/playground/project/"
+#         tmux send-keys -t "$proj" "vim" Enter
+#         tmux send-keys -t "$proj" ":e ~/.vimrc" Enter
+#         tmux new-window -t "$proj"
+#         tmux send-keys -t "$proj" "mc" Enter
+#         tmux new-window -t "$proj"
+#         tmux send-keys -t "$proj" "top" Enter
+#         tmux select-window -t "1"
+#     fi
+#     tmux attach-session -t "$proj"
+# }
+
+
