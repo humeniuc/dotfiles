@@ -10,7 +10,7 @@ else
     echo -e "\e[31mbash_utils not found\e[0m" >&2
 fi
 
-export PATH=~/dotfiles/bin:~/gocode/bin:$PATH
+export PATH=~/bin:~/dotfiles/bin:~/gocode/bin:$PATH
 export EDITOR=vim
 
 # If not running interactively, don't do anything
@@ -44,4 +44,3 @@ if [ -f ~/.bashrc_local ]
 then
     source ~/.bashrc_local
 fi
-

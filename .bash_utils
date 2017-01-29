@@ -1,3 +1,8 @@
+# de aici
+# http://www.etalabs.net/sh_tricks.html
+# quoted=$(quote "$var")
+quote () { printf %s\\n "$1" | sed "s/'/'\\\\''/g;1s/^/'/;\$s/\$/'/" ; }
+
 function randomchars {
     tr -dc A-Za-z0-9 </dev/urandom |  head -c $1
 }
