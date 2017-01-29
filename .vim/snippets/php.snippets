@@ -116,7 +116,15 @@ snippet SS
 	$_SESSION['${1:variable}']${2}
 #
 snippet armap
-	array_map(${1:'callback'}, ${2:$array})
+	array_map(function($item) {
+		${2:// callback}
+		return $item;
+	}, ${1:$array})
+snippet arred
+	array_reduce(${1:$array}, function($carry, $item) {
+		${2:// callback}
+		return $carry;
+	}, array())
 snippet imp
 	implode(${1:', '}, ${2:$array})
 snippet ark
