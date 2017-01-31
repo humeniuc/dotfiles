@@ -170,7 +170,9 @@ snippet retn
 snippet reta
 	return array(${1});
 
-snippet header00
+snippet headerutf8
+	header('Content-Type: text/html; charset=utf-8');
+snippet header100
 	header('HTTP/1.1 100 Continue', true, 100);
 snippet header101
 	header('HTTP/1.1 101 Switching Protocols', true, 101);
