@@ -419,14 +419,14 @@ snippet yiitextfield
 	</div>
 snippet yiicheckbox
 	<div class="form-group <?php if ($model->hasErrors('${1:field}')) { echo 'has-error'; } ?>">
-		<?php echo $form->labelEx($model, '${1:field}', array('class' => 'col-lg-2 control-label')); ?>
+		<?php echo $form->labelEx($model, '$1', array('class' => 'col-lg-2 control-label')); ?>
 		<div class="col-lg-6">
 			<div class="checkbox">
 				<label>
 				<?php
 				echo $form->checkBox(
 					$model,
-					'${1:field}',
+					'$1',
 					array(
 						'value'        => 'Y',
 						'uncheckValue' => 'N',
@@ -435,7 +435,7 @@ snippet yiicheckbox
 				?> &nbsp; </label>
 			</div>
 		</div>
-		<?php echo $form->error($model, '${1:field}', array('class' => 'text text-danger')); ?>
+		<?php echo $form->error($model, '$1', array('class' => 'text text-danger')); ?>
 	</div>
 #
 snippet yiiform
