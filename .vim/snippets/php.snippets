@@ -417,6 +417,27 @@ snippet yiitextfield
 			</div>
 		</div>
 	</div>
+snippet yiicheckbox
+	<div class="form-group <?php if ($model->hasErrors('${1:field}')) { echo 'has-error'; } ?>">
+		<?php echo $form->labelEx($model, '${1:field}', array('class' => 'col-lg-2 control-label')); ?>
+		<div class="col-lg-6">
+			<div class="checkbox">
+				<label>
+				<?php
+				echo $form->checkBox(
+					$model,
+					'${1:field}',
+					array(
+						'value'        => 'Y',
+						'uncheckValue' => 'N',
+					)
+				);
+				?> &nbsp; </label>
+			</div>
+		</div>
+		<?php echo $form->error($model, '${1:field}', array('class' => 'text text-danger')); ?>
+	</div>
+#
 snippet yiiform
 	$model = new DemoModel();
 
@@ -445,6 +466,8 @@ snippet yiiform
 		'form' => $form,
 	));
 #
+
+
 #
 #
 snippet bootstrap form-inline
@@ -463,5 +486,10 @@ snippet bootstrap button-input-b
 	<input class="btn btn-default" type="button" value="Input">
 snippet bootstrap button-submit
 	<input class="btn btn-default" type="submit" value="Submit">
-
-
+snippet bootstrap input-group-button
+	<div class="input-group">
+		<input type="text" class="form-control" placeholder="Search for...">
+		<span class="input-group-btn">
+			<button class="btn btn-default" type="button">Go!</button>
+		</span>
+	</div>

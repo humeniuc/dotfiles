@@ -1,7 +1,7 @@
 let mapleader ="\<Space>"
 
-" plugin: vimwiki
-let g:vimwiki_map_prefix = '<Leader>q'
+let g:ale_lint_delay=1000
+
 
 filetype off
 call pathogen#infect()
@@ -59,9 +59,6 @@ let g:snippets_dir = myruntime . '/snippets/'
 let g:gutentags_project_root = ['.myproject']
 let g:gutentags_generate_on_missing = 0
 let g:gutentags_generate_on_new = 0
-
-
-let g:vimwiki_list = [{'path': '~/Dropbox/Desktop/notes/vimwiki', 'path_html': '~/Dropbox/Desktop/notes/vimwiki'}]
 
 syntax on " syntax highlighting on
 
