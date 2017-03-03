@@ -22,3 +22,12 @@ git rm nerdcommenter
 git rm --cached nerdcommenter
 rm -rf .git/modules/.vim/bundle/nerdcommenter
 
+
+
+Delete the relevant section from the .gitmodules file.
+Stage the .gitmodules changes git add .gitmodules.
+Delete the relevant section from .git/config .
+Run git rm --cached path_to_submodule (no trailing slash).
+Run rm -rf .git/modules/path_to_submodule.
+
+

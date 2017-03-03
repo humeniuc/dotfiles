@@ -1,6 +1,7 @@
 let mapleader ="\<Space>"
 
 let g:ale_lint_delay=1000
+let g:ale_php_phpcs_standard='PSR2'
 
 
 filetype off
