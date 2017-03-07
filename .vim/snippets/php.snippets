@@ -86,9 +86,10 @@ snippet {php
 	<?php{/php}
 #
 # echo sprintf("ceva %s\n", $altceva);
-snippet ecspf
-	echo sprintf("${1}\n", ${2});${3}
-#
+snippet espf
+	echo sprintf("${1} %s\n", ${2});${3}
+snippet spf
+	sprintf("${1} %s\n", ${2});${3}
 
 
 # Tertiary conditional
@@ -486,6 +487,13 @@ snippet bootstrap button-input-b
 	<input class="btn btn-default" type="button" value="Input">
 snippet bootstrap button-submit
 	<input class="btn btn-default" type="submit" value="Submit">
+snippet bootstrap glyphicon-span
+	<span class="glyphicon glyphicon-${1:plus|minus|search}"></span>
+snippet bootstrap input-group
+	<div class="input-group">
+		<input type="text" class="form-control" name="${1:name}" value="${2:value}" />
+		<span class="input-group-addon">%</span>
+	</div>
 snippet bootstrap input-group-button
 	<div class="input-group">
 		<input type="text" class="form-control" placeholder="Search for...">
