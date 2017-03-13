@@ -36,8 +36,17 @@ fi
 
 alias ls='ls --color=auto'
 alias gvr='gvim --remote'
-#PS1='[\u@\h \W]\$ '
-export PS1='\u@\h \[\033[93m\]\w\[\033[33m\]$( git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/ (\1)/" )\[\033[00m\]\n \[\033[0;36m\]▶\[\033[00m\] '
+#PS1='[\u@\h \W]\$ ' # default
+# export PS1='\u@\h \[\033[93m\]\w\[\033[33m\]$( git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/ (\1)/" )\[\033[00m\]\n \[\033[0;36m\]▶\[\033[00m\] '
+
+export PS1=\
+'\u@\h \[\033[93m\]\w\[\033[33m\]\n'\
+'$( '\
+'git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1) /" ;'\
+'svn info 2>/dev/null | sed -n "/^URL: /s/.*\/\(\(trunk\)\|branches\/\([^/]*\)\).*/(\2\3) /p"'\
+' )'\
+'\[\033[00m\]\[\033[0;36m\]▶\[\033[00m\] '
+
 
 # posibilitatea de a avea pe langa bashrc-ul generic, din repository, a unui bashrc local
 if [ -f ~/.bashrc_local ]
