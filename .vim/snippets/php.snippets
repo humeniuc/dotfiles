@@ -21,6 +21,8 @@ snippet fun
 		${4:// code...}
 	}
 #
+snippet ehr
+	echo '<hr/>';${1}
 # debug
 snippet db
 	debug(${1});${2}
@@ -89,8 +91,8 @@ snippet {php
 snippet espf
 	echo sprintf("${1} %s\n", ${2});${3}
 snippet spf
-	sprintf("${1} %s\n", ${2});${3}
-
+	sprintf("${1} %s\n", ${2})${3}
+#
 
 # Tertiary conditional
 snippet =?:
