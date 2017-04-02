@@ -11,3 +11,5 @@ nnoremap <buffer> <leader>dd :put='dd('. expand('<cword>'). ');'<CR>==
 xnoremap <buffer> <leader>dd :<C-u>put='dd('. visual#GetSelection(). ');'<CR>==
 nnoremap <buffer> <leader>spf :put='sprintf('''. expand('<cword>'). ' %s'', '. expand('<cword>'). ');'<CR>==
 xnoremap <buffer> <leader>spf :<C-u>put='sprintf('''. visual#GetSelection(). ' %s'', '. visual#GetSelection(). ');'<CR>==
+nnoremap <buffer> <leader>dspf :put='debug(sprintf('''. expand('<cword>'). ' %s'', '. expand('<cword>'). '));'<CR>==
+xnoremap <buffer> <leader>dspf :<C-u>put='debug(sprintf('''. visual#GetSelection(). ' %s'', '. visual#GetSelection(). '));'<CR>==

@@ -13,12 +13,6 @@
 [submodule ".vim/bundle/vimproc.vim"]
 	path = .vim/bundle/vimproc.vim
 	url = git@github.com:Shougo/vimproc.vim.git
-[submodule ".vim/bundle/restart"]
-	path = .vim/bundle/restart
-	url = git@github.com:vim-scripts/restart.vim.git
-[submodule ".vim/bundle/vim-css-color"]
-	path = .vim/bundle/vim-css-color
-	url = git@github.com:ap/vim-css-color
 [submodule ".vim/bundle/snipmate.vim"]
 	path = .vim/bundle/snipmate.vim
 	url = git@github.com:msanders/snipmate.vim.git
@@ -27,9 +21,6 @@
 	url = git@github.com:embear/vim-localvimrc.git
 [submodule ".vim/bundle/vim-less"]
 	path = .vim/bundle/vim-less
-	url = git@github.com:genoma/vim-less.git
-[submodule "bundle/vim-less"]
-	path = bundle/vim-less
 	url = git@github.com:genoma/vim-less.git
 [submodule ".vim/bundle/neomru.vim"]
 	path = .vim/bundle/neomru.vim
