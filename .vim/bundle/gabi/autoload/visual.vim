@@ -5,7 +5,8 @@ function! visual#GetSelection()
     normal! gv"vy
     let raw_search = getreg("v")
     call setreg("v", old_reg)
-    return substitute(escape(raw_search, '\/.*$^~[]'), "\n", '\\n', "g")
+    " return substitute(escape(raw_search, '\/.*$^~[]'), "\n", '\\n', "g")
+    return raw_search
 endfunction
 
 " custom text-object for numerical values
