@@ -6,5 +6,5 @@ xnoremap <buffer> <leader>cl :<C-u>put=
     \ ''''.
     \ ', '.
     \ visual#GetSelection().
-    \ ''');'
+    \ ');'
     \<CR>==
