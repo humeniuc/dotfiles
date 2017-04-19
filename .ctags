@@ -1,11 +1,47 @@
---regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*new[ \t]+Object\(/\1/o,object/
---regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\{/\1/o,object/
---regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\([ \t]*function[ \t]*\(/\1/o,object/
---regex-JavaScript=/([A-Za-z0-9._$()]+)[ \t]*[:=][ \t]*function[ \t]*\(/\1/f,function/
---regex-JavaScript=/function[ \t]+([A-Za-z0-9._$]+)[ \t]*\([^\]\)]*\)/\1/f,function/
---regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*new[ \t]+Array\(/\1/a,array/
---regex-JavaScript=/([A-Za-z0-9._$]+)[ \t]*[:=][ \t]*\[/\1/a,array/
---regex-JavaScript=/([^= ]+)[ \t]*=[ \t]*[^""]'[^'']*/\1/s,string/
---regex-JavaScript=/([^= ]+)[ \t]*=[ \t]*[^'']"[^""]*/\1/s,string/
 --excmd=number
 --tag-relative=yes
+--langmap=javascript:.js
+--regex-javascript=/\/\/[ \t]*(FIXME|TODO)[ \t]*\:*(.*)/\1/T,Tag,Tags/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([A-Za-z0-9._$]+)[ \t]*=[ \t]*[^\[{]*;$/\2/V,Variable,Variables/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([A-Za-z0-9._$]+)[ \t]*=[ \t]*\[/\2/A,Array,Arrays/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([A-Za-z0-9._$]+)[ \t]*=[ \t]*{/\2/O,Object,Objects/
+--regex-javascript=/^[ \t]*this\.([A-Za-z0-9_$]+)[ \t]*=.*{$/\1/M,Method,Methods/
+--regex-javascript=/^[ \t]*([A-Za-z0-9_$]+)[ \t]*[:=][ \t]*[\(]*function[ \t]*\(/\1/M,Method,Methods/
+--regex-javascript=/^[ \t]*static[ \t]+([A-Za-z0-9_$]+)[ \t]*\(/\1/M,Method,Methods/
+--regex-javascript=/^[ \t]*([A-Za-z0-9_$]+)[ \t]*\(/\1/M,Method,Methods/
+--regex-javascript=/^[ \t]*function[ \t]*([A-Za-z0-9._$]+)/\1/F,Function,Functions/
+--regex-javascript=/^[ \t]*[\(]function[ \t]*([A-Za-z0-9._$]+)/\1/F,Function,Functions/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([a-z][A-Za-z0-9_$]+)[ \t]*=[ \t]*function/\2/F,Function,Functions/
+--regex-javascript=/^[ \t]*(var|let|const)[ \t]+([A-Z][A-Za-z0-9_$]+)[ \t]*=[ \t]*function/\2/C,Class,Classes/
+--regex-javascript=/^[ \t]*class[ \t]+([A-Za-z0-9._$]+)/\1/C,Class,Classes/
+--regex-javascript=/^[ \t]*(this\.)*([A-Za-z0-9_$]+)[ \t]*[:=].*[,;]*[^{]$/\2/P,Property,Properties/
+--regex-javascript=/^[ \t]*import[ \t]?([A-Za-z0-9_$]+)[ \t]?from/\1/I,Import,Imports/
+--regex-javascript=/^[ \t]*import[ \t]?([A-Za-z0-9_$]+)[ \t]*,.*[ \t]?from/\1/I,Import,Imports/
+--regex-javascript=/^[ \t]*import[ \t]?.*[ \t]as[ \t]?([A-Za-z0-9._$]+)[ \t]?from/\1/I,Import,Imports/
+--regex-javascript=/^[ \t]*import[ \t]?[^,]?,*[ \t]*([A-Za-z0-9_$]+)[ \t]*}[ \t]?from[ \t].*$/\1/I,Import,Imports/
+--regex-javascript=/([A-Za-z0-9_$]+)[ \t]*}[ \t]+from[ \t]+.*$/\1/I,Import,Imports/
+--regex-javascript=/([A-Za-z0-9_$]+)[ \t]*,[^,]*}[ \t]+from[ \t]+.*$/\1/I,Import,Imports/
+--regex-javascript=/([A-Za-z0-9_$]+)[ \t]*,[^,]*,[^,]*}[ \t]+from[ \t]+.*$/\1/I,Import,Imports/
+--exclude=.git
+--exclude=.svn
+--exclude=.hg
+--exclude=min
+--exclude=vendor
+--exclude=\*.min.\*
+--exclude=\*.map
+--exclude=\*.swp
+--exclude=\*.bak
+--exclude=\*.pyc
+--exclude=\*.class
+--exclude=\*.sln
+--exclude=\*.Master
+--exclude=\*.csproj
+--exclude=\*.csproj.user
+--exclude=\*.cache
+--exclude=\*.dll
+--exclude=\*.pdb
+--exclude=tags
+--exclude=cscope.\*
+--exclude=\*.tar.\*
+--exclude=node_modules
+--exclude=bower_components
