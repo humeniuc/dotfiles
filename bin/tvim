@@ -26,13 +26,31 @@ fi
 # TODO: de vazut ce alte caractere mai trebuie escape-uite
 filepath=$(printf "%q" "$filepath" | sed -r "s/%/\\\\%/g")
 
-while read id current_command
-do
-    if [ "$current_command" == "vim" ]; then
-        target_id="$id"
-        break
-    fi
-done < <( tmux list-panes -s -F "#{pane_id} #{pane_current_command}" )
+tmuxversion=$(tmux -V | sed 's/tmux //')
+
+if [ "$tmuxversion" == '1.6' ]; then
+    echo $tmuxversion
+    while read id pane_pid
+    do
+        #bash---mc---bash---vim
+        proctree=`pstree "$pane_pid"`
+        if [ "${proctree: -6}" == "---vim" ]; then
+            target_id="$id"
+            break
+        fi
+    done < <( tmux list-panes -s -F "#{pane_id} #{pane_pid}" )
+else
+    while read id current_command
+    do
+        if [ "$current_command" == "vim" ]; then
+            target_id="$id"
+            break
+        fi
+    done < <( tmux list-panes -s -F "#{pane_id} #{pane_current_command}" )
+
+fi
+
+
 # TODO vezi mai multe despre sintaxa cu  < <(...)
 
 if [ -z "$target_id" ];
@@ -45,7 +63,12 @@ then
     done
 
     # adaug o fereastra noua, pe prima pozitie
-    target_id=$(tmux new-window -t 1 -P -F "#{pane_id}" bash)
+    if [ "$tmuxversion" == '1.6' ]; then
+        target_id=$(tmux new-window -t 1 -P bash)
+    else
+        target_id=$(tmux new-window -t 1 -P -F "#{pane_id}" bash)
+    fi
+
     tmux send-keys -t "$target_id" vim C-m
     sleep 0.2
     # renumerotez ferestrele incepand cu 1
