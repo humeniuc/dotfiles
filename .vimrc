@@ -75,7 +75,12 @@ set hidden
 set mouse=a
 set noerrorbells
 set wildmenu
+
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*/CVS/**
+set wildignore+=.git/*
+set wildignore+=.svn/*
+set wildignore+=tags
+
 set wildmode=list:longest
 set history=500
 set cscopequickfix=s-,c-,d-,i-,t-,e-
@@ -157,7 +162,7 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>\vc
 nnoremap <leader>% :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
 if ! has('clipboard')
-    vnoremap <silent> "+y :w !xclip -i -selection clipboard<CR>
+    vnoremap <silent> "+y :<C-u>call system('echo '. shellescape(visual#GetSelection()). ' \| xclip -i -selection clipboard')<CR>
     " noremap <silent> "+p :r!xclip -o -selection clipboard<CR>
     noremap <silent> "+p :<C-u>set paste<CR>a<C-R>=system('xclip -o -selection clipboard')<CR><ESC>
     noremap <silent> "+P :<C-u>set paste<CR>i<C-R>=system('xclip -o -selection clipboard')<CR><ESC>
@@ -170,11 +175,6 @@ for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%', 
     execute 'xnoremap a'. char. ' :<C-u>normal! F'. char. 'vf'. char. '<CR>'
     execute 'onoremap a'. char. ' :<C-u>normal! F'. char. 'vf'. char. '<CR>'
 endfor
-
-inoremap (<TAB> ()<ESC>i
-inoremap [<TAB> []<ESC>i
-inoremap ['<TAB> ['']<ESC><LEFT>i
-inoremap ["<TAB> [""]<ESC><LEFT>i
 
 " autogroup
 augroup ft
