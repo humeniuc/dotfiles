@@ -538,3 +538,26 @@ snippet bootstrap input-group-button
 			<button class="btn btn-default" type="button">Go!</button>
 		</span>
 	</div>
+#
+
+snippet dom Document
+	$doc = new DomDocument('1.0', 'utf-8');
+	$doc->substituteEntities = false;
+	$doc->formatOutput = true;
+
+	$oldSetting = libxml_use_internal_errors(true);
+	libxml_clear_errors();
+	$doc->loadHTML($response);
+	//$doc->loadXML($response);
+	libxml_clear_errors();
+	libxml_use_internal_errors($oldSetting);
+snippet dom xpath nodes
+	$xpath = new DOMXPath($doc);
+	$res = $xpath->query('//*[@id="${1}"]');
+snippet dom xpath value
+	$xpath = new DOMXPath($doc);
+	$value = $xpath->evaluate('string(//*[@id="${1}"])');
+
+
+
+
