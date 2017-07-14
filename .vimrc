@@ -1,12 +1,5 @@
 let mapleader ="\<Space>"
 
-let g:ale_lint_delay=1000
-let g:ale_lint_on_enter=0
-let g:ale_lint_on_insert_leave=0
-let g:ale_lint_on_text_changed='never'
-let g:ale_php_phpcs_standard='PSR2'
-
-
 filetype off
 call pathogen#infect()
 call pathogen#helptags()
@@ -14,6 +7,13 @@ call pathogen#helptags()
 if !exists('myruntime')
     let myruntime = split(&rtp, ',')[0]
 endif
+
+" plugin: ale
+let g:ale_lint_delay=1000
+let g:ale_lint_on_enter=0
+let g:ale_lint_on_insert_leave=0
+let g:ale_lint_on_text_changed='never'
+let g:ale_php_phpcs_standard='PSR2'
 
 " plugin: checksyntax
 let g:checksyntax#async_runner = ''
@@ -27,7 +27,7 @@ let g:indent_guides_color_change_percent = 5
 let g:indent_guides_start_level = 2
 let g:indent_guides_enable_on_vim_startup = 0
 
-" plugin; unite
+" plugin: unite
 let g:unite_source_history_yank_enable = 1
 nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
 nnoremap <leader>l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
@@ -36,6 +36,13 @@ nnoremap <leader>b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
 " nnoremap <leader>tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
 nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
 nnoremap <leader>g :<C-u>Unite grep:.<CR>
+
+" plugin: vdebug
+let g:vdebug_options= {
+\    "break_on_open" : 0,
+\    "watch_window_style" : 'compact'
+\}
+
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
