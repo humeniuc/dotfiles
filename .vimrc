@@ -216,6 +216,12 @@ augroup ft
     "de debug
     "autocmd BufEnter * echom "enter ". expand('%')
     "autocmd BufLeave * echom "leave ". expand('%')
+
+    " autoopen quickfix on :grep
+    " https://stackoverflow.com/questions/39009792/vimgrep-pattern-and-immediately-open-quickfix-in-split-mode
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+
 augroup END
 
 
@@ -244,3 +250,12 @@ if !exists("my_auto_commands_loaded")
 augroup END
 endif
 
+command! -nargs=0 -bar Qargs execute 'args ' . QuickfixFilenames()
+function! QuickfixFilenames()
+  " Building a hash ensures we get each buffer only once
+  let buffer_numbers = {}
+  for quickfix_item in getqflist()
+    let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
+  endfor
+  return join(values(buffer_numbers))
+endfunction
