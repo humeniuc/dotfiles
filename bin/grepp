@@ -1,2 +1,7 @@
 #!/bin/bash
-grep -I --exclude=\*.{jpg,jpeg,exif,tiff,png,gif,bmp} --exclude-dir={CVS,.git,.svn} -r $* .
+grep \
+    -I \
+    --exclude=\*.{jpg,jpeg,exif,tiff,png,gif,bmp} \
+    --exclude=tags \
+    --exclude-dir={CVS,.git,.svn} \
+    $*
