@@ -171,7 +171,7 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>\vc
 " search and replace cu cuvantul de sub cursor
 nnoremap <leader>% :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
-if ! has('clipboard')
+if ! has('clipboard') && executable('xclip')
     " copierea in clipboard
     " identific selectia, o escape-uiesc pentru shell + corectia de newline pe
     " care shellescape o adauga inainte de fiecare newline
