@@ -22,9 +22,9 @@ fi
 
 # trimit tastele care imi deschide in vim fisierul catre editare
 # filepath=ul trebuie esacpe-uit ca path corect
-# de asemenea in command line-ul vim caracterul % se escape-uieste
+# de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
 # TODO: de vazut ce alte caractere mai trebuie escape-uite
-filepath=$(printf "%q" "$filepath" | sed -r "s/%/\\\\%/g")
+filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
 
 tmuxversion=$(tmux -V | sed 's/tmux //')
 
