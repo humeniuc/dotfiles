@@ -8,12 +8,12 @@ snippet phpi
 #
 snippet phpe
 	<?php echo ${1} ?>
-#
 snippet phpeh
 	<?php echo htmlspecialchars(${1}); ?>
-#
 snippet phpehh
 	<?php echo h(${1}); ?>
+snippet phpej
+	<?php echo json_encode(${1}); ?>
 snippet epre
 	echo '<pre>'; ${1}; echo '</pre>';
 #
@@ -270,6 +270,9 @@ snippet yass
 snippet ypoa
 	Yii::getPathOfAlias(${1})
 #
+snippet yt
+	t('${1}')
+#
 #yii.trace
 snippet ytr
 	Yii::trace(${1:message}, ${2:'category'});${3}
@@ -428,6 +431,7 @@ snippet ytextfield
 			</div>
 		</div>
 	</div>
+
 snippet ycheckbox
 	<div class="form-group <?php if ($model->hasErrors('${1:field}')) { echo 'has-error'; } ?>">
 		<?php echo $form->labelEx($model, '$1', array('class' => 'col-lg-2 control-label')); ?>
@@ -515,7 +519,18 @@ snippet bootstrap form-inline
 	</div>
 	<button type="submit" class="btn btn-default">Submit</button>
 	</form>
-
+snippet bootstrap form-input(group)
+	<div class="form-group">
+		<label for="exampleInput">InputLabel</label>
+		<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email">
+		<p class="help-block">Example block-level help text here.</p>
+	</div>
+snippet bootstrap form-input(checkbox)
+	<div class="checkbox">
+		<label>
+		<input type="checkbox"> Check me out
+		</label>
+	</div>
 snippet bootstrap button-a
 	<a class="btn btn-default" href="#" role="button">Link</a>
 snippet bootstrap button-button
@@ -538,7 +553,42 @@ snippet bootstrap input-group-button
 			<button class="btn btn-default" type="button">Go!</button>
 		</span>
 	</div>
-#
+snippet bootstrap modal
+	<!-- Button trigger modal -->
+	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#${1:myModal}">
+	Launch demo modal
+	</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="$1" tabindex="-1" role="dialog" aria-labelledby="$1Label">
+	<div class="modal-dialog ${2:modal-lg|modal-sm}" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title" id="$1Label">Modal title</h4>
+		</div>
+		<div class="modal-body">
+			...
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			<button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+		</div>
+	</div>
+	</div>
+snippet bootstrap tab
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">tab 1</a></li>
+		<li role="presentation"><a href="#tab2" role="tab" data-toggle="tab">tab 2</a></li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="tab1">...</div>
+		<div role="tabpanel" class="tab-pane" id="tab2">...</div>
+	</div>
 
 snippet dom Document
 	$doc = new DomDocument('1.0', 'utf-8');

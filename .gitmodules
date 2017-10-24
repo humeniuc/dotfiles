@@ -52,3 +52,6 @@
 [submodule ".vim/bundle/vdebug"]
 	path = .vim/bundle/vdebug
 	url = git@github.com:joonty/vdebug.git
+[submodule ".vim/bundle/vim-sandwich"]
+	path = .vim/bundle/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich.git
