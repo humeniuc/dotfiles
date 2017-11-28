@@ -507,9 +507,17 @@ snippet yform
 	$this->renderPartial('index', array(
 		'form' => $form,
 	));
-#
-
-
+snippet yv exist
+	array(
+		'${1:field}',
+		'exist',
+		'className'     => '${2:ModelName}', // numele modelului de validat. Order, Booking, etc
+		'attributeName' => '${3:id}',		 // numele campului de verificat. de obicei este id
+		'allowEmpty'    => false, // permite sa fie empty campul
+		'skipOnError'   => true,  // nu se aplica validatorul daca exista deja o eroare pe acest camp. de ex exista valdatorul de "integer" care se aplica inainte, si da eroare, caz in care nu mai aplic validatorul curent
+		'on'            => array('insert', 'insert_admin'), // scenariile permise
+		'except'        => array('testcode', 'search'),		// scenariile excluse
+	),
 #
 #
 snippet bootstrap form-inline
