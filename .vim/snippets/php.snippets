@@ -15,7 +15,9 @@ snippet phpehh
 snippet phpej
 	<?php echo json_encode(${1}); ?>
 snippet epre
-	echo '<pre>'; ${1}; echo '</pre>';
+	echo '<pre>';
+	${1}
+	echo '</pre>';
 #
 snippet fun
 	${1:public }function ${2:FunctionName}(${3})
