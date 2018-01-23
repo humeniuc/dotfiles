@@ -44,6 +44,12 @@ function tmuxfixenv {
     eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
 }
 
+function tmuxfixtty {
+    # de aici
+    # https://unix.stackexchange.com/questions/49886/tmux-status-bar-corrupted-after-catting-a-binary-file-how-to-reset/253369#253369
+    stty sane; printf '\033k%s\033\\\033]2;%s\007' "`basename "$SHELL"`" "`uname -n`"; tput reset; tmux refresh
+}
+
 
 # function proj_demo {
 #     local proj="demo"
