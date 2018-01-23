@@ -18,6 +18,16 @@ snippet epre
 	echo '<pre>';
 	${1}
 	echo '</pre>';
+snippet if
+	if (${1}) {
+		${2}
+	}
+snippet ife
+	if (${1}) {
+		${2}
+	} else {
+		${3}
+	}
 #
 snippet fun
 	${1:public }function ${2:FunctionName}(${3})
