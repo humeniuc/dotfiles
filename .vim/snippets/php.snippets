@@ -620,4 +620,20 @@ snippet dom xpath value
 
 
 
+snippet lar validator
+
+	$validator = Validator::make($request->all(), [
+		'number'          => 'required|string|max:255',
+		'range'           => 'required|in:'. implode(',', []),
+		'line'            => 'required|array',
+		'line.*.linedate' => 'sometimes|date',
+	], [
+		'lineine.required'        => __('Please add a line'),
+		'lineine.array'           => __('Line must be an array'),
+		'lineine.*.linedate.date' => __('Date incorect'),
+	]);
+
+	if ($validator->passes()) {
+		// ...
+	}
 

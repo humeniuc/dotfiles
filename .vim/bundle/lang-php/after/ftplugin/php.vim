@@ -5,6 +5,8 @@ setlocal iskeyword+=$
 
 nnoremap <buffer> <leader>vd :put='var_dump('. expand('<cword>'). ');'<CR>==
 xnoremap <buffer> <leader>vd :<C-u>put='var_dump('. visual#GetSelection(). ');'<CR>==
+nnoremap <buffer> <leader>pr :put='print_r('. expand('<cword>'). ');'<CR>==
+xnoremap <buffer> <leader>pr :<C-u>put='print_r('. visual#GetSelection(). ');'<CR>==
 nnoremap <buffer> <leader>db :put='debug('. expand('<cword>'). ');'<CR>==
 xnoremap <buffer> <leader>db :<C-u>put='debug('. visual#GetSelection(). ');'<CR>==
 nnoremap <buffer> <leader>dd :put='dd('. expand('<cword>'). ');'<CR>==
