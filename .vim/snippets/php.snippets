@@ -319,12 +319,17 @@ snippet yreq Yii::app()->request->cookies[]
 snippet yreq Yii::app()->request->getIsPostRequest
 	Yii::app()->request->getIsPostRequest()
 #
+snippet yfbpk
+	findByPk(${1|pk})
 #
-snippet ymf
+snippet ymfbpk
 	model()->findByPk(${1|pk})
 #
 #yii.findByAttributes
-snippet ymfa
+snippet yfba
+	findByAttributes(array('${1:key}' => ${2:value}))${3}
+#
+snippet ymfba
 	model()->findByAttributes(array('${1:key}' => ${2:value}))${3}
 #
 snippet yp
