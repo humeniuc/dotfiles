@@ -367,13 +367,23 @@ snippet yreq Yii::app()->request->cookies[]
 snippet yreq Yii::app()->request->getIsPostRequest
 	Yii::app()->request->getIsPostRequest()
 #
+<<<<<<< HEAD
 
 snippet ymf
+=======
+snippet yfbpk
+	findByPk(${1|pk})
+#
+snippet ymfbpk
+>>>>>>> 635393643fdb05f3f38f2c02ac83dfcb7d992378
 	model()->findByPk(${1|pk})
 #
 
 #yii.findByAttributes
-snippet ymfa
+snippet yfba
+	findByAttributes(array('${1:key}' => ${2:value}))${3}
+#
+snippet ymfba
 	model()->findByAttributes(array('${1:key}' => ${2:value}))${3}
 #
 
@@ -437,7 +447,10 @@ snippet yscript
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
 #
+<<<<<<< HEAD
 
+=======
+>>>>>>> 635393643fdb05f3f38f2c02ac83dfcb7d992378
 snippet ytransaction
 	// <transaction>
 	$dbConn = Yii::app()->db;
@@ -590,7 +603,6 @@ snippet yform
 		'form' => $form,
 	));
 #
-
 snippet yv exist
 	array(
 		'${1:field}',
@@ -603,7 +615,20 @@ snippet yv exist
 		'except'        => array('testcode', 'search'),		// scenariile excluse
 	),
 #
-
+snippet yfilter filter
+	public function filter${1:FilterName}($filterChain)
+	{
+		${2:codehere}
+		$filterChain->run();
+	}
+#
+snippet yca user->checkAccess
+	Yii::app()->user->checkAccess('${1:rule}')
+#
+#
+# Bootsrap #################################################
+#
+#
 snippet bootstrap form-inline
 	<form class="navbar-form navbar-left" role="search">
 	<div class="form-group">
