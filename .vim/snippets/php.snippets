@@ -378,6 +378,7 @@ snippet yscript
 	${1://script here}
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
+#
 snippet ytransaction
 	// <transaction>
 	$dbConn = Yii::app()->db;
@@ -524,6 +525,7 @@ snippet yform
 	$this->renderPartial('index', array(
 		'form' => $form,
 	));
+#
 snippet yv exist
 	array(
 		'${1:field}',
@@ -535,6 +537,19 @@ snippet yv exist
 		'on'            => array('insert', 'insert_admin'), // scenariile permise
 		'except'        => array('testcode', 'search'),		// scenariile excluse
 	),
+#
+snippet yfilter filter
+	public function filter${1:FilterName}($filterChain)
+	{
+		${2:codehere}
+		$filterChain->run();
+	}
+#
+snippet yca user->checkAccess
+	Yii::app()->user->checkAccess('${1:rule}')
+#
+#
+# Bootsrap #################################################
 #
 #
 snippet bootstrap form-inline
