@@ -43,7 +43,7 @@ export PS1=\
 '\u@\h \[\033[93m\]\w\[\033[33m\]\n'\
 '$( '\
 'git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1) /" ;'\
-'svn info 2>/dev/null | sed -n "/^URL: /s/.*\/\(\(trunk\)\|branches\/\(.*\)\).*$/(\2\3) /p"'\
+'svn info 2>/dev/null | sed -n "/^URL: /s/.*\/\(\(trunk\)\|branches\/\([^/]*\)\).*/(\2\3) /p"'\
 ' )'\
 '\[\033[00m\]\[\033[0;36m\]▶\[\033[00m\] '
 
