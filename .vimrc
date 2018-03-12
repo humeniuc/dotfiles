@@ -228,7 +228,7 @@ augroup END
 " GUI Settings {
 set t_Co=256 "suport pentru 256 de culori
 colorscheme apprentice
-set guifont=DejaVu\ Sans\ Mono\ 8
+set guifont=Roboto\ Mono\ Bold\ 10
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
 " }
 "
