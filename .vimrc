@@ -197,7 +197,7 @@ endfor
 augroup ft
     autocmd!
     autocmd BufNewFile,BufRead *.less setlocal filetype=less
-    autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
+    " autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
     " remove trailing spaces
     autocmd BufWritePre * let b:winview=winsaveview() | %s/\s\+$//e | call winrestview(b:winview)
