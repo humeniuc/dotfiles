@@ -12,10 +12,10 @@ fi
 
 export PATH=~/bin:~/dotfiles/bin:~/gocode/bin:$PATH
 export EDITOR=vim
-echo "TERM=$TERM"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
 
 # daca nu sunt in tmux sau screen setez terminaul pe xterm-256color
 # ! isMultiplexer && export TERM=xterm-256color
@@ -32,6 +32,7 @@ echo "TERM=$TERM"
 #     fi
 # fi
 
+# echo "TERM=$TERM"
 
 # alias pentru xclip
 [[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
