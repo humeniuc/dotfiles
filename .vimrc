@@ -15,18 +15,6 @@ let g:ale_lint_on_insert_leave=0
 let g:ale_lint_on_text_changed='never'
 let g:ale_php_phpcs_standard='PSR2'
 
-" plugin: checksyntax
-let g:checksyntax#async_runner = ''
-let g:checksyntax_key_single = '<F4>'   "{{{2
-let g:checksyntax_key_all = '<C-F4>'   "{{{2
-
-" plugin: indent-guides
-let g:indent_guides_indent_levels = 30
-let g:indent_guides_auto_colors = 1
-let g:indent_guides_color_change_percent = 5
-let g:indent_guides_start_level = 2
-let g:indent_guides_enable_on_vim_startup = 0
-
 " plugin: unite
 let g:unite_source_history_yank_enable = 1
 nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
