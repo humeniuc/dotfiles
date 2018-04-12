@@ -72,6 +72,12 @@ snippet dbfl
 snippet dl
 	echo PHP_EOL, __file__, ' #', __line__, PHP_EOL; exit;
 #
+snippet dbmemory
+	echo '[ '. 'memory '. round(memory_get_usage() / (1024 * 1024), 2). '/'. round(memory_get_peak_usage() / (1024 * 1024), 2). ' ] ', __FILE__. ' #'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />';
+#
+snippet dbtime
+		if (isset($GLOBALS['_db_mctime'])) { echo '[ time: ', ((microtime(true) - $GLOBALS['_db_mctime']) * 1000), 'ms ] ', __FILE__. ' #'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />'; } $GLOBALS['_db_mctime'] = microtime(true);
+#
 
 snippet vd
 	var_dump(${1});${2}
