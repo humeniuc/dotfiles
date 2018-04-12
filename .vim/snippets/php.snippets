@@ -92,6 +92,9 @@ snippet fga
 snippet vdx
 	var_dump(${1});exit;
 #
+snippet =>
+	'${1}' => ${2},
+#
 
 snippet try
 	try {
@@ -178,8 +181,6 @@ snippet imp
 	implode(${1:', '}, ${2:$array})
 snippet ake
 	array_key_exists(${1:'key'}, ${2:$array})
-#
-
 snippet for
 	for ($${2:i} = 0; $$2 < ${1:count}; $$2${3:++}) {
 		${4: // code...}
@@ -367,15 +368,10 @@ snippet yreq Yii::app()->request->cookies[]
 snippet yreq Yii::app()->request->getIsPostRequest
 	Yii::app()->request->getIsPostRequest()
 #
-<<<<<<< HEAD
-
-snippet ymf
-=======
 snippet yfbpk
 	findByPk(${1|pk})
 #
 snippet ymfbpk
->>>>>>> 635393643fdb05f3f38f2c02ac83dfcb7d992378
 	model()->findByPk(${1|pk})
 #
 
@@ -447,10 +443,7 @@ snippet yscript
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
 #
-<<<<<<< HEAD
 
-=======
->>>>>>> 635393643fdb05f3f38f2c02ac83dfcb7d992378
 snippet ytransaction
 	// <transaction>
 	$dbConn = Yii::app()->db;
