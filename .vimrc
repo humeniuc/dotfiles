@@ -70,7 +70,6 @@ set nowritebackup
 set noswapfile
 set fileformats=unix,dos,mac
 set hidden
-set mouse=a
 set noerrorbells
 set wildmenu
 
@@ -92,8 +91,8 @@ set ttimeoutlen=10
 " }
 
 " Vim UI {
-    set nocursorcolumn
-    set cursorline
+    " set nocursorcolumn
+    " set nocursorline
     set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
@@ -194,8 +193,8 @@ augroup ft
     autocmd InsertLeave * set nopaste
 
     " show cursorline only in active window
-    autocmd WinEnter * :setlocal cursorline
-    autocmd WinLeave * :setlocal nocursorline
+    " autocmd WinEnter * :setlocal cursorline
+    " autocmd WinLeave * :setlocal nocursorline
 
     "test pentru evenimente
     "autocmd BufEnter * :call system('echo "$(date) BufEnter" >> /tmp/vim_events_test')
