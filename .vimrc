@@ -71,14 +71,16 @@ set noswapfile
 set fileformats=unix,dos,mac
 set hidden
 set noerrorbells
+
 set wildmenu
+set wildignorecase
+set wildmode=list:longest,full
 
 set wildignore=*.dll,*.o,*.obj,*.bak,*.exe,*.pyc,*.jpg,*.gif,*.png,*/CVS/**
 set wildignore+=.git/*
 set wildignore+=.svn/*
 set wildignore+=tags
 
-set wildmode=list:longest
 set history=500
 set cscopequickfix=s-,c-,d-,i-,t-,e-
 
@@ -134,9 +136,9 @@ set expandtab
 " Maps
 nnoremap <F1> <NOP>
 inoremap <F1> <NOP>
-nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR>
+" nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR>
+nnoremap <F2> <ESC>:ls<CR>:b<SPACE>
 nnoremap <F3> <ESC>:set paste!<RETURN>
-
 
 " in 'proiecte' leader-u este pentru a deschide unite cu lista de fisiere
 " daca nu sunt intr-un fisier din proiecte ar insemna undo.
@@ -153,8 +155,9 @@ nnoremap Q <Nop>
 " cautarea automata sa fie cu regular expressions, si case insensitive
 nnoremap / /\v\c
 
-" cautare restrictionata la linia curenta. ex daca esti pe linia 150 cu regular expression, case insensitive: /\%150\v\c
-nnoremap <leader>/l /\%<C-R>=line('.')<CR>\vc
+" cautare restrictionata la linia curenta. ex daca esti pe linia 150 cu regular expression, case insensitive: /\%150l\v\c
+nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
+
 " search and replace cu cuvantul de sub cursor
 nnoremap <leader>% :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
