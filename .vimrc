@@ -8,6 +8,9 @@ if !exists('myruntime')
     let myruntime = split(&rtp, ',')[0]
 endif
 
+" plugin: php
+let php_var_selector_is_identifier=1
+
 " plugin: ale
 let g:ale_lint_delay=1000
 let g:ale_lint_on_enter=0
@@ -139,7 +142,6 @@ inoremap <F1> <NOP>
 " nnoremap <F2> :exec ":hi " . synIDattr(synID(line("."), col("."), 1), "name")<CR>
 nnoremap <F2> <ESC>:ls<CR>:b<SPACE>
 nnoremap <F3> <ESC>:set paste!<RETURN>
-
 " in 'proiecte' leader-u este pentru a deschide unite cu lista de fisiere
 " daca nu sunt intr-un fisier din proiecte ar insemna undo.
 " pentru a preveni undo-urile inutile dezactivez <u> cand este prefixat de
@@ -151,7 +153,7 @@ nnoremap <leader><CR> <ESC>:update<CR><ESC>
 inoremap <C-u> <ESC>mzgUiw`za
 
 " dezactivat intrarea in ex mode
-nnoremap Q <Nop>
+nnoremap Q <NOP>
 " cautarea automata sa fie cu regular expressions, si case insensitive
 nnoremap / /\v\c
 
@@ -215,13 +217,15 @@ augroup ft
 augroup END
 
 
-" GUI Settings {
-set t_Co=256 "suport pentru 256 de culori
-colorscheme apprentice
+" colorscheme
+" colorscheme apprentice
+let g:nord_uniform_diff_background = 0
+let g:nord_cursor_line_number_background = 1
+set termguicolors
+colorscheme nord
 set guifont=Roboto\ Mono\ Bold\ 10
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
-" }
-"
+
 " Protect large files from sourcing and other overhead.
 " Files become read only
 if !exists("my_auto_commands_loaded")

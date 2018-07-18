@@ -3,5 +3,5 @@
 " hi link phpIdentifier phpVarSelector
 
 " culoarea phpVarSelector ($) sa fie la fel cu cea a identifier-ului
-hi link phpVarSelector phpIdentifier
+" hi link phpVarSelector phpIdentifier
 
