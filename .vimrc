@@ -219,9 +219,13 @@ augroup END
 
 " colorscheme
 " colorscheme apprentice
+set termguicolors
+" TODO: citeste aici: https://www.reddit.com/r/neovim/comments/82wwe9/statuslinenc_with_termguicolors/dvdhef8/
+let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+
 let g:nord_uniform_diff_background = 0
 let g:nord_cursor_line_number_background = 1
-set termguicolors
 colorscheme nord
 set guifont=Roboto\ Mono\ Bold\ 10
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
