@@ -26,7 +26,6 @@ nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
 nnoremap <leader>b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
 " nnoremap <leader>tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
 nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
-nnoremap <leader>g :<C-u>Unite grep:.<CR>
 
 " plugin: vdebug
 let g:vdebug_options= {
@@ -160,8 +159,11 @@ nnoremap / /\v\c
 " cautare restrictionata la linia curenta. ex daca esti pe linia 150 cu regular expression, case insensitive: /\%150l\v\c
 nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 
-" search and replace cu cuvantul de sub cursor
-nnoremap <leader>% :%s/\<<C-R>=expand('<cword>')<CR>\>/
+"
+nnoremap <leader>gg :grep -E '<C-R><C-W>' -r .
+nnoremap <leader>gw :grep -E '\b<C-R><C-W>\b' -r .
+
+" search and replace cu cuvantul % :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
 if ! has('clipboard') && executable('xclip')
     " copierea in clipboard
