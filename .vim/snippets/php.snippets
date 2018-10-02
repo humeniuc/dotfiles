@@ -342,8 +342,16 @@ snippet ytr
 #
 
 #yii.log
-snippet ylog
-	Yii::log(${1:message}, ${2:level}, ${3:category});${4}
+snippet ylog trace
+	Yii::log(${1:message}, CLogger::LEVEL_TRACE, '${2:application}');${3}
+snippet ylog warning
+	Yii::log(${1:message}, CLogger::LEVEL_WARNING, '${2:application}');${3}
+snippet ylog error
+	Yii::log(${1:message}, CLogger::LEVEL_ERROR, '${2:application}');${3}
+snippet ylog info
+	Yii::log(${1:message}, CLogger::LEVEL_INFO, '${2:application}');${3}
+snippet ylog profile
+	Yii::log(${1:message}, CLogger::LEVEL_PROFILE, '${2:application}');${3}
 #
 
 #yii.request
