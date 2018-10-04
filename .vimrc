@@ -26,7 +26,6 @@ nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
 nnoremap <leader>b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
 " nnoremap <leader>tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
 nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
-nnoremap <leader>g :<C-u>Unite grep:.<CR>
 
 " plugin: vdebug
 let g:vdebug_options= {
