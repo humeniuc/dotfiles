@@ -159,8 +159,11 @@ nnoremap / /\v\c
 " cautare restrictionata la linia curenta. ex daca esti pe linia 150 cu regular expression, case insensitive: /\%150l\v\c
 nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 
-" search and replace cu cuvantul de sub cursor
-nnoremap <leader>% :%s/\<<C-R>=expand('<cword>')<CR>\>/
+"
+nnoremap <leader>gg :grep -E '<C-R><C-W>' -r .
+nnoremap <leader>gw :grep -E '\b<C-R><C-W>\b' -r .
+
+" search and replace cu cuvantul % :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
 if ! has('clipboard') && executable('xclip')
     " copierea in clipboard

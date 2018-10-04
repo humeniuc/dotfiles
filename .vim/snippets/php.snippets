@@ -342,8 +342,16 @@ snippet ytr
 #
 
 #yii.log
-snippet ylog
-	Yii::log(${1:message}, ${2:level}, ${3:category});${4}
+snippet ylog trace
+	Yii::log(${1:message}, CLogger::LEVEL_TRACE, '${2:application}');${3}
+snippet ylog warning
+	Yii::log(${1:message}, CLogger::LEVEL_WARNING, '${2:application}');${3}
+snippet ylog error
+	Yii::log(${1:message}, CLogger::LEVEL_ERROR, '${2:application}');${3}
+snippet ylog info
+	Yii::log(${1:message}, CLogger::LEVEL_INFO, '${2:application}');${3}
+snippet ylog profile
+	Yii::log(${1:message}, CLogger::LEVEL_PROFILE, '${2:application}');${3}
 #
 
 #yii.request
@@ -481,7 +489,36 @@ snippet ytransaction
 	// </transaction>
 #
 
-snippet yhtmlform
+snippet yform yii form definition
+	$model = new DemoModel();
+
+	$form = new CForm(array(
+		'id' => 'theForm',
+
+		'elements' => array(
+			'var' => array('type' => 'text',),
+			'var' => array('type' => 'dropdownlist',),
+		),
+
+		'buttons' => array(
+			'submit' => array(
+				'type'  => 'htmlSubmit',
+				'label' => 'Trimite',
+			)
+		),
+	), $model);
+
+	if ($form->submitted()) {
+		$form->loadData();
+		$form->validate();
+	}
+
+	$this->renderPartial('index', array(
+		'form' => $form,
+	));
+#
+
+snippet yform yii from html
 	<div id="<?php echo $formContainerId = uniqid('FormContainer'); ?>" class="form">
 	<?php echo $form->renderBegin(); ?>
 	<?php $formWidget = $form->activeFormWidget; ?>
@@ -513,7 +550,7 @@ snippet yhtmlform
 	</script>
 #
 
-snippet ytextfield
+snippet yform yii form input textfield
 	<div class="row">
 		<div class="col-sm-4 form-group <?php if ($form->model->hasErrors('${1:varname}')) { echo 'has-error'; } ?>">
 			<?php echo $formWidget->labelEx($form->model, '$1', array('class' => 'control-label')); ?>
@@ -528,7 +565,7 @@ snippet ytextfield
 	</div>
 #
 
-snippet ycheckbox
+snippet yform yii form input checkbox
 	<div class="form-group <?php if ($model->hasErrors('${1:field}')) { echo 'has-error'; } ?>">
 		<?php echo $form->labelEx($model, '$1', array('class' => 'col-lg-2 control-label')); ?>
 		<div class="col-lg-6">
@@ -550,7 +587,7 @@ snippet ycheckbox
 	</div>
 #
 
-snippet ydropdown
+snippet yform yii form input dropdown
 	<div class="form-group <?php if ($model->hasErrors('${1:varname}')) { echo 'has-error'; } ?>">
 		<?php echo $form->labelEx($model, '$1', array('class' => 'col-lg-2 control-label')); ?>
 		<div class="col-lg-6">
@@ -578,34 +615,6 @@ snippet ydropdown
 	</div>
 #
 
-snippet yform
-	$model = new DemoModel();
-
-	$form = new CForm(array(
-		'id' => 'theForm',
-
-		'elements' => array(
-			'var' => array('type' => 'text',),
-			'var' => array('type' => 'dropdownlist',),
-		),
-
-		'buttons' => array(
-			'submit' => array(
-				'type'  => 'htmlSubmit',
-				'label' => 'Trimite',
-			)
-		),
-	), $model);
-
-	if ($form->submitted()) {
-		$form->loadData();
-		$form->validate();
-	}
-
-	$this->renderPartial('index', array(
-		'form' => $form,
-	));
-#
 snippet yv exist
 	array(
 		'${1:field}',
