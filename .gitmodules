@@ -19,15 +19,9 @@
 [submodule ".vim/bundle/vim-less"]
 	path = .vim/bundle/vim-less
 	url = git@github.com:genoma/vim-less.git
-[submodule ".vim/bundle/neomru.vim"]
-	path = .vim/bundle/neomru.vim
-	url = git@github.com:Shougo/neomru.vim.git
 [submodule ".vim/bundle/smarty.vim"]
 	path = .vim/bundle/smarty.vim
 	url = git@github.com:blueyed/smarty.vim.git
-[submodule ".vim/bundle/vim-notgrep"]
-	path = .vim/bundle/vim-notgrep
-	url = git@github.com:idbrii/vim-notgrep.git
 [submodule ".vim/bundle/vim-gutentags"]
 	path = .vim/bundle/vim-gutentags
 	url = git@github.com:ludovicchabant/vim-gutentags.git
