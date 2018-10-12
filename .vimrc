@@ -162,6 +162,12 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 "
 nnoremap <leader>gg :grep -E '<C-R><C-W>' -r .
 nnoremap <leader>gw :grep -E '\b<C-R><C-W>\b' -r .
+" gp -> selectare ultimul text paste-uit
+" de aici: http://vim.wikia.com/wiki/Selecting_your_pasted_text
+" converteste expresia in `[v`] sau `[V`] = selecteaza textul dintre
+" markerii `[ `] folosind ultima metoda de selectie.
+" `[`] = the first/last character of the previously changed or yanked text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " search and replace cu cuvantul % :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
