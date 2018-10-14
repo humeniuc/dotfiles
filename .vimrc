@@ -162,6 +162,12 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 "
 nnoremap <leader>gg :grep -E '<C-R><C-W>' -r .
 nnoremap <leader>gw :grep -E '\b<C-R><C-W>\b' -r .
+" gp -> selectare ultimul text paste-uit
+" de aici: http://vim.wikia.com/wiki/Selecting_your_pasted_text
+" converteste expresia in `[v`] sau `[V`] = selecteaza textul dintre
+" markerii `[ `] folosind ultima metoda de selectie.
+" `[`] = the first/last character of the previously changed or yanked text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " search and replace cu cuvantul % :%s/\<<C-R>=expand('<cword>')<CR>\>/
 
@@ -221,14 +227,24 @@ augroup END
 
 " colorscheme
 " colorscheme apprentice
-set termguicolors
+if has('termguicolors')
+    set termguicolors
+endif
 " TODO: citeste aici: https://www.reddit.com/r/neovim/comments/82wwe9/statuslinenc_with_termguicolors/dvdhef8/
-let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
-let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+if exists('&t_8f')
+    let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
+endif
+if exists('&t_8b')
+    let &t_8b = "\<Esc>[48:2:%lu:%lu:%lum"
+endif
 
+if has('termguicolors')
 let g:nord_uniform_diff_background = 0
 let g:nord_cursor_line_number_background = 1
 colorscheme nord
+else
+colorscheme apprentice
+endif
 set guifont=Roboto\ Mono\ Bold\ 10
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
 
