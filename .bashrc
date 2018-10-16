@@ -20,14 +20,23 @@ fi
 # alias pentru xclip
 [[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
 
+
+function __ps1_git()
+{
+    git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1) /"
+}
+
+function __ps1_svn()
+{
+    svn info 2>/dev/null | sed -n "/^URL: /s/.*\/\(\(trunk\)\|branches\/\([^/]*\)\).*/(\2\3) /p"
+}
+
 #PS1='[\u@\h \W]\$ ' # default
 export PS1=\
-'\u@\h \[\033[93m\]\w\[\033[33m\]\n'\
-'$( '\
-'git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1) /" ;'\
-'svn info 2>/dev/null | sed -n "/^URL: /s/.*\/\(\(trunk\)\|branches\/\([^/]*\)\).*/(\2\3) /p"'\
-' )'\
-'\[\033[00m\]\[\033[0;36m\]▶\[\033[00m\] '
+'\u@\h \[\033[93m\]\w'\
+'\n'\
+'\[\033[33m\]$( __ps1_git; )\[\033[00m\]'\
+'\[\033[0;36m\]▶\[\033[00m\] '
 
 # .bashrc_local in home dir
 [ -r "${HOME}/.bashrc_local" ] && . "${HOME}/.bashrc_local"
