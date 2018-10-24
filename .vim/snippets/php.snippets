@@ -155,7 +155,7 @@ snippet ?:
 	${1:true} ? ${2:a} : ${3}
 #
 snippet filter_var int
-	filter_var(get_script_param('${1:var}'), FILTER_VALIDATE_INT, array('options' => array('min_range' => '1', 'default' => null)));
+	filter_var(get_script_param('${1:var}'), FILTER_VALIDATE_INT, ['options' => ['min_range' => '1', 'default' => null]]);
 snippet filter_var email
 	filter_var(get_script_param('${1:var}'), FILTER_VALIDATE_EMAIL);
 
@@ -186,7 +186,7 @@ snippet arred
 	array_reduce(${1:$array}, function($carry, $item) {
 		${2:// callback}
 		return $carry;
-	}, array())
+	}, [])
 snippet imp
 	implode(${1:', '}, ${2:$array})
 snippet ake
@@ -230,7 +230,7 @@ snippet retn
 	return null;
 #
 snippet reta
-	return array(${1});
+	return [${1}];
 
 snippet headerutf8
 	header('Content-Type: text/html; charset=utf-8');
@@ -395,10 +395,10 @@ snippet ymfbpk
 
 #yii.findByAttributes
 snippet yfba
-	findByAttributes(array('${1:key}' => ${2:value}))${3}
+	findByAttributes(['${1:key}' => ${2:value}])${3}
 #
 snippet ymfba
-	model()->findByAttributes(array('${1:key}' => ${2:value}))${3}
+	model()->findByAttributes(['${1:key}' => ${2:value}])${3}
 #
 
 snippet yp
@@ -492,30 +492,30 @@ snippet ytransaction
 snippet yform yii form definition
 	$model = new DemoModel();
 
-	$form = new CForm(array(
+	$form = new CForm([
 		'id' => 'theForm',
 
-		'elements' => array(
-			'var' => array('type' => 'text',),
-			'var' => array('type' => 'dropdownlist',),
-		),
+		'elements' => [
+			'var' => ['type' => 'text',],
+			'var' => ['type' => 'dropdownlist',],
+		],
 
-		'buttons' => array(
-			'submit' => array(
+		'buttons' => [
+			'submit' => [
 				'type'  => 'htmlSubmit',
 				'label' => 'Trimite',
-			)
-		),
-	), $model);
+			]
+		],
+	], $model);
 
 	if ($form->submitted()) {
 		$form->loadData();
 		$form->validate();
 	}
 
-	$this->renderPartial('index', array(
+	$this->renderPartial('index', [
 		'form' => $form,
-	));
+	]);
 #
 
 snippet yform yii from html
@@ -523,7 +523,7 @@ snippet yform yii from html
 	<?php echo $form->renderBegin(); ?>
 	<?php $formWidget = $form->activeFormWidget; ?>
 		<?php
-		echo Html::errorSummary($form->getModel(), null, null, array('class' => 'alert alert-danger'));
+		echo Html::errorSummary($form->getModel(), null, null, ['class' => 'alert alert-danger']);
 		echo Html::flashMessages();
 		?>
 		${2}
@@ -538,14 +538,14 @@ snippet yform yii from html
 
 	<script>
 	<?php ob_start();?>
-	ajaxFormInit(<?php echo CJavaScript::encode(array(
+	ajaxFormInit(<?php echo CJavaScript::encode([
 		'formContainerId'    => $formContainerId,
 		'modelClass'         => get_class($form->getModel()),
 		'multiSubmitButtons' => true,
-		'onSuccess'          => new JavaScriptFunction(array('form', 'data'), '
+		'onSuccess'          => new JavaScriptFunction(['form', 'data'], '
 			// console.log("form submit OK.");
 		')
-	)); ?>);
+	]); ?>);
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
 #
@@ -553,13 +553,13 @@ snippet yform yii from html
 snippet yform yii form input textfield
 	<div class="row">
 		<div class="col-sm-4 form-group <?php if ($form->model->hasErrors('${1:varname}')) { echo 'has-error'; } ?>">
-			<?php echo $formWidget->labelEx($form->model, '$1', array('class' => 'control-label')); ?>
-			<?php echo $formWidget->textField($form->model, '$1', array(
+			<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
+			<?php echo $formWidget->textField($form->model, '$1', [
 				'class' => 'form-control',
 				'placeholder' => '${2:field placeholder}'
-			)); ?>
+			]); ?>
 			<div class="help-block">
-				<?php echo $formWidget->error($form->model, '$1', array('class' => 'text text-danger')); ?>
+				<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
 			</div>
 		</div>
 	</div>
@@ -567,7 +567,7 @@ snippet yform yii form input textfield
 
 snippet yform yii form input checkbox
 	<div class="form-group <?php if ($model->hasErrors('${1:field}')) { echo 'has-error'; } ?>">
-		<?php echo $form->labelEx($model, '$1', array('class' => 'col-lg-2 control-label')); ?>
+		<?php echo $form->labelEx($model, '$1', ['class' => 'col-lg-2 control-label']); ?>
 		<div class="col-lg-6">
 			<div class="checkbox">
 				<label>
@@ -575,57 +575,57 @@ snippet yform yii form input checkbox
 				echo $form->checkBox(
 					$model,
 					'$1',
-					array(
+					[
 						'value'        => 'Y',
 						'uncheckValue' => 'N',
-					)
+					]
 				);
 				?> &nbsp; </label>
 			</div>
 		</div>
-		<?php echo $form->error($model, '$1', array('class' => 'text text-danger')); ?>
+		<?php echo $form->error($model, '$1', ['class' => 'text text-danger']); ?>
 	</div>
 #
 
 snippet yform yii form input dropdown
 	<div class="form-group <?php if ($model->hasErrors('${1:varname}')) { echo 'has-error'; } ?>">
-		<?php echo $form->labelEx($model, '$1', array('class' => 'col-lg-2 control-label')); ?>
+		<?php echo $form->labelEx($model, '$1', ['class' => 'col-lg-2 control-label']); ?>
 		<div class="col-lg-6">
 		<?php
-			$dropDownList = array(
+			$dropDownList = [
 				'event_list_paginated' => t('Lista de evenimente paginată'),
 				'first_event'          => t('Primul eveniment'),
-			);
+			];
 			echo $form->dropDownList(
 				$model,
 				'$1',
 				$dropDownList,
-				array(
+				[
 					//'prompt' => t('Prompt'),
 					'empty' => t('Alege o valoare'),
 					'class' => 'form-control'
-				)
+				]
 			);
 		?>
 		</div>
 
 		<div class="help-block">
-			<?php echo $form->error($model, '$1', array('class' => 'text text-danger')); ?>
+			<?php echo $form->error($model, '$1', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
-snippet yv exist
-	array(
+snippet yvalidator exist
+	[
 		'${1:field}',
 		'exist',
 		'className'     => '${2:ModelName}', // numele modelului de validat. Order, Booking, etc
 		'attributeName' => '${3:id}',		 // numele campului de verificat. de obicei este id
 		'allowEmpty'    => false, // permite sa fie empty campul
 		'skipOnError'   => true,  // nu se aplica validatorul daca exista deja o eroare pe acest camp. de ex exista valdatorul de "integer" care se aplica inainte, si da eroare, caz in care nu mai aplic validatorul curent
-		'on'            => array('insert', 'insert_admin'), // scenariile permise
-		'except'        => array('testcode', 'search'),		// scenariile excluse
-	),
+		'on'            => ['insert', 'insert_admin'], // scenariile permise
+		'except'        => ['testcode', 'search'],		// scenariile excluse
+	],
 #
 snippet yfilter filter
 	public function filter${1:FilterName}($filterChain)
@@ -639,7 +639,7 @@ snippet yca user->checkAccess
 #
 snippet ycreatetable
 	$this->createTable('${1:table_name}',
-		array(
+		[
 			'id'             => 'int(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
 			'code'           => 'VARCHAR(64) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL',
 			'user_id'        => 'int(11)',
@@ -650,7 +650,7 @@ snippet ycreatetable
 			'CONSTRAINT \`$1_user_id\` FOREIGN KEY (\`user_id\`) REFERENCES \`user\` (\`id\`)
 				ON DELETE SET NULL
 				ON UPDATE CASCADE',
-		),
+		],
 		'ENGINE=InnoDB DEFAULT CHARSET=utf8'
 	);
 
