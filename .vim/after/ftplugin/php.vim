@@ -4,12 +4,14 @@ setlocal commentstring=//\ %s
 setlocal iskeyword+=$
 
 " var_dump
-nnoremap <buffer> <leader>vd :put='var_dump('. expand('<cword>'). ');'<CR>==
-xnoremap <buffer> <leader>vd :<C-u>put='var_dump('. visual#GetSelection(). ');'<CR>==
+" nnoremap <buffer> <leader>vd :put='var_dump('. expand('<cword>'). ');'<CR>==
+" xnoremap <buffer> <leader>vd :<C-u>put='var_dump('. visual#GetSelection(). ');'<CR>==
+nnoremap <buffer> <leader>vd :put='echo PHP_SAPI == ''cli'' ? '''' : ''<pre>''; var_dump('. expand('<cword>'). '); echo PHP_SAPI == ''cli'' ? '''' : ''</pre>'';'<CR>==
+xnoremap <buffer> <leader>vd :<C-u>put='echo PHP_SAPI == ''cli'' ? '''' : ''<pre>''; var_dump('. visual#GetSelection(). '); echo PHP_SAPI == ''cli'' ? '''' : ''</pre>'';'<CR>==
 
 " print_r
-nnoremap <buffer> <leader>pr :put='print_r('. expand('<cword>'). ');'<CR>==
-xnoremap <buffer> <leader>pr :<C-u>put='print_r('. visual#GetSelection(). ');'<CR>==
+nnoremap <buffer> <leader>pr :put='echo PHP_SAPI == ''cli'' ? '''' : ''<pre>''; print_r('. expand('<cword>'). '); echo PHP_SAPI == ''cli'' ? '''' : ''</pre>'';'<CR>==
+xnoremap <buffer> <leader>pr :<C-u>put='echo PHP_SAPI == ''cli'' ? '''' : ''<pre>''; print_r('. visual#GetSelection(). '); echo PHP_SAPI == ''cli'' ? '''' : ''</pre>'';'<CR>==
 
 " debug
 nnoremap <buffer> <leader>db :put='debug('. expand('<cword>'). ');'<CR>==
