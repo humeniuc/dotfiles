@@ -1,39 +1,34 @@
+# exemple https://github.com/honza/vim-snippets/blob/master/snippets/php.snippets
+
 # phpl phpline
 snippet php
 	<?php ${1} ?>
-#
 # php invnverted
 snippet phpi
 	?>${1}<?php
-#
+# php
 snippet phpe
 	<?php echo ${1} ?>
 #
-
 snippet phpeh
 	<?php echo htmlspecialchars(${1}); ?>
 #
-
 snippet phpehh
 	<?php echo h(${1}); ?>
 #
-
 snippet phpej
 	<?php echo json_encode(${1}); ?>
 #
-
 snippet epre
 	echo '<pre>';
 	${1}
 	echo '</pre>';
 #
-
 snippet if
 	if (${1}) {
 		${2}
 	}
 #
-
 snippet ife
 	if (${1}) {
 		${2}
@@ -41,34 +36,31 @@ snippet ife
 		${3}
 	}
 #
-
 snippet fun
 	${1:public }function ${2:FunctionName}(${3})
 	{
 		${4:// code...}
 	}
 #
-
 snippet ehr
 	echo '<hr/>';${1}
 #
 
+# #########
+# debugging
+# #########
 snippet db
 	debug(${1});${2}
 #
-
 snippet dbr
 	debug_request();${2}
 #
-
 snippet dbl
 	debug('line '. __LINE__. "<br/>\n");
 #
-
 snippet dbfl
 	var_dump(__FILE__. ' #'. __LINE__. "<br/>\n");
 #
-
 snippet dl
 	echo PHP_EOL, __file__, ' #', __line__, PHP_EOL; exit;
 #
@@ -78,7 +70,6 @@ snippet dbmemory
 snippet dbtime
 		if (isset($GLOBALS['_db_mctime'])) { echo '[ time: ', ((microtime(true) - $GLOBALS['_db_mctime']) * 1000), 'ms ] ', __FILE__. ' #'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />'; } $GLOBALS['_db_mctime'] = microtime(true);
 #
-
 snippet vd
 	var_dump(${1});${2}
 #
@@ -310,6 +301,11 @@ snippet header504
 snippet header505
 	header('HTTP/1.1 505 HTTP Version not supported', true, 505);
 #
+# Start Docblock
+snippet /*
+	/**
+	 * ${0}
+	 */
 
 ##########
 # YII
@@ -492,7 +488,8 @@ snippet ytransaction
 snippet yform yii form definition
 	$model = new DemoModel();
 
-	$form = new CForm([
+	// instanțiat Form în loc de CForm
+	$form = new Form([
 		'id' => 'theForm',
 
 		'elements' => [
@@ -523,13 +520,13 @@ snippet yform yii from html
 	<?php echo $form->renderBegin(); ?>
 	<?php $formWidget = $form->activeFormWidget; ?>
 		<?php
-		echo Html::errorSummary($form->getModel(), null, null, ['class' => 'alert alert-danger']);
+		echo Html::errorSummary($form->model, null, null, ['class' => 'alert alert-danger']);
 		echo Html::flashMessages();
 		?>
 		${2}
 		<div>
 		<?php
-		$form->buttons['${1:submitButton}']->class = 'btn btn-primary';
+		$form->buttons['${1:submit}']->class = 'btn btn-primary';
 		echo $form->buttons['$1']->render();
 		?>
 		</div>
@@ -540,7 +537,7 @@ snippet yform yii from html
 	<?php ob_start();?>
 	ajaxFormInit(<?php echo CJavaScript::encode([
 		'formContainerId'    => $formContainerId,
-		'modelClass'         => get_class($form->getModel()),
+		'modelClass'         => get_class($form->model),
 		'multiSubmitButtons' => true,
 		'onSuccess'          => new JavaScriptFunction(['form', 'data'], '
 			// console.log("form submit OK.");
@@ -550,13 +547,34 @@ snippet yform yii from html
 	</script>
 #
 
+snippet yform yii form input hidden
+	<?php echo $formWidget->hiddenField($form->model, '${1:attribute}'); ?>
+#
+
 snippet yform yii form input textfield
 	<div class="row">
-		<div class="col-sm-4 form-group <?php if ($form->model->hasErrors('${1:varname}')) { echo 'has-error'; } ?>">
+		<div class="col-sm-4 form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
 			<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
 			<?php echo $formWidget->textField($form->model, '$1', [
 				'class' => 'form-control',
 				'placeholder' => '${2:field placeholder}'
+			]); ?>
+			<div class="help-block">
+				<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
+			</div>
+		</div>
+	</div>
+#
+
+snippet yform yii form input textarea
+	<div class="row">
+		<div class="col-sm-4 form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
+			<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
+			<?php echo $formWidget->textArea($form->model, '$1', [
+				'class' => 'form-control',
+				'placeholder' => '${2:field placeholder}',
+				'rows' => ${2:5},
+				'cols' => ${3:50},
 			]); ?>
 			<div class="help-block">
 				<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
@@ -588,7 +606,7 @@ snippet yform yii form input checkbox
 #
 
 snippet yform yii form input dropdown
-	<div class="form-group <?php if ($model->hasErrors('${1:varname}')) { echo 'has-error'; } ?>">
+	<div class="form-group <?php if ($model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
 		<?php echo $form->labelEx($model, '$1', ['class' => 'col-lg-2 control-label']); ?>
 		<div class="col-lg-6">
 		<?php
@@ -634,10 +652,16 @@ snippet yfilter filter
 		$filterChain->run();
 	}
 #
-snippet yca user->checkAccess
+snippet yuca user->checkAccess
 	Yii::app()->user->checkAccess('${1:rule}')
+snippet yuca userCheckAccess
+	userCheckAccess('${1:rule}')
+snippet yuca userCheckAccess cu handle
+	if (! userCheckAccess('${1:event.dgitl}', ['event' => $event])) {
+		$this->handleFailedUserCheckAccess(${2}/* $redirectToLoginIfGuest = true, $forbiddenMessage = null, $authRequiredMessage = null */);
+	}
 #
-snippet ycreatetable
+snippet ymigrate createTable
 	$this->createTable('${1:table_name}',
 		[
 			'id'             => 'int(11) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
@@ -653,7 +677,18 @@ snippet ycreatetable
 		],
 		'ENGINE=InnoDB DEFAULT CHARSET=utf8'
 	);
-
+snippet ymigrate addColumn
+	$this->addColumn('${1:table}', '${2:column}', 'int(11) DEFAULT NULL AFTER id');
+snippet ymigrate createIndex
+	$this->createIndex('$1_$2', '${1:table}', '${2:column}', ${3:false});
+snippet ymigrate addForeignKey
+	$this->addForeignKey('$1_$2', '${1:table}', '${2:column}', '${3:ref_table}', '${4:ref_colun}', 'CASCADE', 'CASCADE');
+snippet ymigrate dropColumn
+	$this->dropColumn('${1:table}', '${2:column}');
+snippet ymigrate dropIndex
+	$this->dropIndex('${1:name}', '${2:table}');
+snippet ymigrate dropForeignKey
+	$this->dropForeignKey('${1:name}', '${2:table}');
 #
 #
 # Bootsrap #################################################
@@ -698,6 +733,37 @@ snippet bootstrap button-input-b
 
 snippet bootstrap button-submit
 	<input class="btn btn-default" type="submit" value="Submit">
+#
+
+snippet bootstrap button-group (2 variante)
+	<!-- buton grup -->
+	<div class="btn-group btn-group-${1:lg|sm|xs|delete-class-for-default}">
+		<button type="button" class="btn btn-default">Left</button>
+		<button type="button" class="btn btn-default">Middle</button>
+		<a href="#" type="button" class="btn btn-default">this is a link</a>
+		<a href="#" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-remove"></span>
+		</a>
+		<button type="button" class="btn btn-default">Right</button>
+	</div>
+
+	<!-- mai multe grupuri -->
+	<div class="btn-toolbar">
+		<div class="btn-group">
+			<button type="button" class="btn btn-default">1</button>
+			<button type="button" class="btn btn-default">2</button>
+			<button type="button" class="btn btn-default">3</button>
+			<button type="button" class="btn btn-default">4</button>
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default">5</button>
+			<button type="button" class="btn btn-default">6</button>
+			<button type="button" class="btn btn-default">7</button>
+		</div>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default">8</button>
+		</div>
+	</div>
 #
 
 snippet bootstrap glyphicon-span
@@ -757,6 +823,21 @@ snippet bootstrap tab
 	<div class="tab-content">
 		<div role="tabpanel" class="tab-pane active" id="tab1">...</div>
 		<div role="tabpanel" class="tab-pane" id="tab2">...</div>
+	</div>
+#
+
+snippet bootstrap panel
+	<div class="panel panel-${1:default|primary|success|info|warning|danger}">
+		<div class="panel-heading">
+			<h3 class="panel-title"><!-- heading --></h3>
+		</div>
+		<div class="panel-body">
+			<!-- content -->
+		</div>
+
+		<div class="panel-footer">
+			<!-- Panel footer -->
+		</div>
 	</div>
 #
 

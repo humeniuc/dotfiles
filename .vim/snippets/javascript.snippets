@@ -1061,277 +1061,7 @@ snippet ons
 #
 #
 #
-###########
-# PIXI V2 #
-###########
-# Draw graphic rectangle with PixiJS
-snippet pixi rect
-	var ${1:_rect} = new PIXI.Graphics();
-	$1.beginFill(${2:0xFF0000}, 1);
-	$1.drawRect(${3:0}, ${4:0}, ${5:100}, ${6:100});
-	$1.endFill();
-# PIXI (from Mazarine)
-snippet pixi AMD class
-	define('${1:primary_type_name}', [], function() {
 
-		var _$1 = function() {
-
-			var _scope;
-
-			PIXI.DisplayObjectContainer.call(this);
-			_scope = this;
-
-			function build() {
-			}
-
-			this.process = function() {
-			};
-
-			this.resize = function (w, h) {
-			};
-
-			build();
-		};
-
-		_$1.prototype = Object.create(PIXI.DisplayObjectContainer.prototype);
-
-		return _$1;
-	});
-# Pixi Template Class
-snippet pixi main
-	(function(parent) {
-		var _stats, _DOMContainer, _stage, _renderer;
-
-		parent.${1:primary_type_name} = function() {
-			init();
-		};
-
-		function init() {
-			_DOMContainer = document.createElement('div');
-			document.body.appendChild(_DOMContainer);
-			_renderer = new PIXI.CanvasRenderer();
-			_renderer.transparent = false;
-			_DOMContainer.appendChild(_renderer.view);
-			_stage = new PIXI.Stage(0xffffff);
-			stat();
-			initEvents();
-			build();
-		}
-
-		function build() {
-		}
-
-		function stat() {
-			_stats = new Stats();
-			_stats.domElement.style.position = 'absolute';
-			_stats.domElement.style.top = '0px';
-			_DOMContainer.appendChild(_stats.domElement);
-		}
-
-		function initEvents() {
-			if (getDevice() == "desktop") {
-				_renderer.view.addEventListener("mousemove", onMove, false);
-				// _renderer.view.addEventListener("mousedown", onDown, false);
-				// _renderer.view.addEventListener("mouseup", onUp, false);
-				// _renderer.view.addEventListener("mouseout", onUp, false);
-			} else {
-				_renderer.view.addEventListener('touchmove', onMove, false);
-				// _renderer.view.addEventListener('touchstart', onDown, false);
-				// _renderer.view.addEventListener('touchend', onUp, false);
-			}
-
-			window.addEventListener("resize", onResize);
-			onResize(null);
-			requestAnimFrame(enterFrame);
-		}
-
-		function draw() {
-		}
-
-		function onMove(event) {
-			event.preventDefault();
-		}
-
-		function onResize(event) {
-			_renderer.resize(window.innerWidth, window.innerHeight);
-		}
-
-		function enterFrame() {
-			draw();
-			requestAnimFrame(enterFrame);
-			_renderer.render(_stage);
-			_stats.update();
-		}
-	})(app);
-# Boot Class implemente Pixi V2 framework
-snippet pixi bootstrap
-	var ${1:primary_type_name} = $1 || {};
-
-	define('$1', [], function() {
-		var _$1 = function(args) {
-
-			console.log("<< $1 >>");
-
-			// CONFIG
-			var _statEnabled       = true;
-			var _centerDesktop     = false;
-			var _widthDesktopView  = 1280;
-			var _heightDesktopView = 800;
-
-			// CONST
-			var RETINA_BASE_WIDTH  = 2048;
-			var RETINA_BASE_HEIGHT = 1536;
-
-			var _container;
-			var _stats;
-			var _stage;
-			var _rendererOptions;
-			var _renderer;
-			var _page;
-			var _hcoef;
-			var _vcoef;
-			var _h;
-			var _w;
-			var _viewPosX;
-			var _viewPosY;
-			var _canvas = args[0];
-
-			function init() {
-				_stage = new PIXI.Stage(0xffffff);
-				_rendererOptions = {view : _canvas, transparent : false, resolution : window.devicePixelRatio || 1};
-				_renderer = new PIXI.CanvasRenderer(0, 0, _rendererOptions);
-				if (!_canvas) {
-					document.body.appendChild(_renderer.view);
-				}
-				onReady();
-			}
-
-			function onReady() {
-				// INIT STRUCTURE
-				build();
-				// LOAD FONTS AND START APP, ELSE CALL "start" FUNCTION
-				//Tools.loadFont(["HelveticaNeueLTStd-UltLt", "HelveticaNeueLTStd-Roman", "HelveticaNeueLTStd-Hv", "HelveticaNeueLTStd-Th"], start);
-				start();
-			}
-
-			function build() {
-				_container = new PIXI.DisplayObjectContainer();
-				_stage.addChild(_container);
-			}
-
-			function initPages() {
-				$1.stage = _stage;
-				$1.view = _renderer.view;
-				$1.resolution = window.devicePixelRatio || 1;
-				$1.textResolution = 2;
-				//$1.fonts = {HelveticaNeueLTStdUltLt : "HelveticaNeueLTStd-UltLt", HelveticaNeueLTStdRoman : "HelveticaNeueLTStd-Roman", HelveticaNeueLTStdHv : "HelveticaNeueLTStd-Hv", HelveticaNeueLTStdTh : "HelveticaNeueLTStd-Th"};
-
-				// a new imported Main project Class //
-				//_page = new MainClass();
-				//_container.addChild(_page);
-			}
-
-			function initEvents() {
-				window.addEventListener("resize", $1.onResize);
-				$1.onResize(null);
-			}
-
-			$1.onResize = function() {
-				_h = window.innerHeight;
-				_w = window.innerWidth;
-
-				// CENTER DESKTOP NAVIGATOR
-				if (_centerDesktop &amp;&amp; Tools.getDevice() == "desktop") {
-					if (_w >= _widthDesktopView) {
-						_w = _widthDesktopView;
-					}
-					if (_h >= _heightDesktopView) {
-						_h = _heightDesktopView;
-					}
-
-					_viewPosX = window.innerWidth - _w >> 1;
-					_viewPosY = window.innerHeight - _h >> 1;
-				}
-
-				_hcoef = _w / RETINA_BASE_WIDTH;
-				_vcoef = _h / RETINA_BASE_HEIGHT;
-
-				if (_page &amp;&amp; _page.resize) {
-					_page.resize(_w, _h, _hcoef, _vcoef, _viewPosX, _viewPosY);
-				}
-
-				_renderer.resize(_w, _h);
-				_renderer.view.style.width = _w + "px";
-				_renderer.view.style.height = _h + "px";
-
-				window.scrollTo(0, 0);
-			};
-
-			function start() {
-				console.log("start");
-
-				// INIT PAGES
-				initPages();
-
-				// INIT DOM EVENTS
-				initEvents();
-
-				requestAnimFrame(processFrame);
-				if (_statEnabled) {
-					stat();
-				}
-			}
-
-			function processFrame() {
-				requestAnimFrame(processFrame);
-				_renderer.render(_stage);
-
-				if (_page &amp;&amp; _page.process) {
-					_page.process();
-				}
-
-				if (_statEnabled) {
-					_stats.update();
-				}
-			}
-
-			function stat() {
-				_stats = new Stats();
-				_stats.domElement.style.position = 'absolute';
-				_stats.domElement.style.top = '0px';
-				_stats.domElement.style.left = '0px';
-				document.body.appendChild(_stats.domElement);
-			}
-
-			init();
-		};
-
-		return _$1;
-	});
-# backbone view definition
-snippet bbv
-	Backbone.View.extend({
-		initialize: function() {${3}},
-		el: ${1:selector},
-		model: ${2:model},
-		template: ${3:template},
-		events: {},
-		render: function(){}
-	});
-# backbone model definition
-snippet bbm
-	Backbone.Model.extend({
-		initialize: function() {${1}}
-	});
-# backbone router definition
-snippet bbr
-	Backbone.Router.extend({
-		routes: {${1}}
-	});
-# backbone collection definition
-snippet bbc
-	Backbone.Collection.extend({${1}});
-#
 #
 # metrological
 # metrological button
@@ -1569,3 +1299,38 @@ snippet xhr xhr.post
 	// xhr.send(new int8array());
 	// xhr.send({ form: 'data' });
 	// xhr.send(document);
+
+snippet jquery jquery widget
+	(function ($) {
+	    if ($.fn.${1:widgetName}) {
+	        return;
+	    }
+
+	    var _class = function(element, options) {
+	        this.options  = options;
+	        this.element  = element;
+	        this.$element = $(element);
+
+			this.attachEvents();
+	    }
+
+		_class.prototype.attachEvents = function()
+		{
+		}
+
+	    $.fn.$1 = function(option) {
+	        return this.each(function() {
+	            var $this = $(this);
+	            var $handler = $this.data('$1');
+
+	            if (! $handler) {
+	                $handler = new _class(this, option);
+	                $this.data('$1', $handler);
+	            }
+
+	            if (typeof option == 'string') {
+	                return $handler[option].call($handler);
+	            }
+	        });
+	    };
+	}(jQuery));
