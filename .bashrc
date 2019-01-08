@@ -1,5 +1,5 @@
 # global bashrc
-# [ -r /etc/bashrc ] && . /etc/bashrc
+[ -r /etc/bashrc ] && source /etc/bashrc
 
 export PATH=~/bin:~/dotfiles/bin:~/gocode/bin:$PATH
 export EDITOR=vim
@@ -40,4 +40,3 @@ export PS1=\
 
 # .bashrc_local in home dir
 [ -r "${HOME}/.bashrc_local" ] && . "${HOME}/.bashrc_local"
-
