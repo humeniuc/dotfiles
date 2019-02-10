@@ -55,6 +55,9 @@ snippet db
 snippet dbr
 	debug_request();${2}
 #
+snippet dbb
+	debug(debug_backtrace());${1}
+#
 snippet dbl
 	debug('line '. __LINE__. "<br/>\n");
 #
@@ -138,6 +141,12 @@ snippet espf
 snippet spf
 	sprintf('${1} %s', ${2})${3}
 #
+snippet strtr
+	strtr('
+		{{${1:var}}}
+	', [
+		'{{$1}}' => $2
+	]);
 
 # Tertiary conditional
 snippet =?:
@@ -314,24 +323,18 @@ snippet /*
 #yii.app
 snippet ya
 	Yii::app()${1}
-#
-
+snippet yadb
+	Yii::app()->db${1}
+snippet yadbcc
+	Yii::app()->db->createCommand('${1}');
 snippet yapp
 	Yii::app()${1}
-#
-
 snippet yass
 	Yii::app()->getAssetManager()${1}
-#
-
 snippet ypoa
 	Yii::getPathOfAlias(${1})
-#
-
 snippet yt
 	t('${1}')
-#
-
 #yii.trace
 snippet ytr
 	Yii::trace(${1:message}, ${2:'category'});${3}
@@ -458,7 +461,7 @@ snippet yscript
 	</script>
 #
 
-snippet ytransaction
+snippet ytransaction simple
 	// <transaction>
 	$dbConn = Yii::app()->db;
 
@@ -483,6 +486,36 @@ snippet ytransaction
 		throw $e;
 	}
 	// </transaction>
+
+snippet ytransaction retry
+	$maxStrikes = 10;
+	$strike     = 0;
+	while ($strike < $maxStrikes) {
+		$strike++;
+		$transaction = Yii::app()->db->beginTransaction();
+
+		try {
+			$transaction->commit();
+
+			break;
+
+		// deadlock check
+		} catch (CDbException $exception) {
+			$transaction->rollback();
+
+			if (isDeadlock($exception) && $strike < $maxStrikes) {
+				usleep($strike * 100000);
+				continue;
+			}
+
+			throw $e;
+
+		} catch (Exception $e) {
+			$transaction->rollback();
+
+			throw $e;
+		}
+	}
 #
 
 snippet yform yii form definition
@@ -741,7 +774,17 @@ snippet bootstrap button-group (2 variante)
 		<button type="button" class="btn btn-default">Left</button>
 		<button type="button" class="btn btn-default">Middle</button>
 		<a href="#" type="button" class="btn btn-default">this is a link</a>
-		<a href="#" type="button" class="btn btn-default">
+		<div class="btn-group btn-group-$1" role="group">
+			<button type="button" class="btn btn-default btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Dropdown
+			<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+			<li><a href="#">Dropdown link</a></li>
+			<li><a href="#">Dropdown link</a></li>
+			</ul>
+		</div>
+		<a href="#" type="button" class="btn btn-default btn-danger">
 			<span class="glyphicon glyphicon-remove"></span>
 		</a>
 		<button type="button" class="btn btn-default">Right</button>

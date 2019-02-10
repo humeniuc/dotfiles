@@ -161,7 +161,7 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 
 "
 nnoremap <leader>gg :grep -E '<C-R><C-W>' -r .
-nnoremap <leader>gw :grep -E '\b<C-R><C-W>\b' -r .
+nnoremap <leader>gw :grep -E '\b''<C-R><C-W>''\b' -r .
 " gp -> selectare ultimul text paste-uit
 " de aici: http://vim.wikia.com/wiki/Selecting_your_pasted_text
 " converteste expresia in `[v`] sau `[V`] = selecteaza textul dintre
@@ -176,13 +176,9 @@ if ! has('clipboard') && executable('xclip')
     " identific selectia, o escape-uiesc pentru shell + corectia de newline pe
     " care shellescape o adauga inainte de fiecare newline
     " creez si apelez o comanda care paseaza stringul catre xclip
-    vnoremap <silent> "+y :<C-u>call system(
-        \'echo '.
-        \substitute(shellescape(visual#GetSelection()), '\\\n', '\n', 'g').
-        \' \| xclip -i -selection clipboard')<CR>
-
-    noremap <silent> "+p :<C-u>set paste<CR>a<C-R>=system('xclip -o -selection clipboard')<CR><ESC>
-    noremap <silent> "+P :<C-u>set paste<CR>i<C-R>=system('xclip -o -selection clipboard')<CR><ESC>
+    vnoremap <silent> "+y :<C-u>call system('xclip -i -selection clipboard', visual#GetSelection())<CR>
+    nnoremap <silent> "+p :<C-u>set paste<CR>a<C-R>=system('xclip -o -selection clipboard')<CR><ESC>
+    nnoremap <silent> "+P :<C-u>set paste<CR>i<C-R>=system('xclip -o -selection clipboard')<CR><ESC>
 endif
 
 " changed from romainl; from here: https://github.com/romainl/dotvim/blob/master/vimrc

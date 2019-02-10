@@ -50,20 +50,11 @@ function tmuxfixtty {
     stty sane; printf '\033k%s\033\\\033]2;%s\007' "`basename "$SHELL"`" "`uname -n`"; tput reset; tmux refresh
 }
 
+function vimq {
+    vim -q <( $( fc -ln -1 ) )
+    forget
+}
 
-# function proj_demo {
-#     local proj="demo"
-#     if ! tmux has-session -t "$proj" ; then
-#         tmux new-session -s "$proj" -d  -c "/var/www/playground/project/"
-#         tmux send-keys -t "$proj" "vim" Enter
-#         tmux send-keys -t "$proj" ":e ~/.vimrc" Enter
-#         tmux new-window -t "$proj"
-#         tmux send-keys -t "$proj" "mc" Enter
-#         tmux new-window -t "$proj"
-#         tmux send-keys -t "$proj" "top" Enter
-#         tmux select-window -t "1"
-#     fi
-#     tmux attach-session -t "$proj"
-# }
-
-
+function forget() {
+   history -d $(expr $(history | tail -n 1 | grep -oP '^ \d+') - 1);
+}
