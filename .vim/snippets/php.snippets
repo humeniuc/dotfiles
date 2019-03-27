@@ -62,16 +62,16 @@ snippet dbl
 	debug('line '. __LINE__. "<br/>\n");
 #
 snippet dbfl
-	var_dump(__FILE__. ' #'. __LINE__. "<br/>\n");
+	var_dump(__FILE__. ':'. __LINE__. "<br/>\n");
 #
 snippet dl
-	echo PHP_EOL, __file__, ' #', __line__, PHP_EOL; exit;
+	echo PHP_EOL, __FILE__, ':', __LINE__, PHP_EOL; exit;
 #
 snippet dbmemory
-	echo '[ '. 'memory '. round(memory_get_usage() / (1024 * 1024), 2). '/'. round(memory_get_peak_usage() / (1024 * 1024), 2). ' ] ', __FILE__. ' #'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />';
+	echo '[ '. 'memory '. round(memory_get_usage() / (1024 * 1024), 2). '/'. round(memory_get_peak_usage() / (1024 * 1024), 2). ' ] ', __FILE__. ':'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />';
 #
 snippet dbtime
-		if (isset($GLOBALS['_db_mctime'])) { echo '[ time: ', ((microtime(true) - $GLOBALS['_db_mctime']) * 1000), 'ms ] ', __FILE__. ' #'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />'; } $GLOBALS['_db_mctime'] = microtime(true);
+		if (isset($GLOBALS['_db_mctime'])) { echo '[ time: ', ((microtime(true) - $GLOBALS['_db_mctime']) * 1000), 'ms ] ', __FILE__. ':'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />'; } $GLOBALS['_db_mctime'] = microtime(true);
 #
 snippet vd
 	var_dump(${1});${2}
@@ -727,7 +727,7 @@ snippet ymigrate dropForeignKey
 # Bootsrap #################################################
 #
 #
-snippet bootstrap form-inline
+snippet bs form-inline
 	<form class="navbar-form navbar-left" role="search">
 	<div class="form-group">
 		<input type="text" class="form-control" placeholder="Search">
@@ -736,7 +736,7 @@ snippet bootstrap form-inline
 	</form>
 #
 
-snippet bootstrap form-input(group)
+snippet bs form-input(group)
 	<div class="form-group">
 		<label for="exampleInput">InputLabel</label>
 		<input type="text" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -744,7 +744,7 @@ snippet bootstrap form-input(group)
 	</div>
 #
 
-snippet bootstrap form-input(checkbox)
+snippet bs form-input(checkbox)
 	<div class="checkbox">
 		<label>
 		<input type="checkbox"> Check me out
@@ -752,23 +752,23 @@ snippet bootstrap form-input(checkbox)
 	</div>
 #
 
-snippet bootstrap button-a
+snippet bs button-a
 	<a class="btn btn-default" href="#" role="button">Link</a>
 #
 
-snippet bootstrap button-button
+snippet bs button-button
 	<button class="btn btn-default" type="submit">Button</button>
 #
 
-snippet bootstrap button-input-b
+snippet bs button-input-b
 	<input class="btn btn-default" type="button" value="Input">
 #
 
-snippet bootstrap button-submit
+snippet bs button-submit
 	<input class="btn btn-default" type="submit" value="Submit">
 #
 
-snippet bootstrap button-group (2 variante)
+snippet bs button-group (2 variante)
 	<!-- buton grup -->
 	<div class="btn-group btn-group-${1:lg|sm|xs|delete-class-for-default}">
 		<button type="button" class="btn btn-default">Left</button>
@@ -809,18 +809,18 @@ snippet bootstrap button-group (2 variante)
 	</div>
 #
 
-snippet bootstrap glyphicon-span
+snippet bs glyphicon-span
 	<span class="glyphicon glyphicon-${1:plus|minus|search}"></span>
 #
 
-snippet bootstrap input-group
+snippet bs input-group
 	<div class="input-group">
 		<input type="text" class="form-control" name="${1:name}" value="${2:value}" />
 		<span class="input-group-addon">%</span>
 	</div>
 #
 
-snippet bootstrap input-group-button
+snippet bs input-group-button
 	<div class="input-group">
 		<input type="text" class="form-control" placeholder="Search for...">
 		<span class="input-group-btn">
@@ -829,7 +829,7 @@ snippet bootstrap input-group-button
 	</div>
 #
 
-snippet bootstrap modal
+snippet bs modal
 	<!-- Button trigger modal -->
 	<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#${1:myModal}">
 	Launch demo modal
@@ -855,7 +855,7 @@ snippet bootstrap modal
 	</div>
 #
 
-snippet bootstrap tab
+snippet bs tab
 	<!-- Nav tabs -->
 	<ul class="nav nav-tabs" role="tablist">
 		<li role="presentation" class="active"><a href="#tab1" role="tab" data-toggle="tab">tab 1</a></li>
@@ -869,7 +869,7 @@ snippet bootstrap tab
 	</div>
 #
 
-snippet bootstrap panel
+snippet bs panel
 	<div class="panel panel-${1:default|primary|success|info|warning|danger}">
 		<div class="panel-heading">
 			<h3 class="panel-title"><!-- heading --></h3>
@@ -883,6 +883,16 @@ snippet bootstrap panel
 		</div>
 	</div>
 #
+
+snippet bs row
+	<div class="row">
+		<div class="col-${1:xs|sm|md|lg}-${2:6}">
+
+		</div>
+		<div class="col-$1-$2">
+
+		</div>
+	</div>
 
 snippet dom Document
 	$doc = new DomDocument('1.0', 'utf-8');

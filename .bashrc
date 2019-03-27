@@ -24,6 +24,7 @@ fi
 function __ps1_git()
 {
     git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1) /"
+    # git symbolic-ref -q --short HEAD || echo "not on a branch "
 }
 
 function __ps1_svn()
