@@ -2,10 +2,11 @@
 
 function start_ff
 {
-    echo 123;
     PROFILEDIR=$(mktemp -d)
     firefox --new-instance --profile "$PROFILEDIR"
     rm -rf "$PROFILEDIR"
 }
 
-(start_ff &) &
+start_ff &
+# TODO: studiaza cum este cu double-fork
+# (start_ff &) &
