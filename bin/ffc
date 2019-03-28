@@ -1,0 +1,11 @@
+#!/bin/bash
+
+function start_ff
+{
+    echo 123;
+    PROFILEDIR=$(mktemp -d)
+    firefox --new-instance --profile "$PROFILEDIR"
+    rm -rf "$PROFILEDIR"
+}
+
+(start_ff &) &
