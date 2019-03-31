@@ -23,4 +23,9 @@ do
     ln -s -r "$dir/$file" "${HOME}/$file"
 done
 
-
+for f in "$HOME/dotfiles/bin/*";
+do
+    if [[ -f "$f" ]]; then
+        ln -s "$f" "$HOME/bin/"$(basename "$f");
+    fi
+done
