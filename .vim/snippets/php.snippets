@@ -594,33 +594,29 @@ snippet yform yii form input hidden
 #
 
 snippet yform yii form input textfield
-	<div class="row">
-		<div class="col-sm-4 form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
-			<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
-			<?php echo $formWidget->textField($form->model, '$1', [
-				'class' => 'form-control',
-				'placeholder' => '${2:field placeholder}'
-			]); ?>
-			<div class="help-block">
-				<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
-			</div>
+	<div class="form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
+		<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
+		<?php echo $formWidget->textField($form->model, '$1', [
+			'class' => 'form-control',
+			'placeholder' => '${2:field placeholder}'
+		]); ?>
+		<div class="help-block">
+			<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
 snippet yform yii form input textarea
-	<div class="row">
-		<div class="col-sm-4 form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
-			<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
-			<?php echo $formWidget->textArea($form->model, '$1', [
-				'class' => 'form-control',
-				'placeholder' => '${2:field placeholder}',
-				'rows' => ${2:5},
-				'cols' => ${3:50},
-			]); ?>
-			<div class="help-block">
-				<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
-			</div>
+	<div class="form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
+		<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
+		<?php echo $formWidget->textArea($form->model, '$1', [
+			'class' => 'form-control',
+			'placeholder' => '${2:field placeholder}',
+			'rows' => ${2:5},
+			'cols' => ${3:50},
+		]); ?>
+		<div class="help-block">
+			<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
@@ -668,7 +664,6 @@ snippet yform yii form input dropdown
 			);
 		?>
 		</div>
-
 		<div class="help-block">
 			<?php echo $form->error($model, '$1', ['class' => 'text text-danger']); ?>
 		</div>
