@@ -472,15 +472,9 @@ snippet yscript
 
 snippet ytransaction simple
 	// <transaction>
-	$dbConn = Yii::app()->db;
-
-	if ($dbConn->getCurrentTransaction()) {
-		$transaction = null;
-	} else {
-		$transaction = $dbConn->beginTransaction();
-	}
-
 	try {
+		$transaction = Yii::app()->db->getCurrentTransaction() ? null : Yii::app()->db->beginTransaction();
+
 		${1}
 
 		if ($transaction) {
@@ -501,26 +495,33 @@ snippet ytransaction retry
 	$strike     = 0;
 	while ($strike < $maxStrikes) {
 		$strike++;
-		$transaction = Yii::app()->db->beginTransaction();
 
 		try {
-			$transaction->commit();
+			$transaction = Yii::app()->db->getCurrentTransaction() ? null : Yii::app()->db->beginTransaction();
+
+			if ($transaction) {
+				$transaction->commit();
+			}
 
 			break;
 
 		// deadlock check
 		} catch (CDbException $exception) {
-			$transaction->rollback();
+			if ($transaction) {
+				$transaction->rollback();
 
-			if (isDeadlock($exception) && $strike < $maxStrikes) {
-				usleep($strike * 100000);
-				continue;
+				if (isDeadlock($exception) && $strike < $maxStrikes) {
+					usleep($strike * 100000);
+					continue;
+				}
 			}
 
 			throw $e;
 
 		} catch (Exception $e) {
-			$transaction->rollback();
+			if ($transaction) {
+				$transaction->rollback();
+			}
 
 			throw $e;
 		}

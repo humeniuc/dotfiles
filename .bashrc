@@ -39,5 +39,8 @@ export PS1=\
 '\[\033[33m\]$( declare -F __ps1_git &>/dev/null && __ps1_git )\[\033[00m\]'\
 '\[\033[0;36m\]▶\[\033[00m\] '
 
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 # .bashrc_local in home dir
 [ -r "${HOME}/.bashrc_local" ] && . "${HOME}/.bashrc_local"
+

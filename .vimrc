@@ -29,6 +29,7 @@ nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
 
 " plugin: vdebug
 let g:vdebug_options= {
+\    "port" : 9001,
 \    "break_on_open" : 0,
 \    "watch_window_style" : 'compact'
 \}
