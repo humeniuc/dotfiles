@@ -1,7 +1,7 @@
 # global bashrc
 [ -r /etc/bashrc ] && source /etc/bashrc
 
-export PATH=~/bin:~/dotfiles/bin:~/gocode/bin:$PATH
+export PATH=$HOME/.local/bin:$HOME/bin:$HOME/dotfiles/bin:$HOME/gocode/bin:$PATH
 export EDITOR=vim
 
 # If not running interactively, don't do anything
