@@ -93,6 +93,8 @@ set notimeout
 set ttimeout
 set ttimeoutlen=10
 
+set nomodeline " dezactivare modeline, sursa de probleme de securitate
+
 " }
 
 " Vim UI {
@@ -223,10 +225,10 @@ augroup END
 
 
 " colorscheme
-" colorscheme apprentice
 if has('termguicolors')
     set termguicolors
 endif
+
 " TODO: citeste aici: https://www.reddit.com/r/neovim/comments/82wwe9/statuslinenc_with_termguicolors/dvdhef8/
 if exists('&t_8f')
     let &t_8f = "\<Esc>[38:2:%lu:%lu:%lum"
@@ -236,12 +238,13 @@ if exists('&t_8b')
 endif
 
 if has('termguicolors')
-let g:nord_uniform_diff_background = 0
-let g:nord_cursor_line_number_background = 1
-colorscheme nord
+    let g:nord_uniform_diff_background = 0
+    let g:nord_cursor_line_number_background = 1
+    colorscheme nord
 else
-colorscheme apprentice
+    colorscheme apprentice
 endif
+
 set guifont=Roboto\ Mono\ Bold\ 10
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
 
