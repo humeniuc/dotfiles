@@ -80,7 +80,7 @@ snippet dbmemory
 	echo '[ '. 'memory '. round(memory_get_usage() / (1024 * 1024), 2). '/'. round(memory_get_peak_usage() / (1024 * 1024), 2). ' ] ', __FILE__. ':'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />';
 #
 snippet dbtime
-		if (isset($GLOBALS['_db_mctime'])) { echo '[ time: ', ((microtime(true) - $GLOBALS['_db_mctime']) * 1000), 'ms ] ', __FILE__. ':'. __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />'; } $GLOBALS['_db_mctime'] = microtime(true);
+	if (isset($GLOBALS['_profile_time'])) { echo PHP_SAPI == 'cli' ? PHP_EOL : '<br />', '[ time: ', ((microtime(true) - $GLOBALS['_profile_time']) * 1000), 'ms ] ', __FILE__, ':', __LINE__, PHP_SAPI == 'cli' ? PHP_EOL : '<br />'; } $GLOBALS['_profile_time'] = microtime(true);
 #
 snippet vd
 	var_dump(${1});${2}
