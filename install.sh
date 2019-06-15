@@ -10,7 +10,6 @@ files=(
     .screenrc
     .tmux.conf
     .vim
-    .vimrc
 )
 
 set -x
