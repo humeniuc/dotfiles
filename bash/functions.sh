@@ -58,3 +58,4 @@ function vimq {
 function forget() {
    history -d $(expr $(history | tail -n 1 | grep -oP '^ \d+') - 1);
 }
+
