@@ -52,7 +52,10 @@ snippet fun
 	}
 #
 snippet ehr
-	echo '<hr/>';${1}
+	echo PHP_SAPI == 'cli' ? "\n----------\n" : '<hr />';
+#
+snippet ebr
+	echo PHP_SAPI == 'cli' ? PHP_EOL : '<br />';
 #
 
 # #########
