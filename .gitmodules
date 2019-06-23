@@ -31,9 +31,6 @@
 [submodule ".vim/bundle/php.vim"]
 	path = .vim/bundle/php.vim
 	url = git@github.com:StanAngeloff/php.vim.git
-[submodule ".vim/bundle/ale"]
-	path = .vim/bundle/ale
-	url = git@github.com:w0rp/ale.git
 [submodule ".vim/bundle/vdebug"]
 	path = .vim/bundle/vdebug
 	url = git@github.com:joonty/vdebug.git
