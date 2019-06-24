@@ -5,12 +5,9 @@ olddir="${HOME}/dotfiles_old"
 files=(
     .bash_aliases
     .bashrc
-    .bash_utils
     .ctags
-    .screenrc
     .tmux.conf
     .vim
-    .vimrc
 )
 
 set -x

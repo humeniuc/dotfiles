@@ -8,7 +8,7 @@ export EDITOR=vim
 [[ $- != *i* ]] && return
 
 # functii generice
-[ -r "${HOME}/dotfiles/.bash_utils" ] && . "${HOME}/dotfiles/.bash_utils"
+[ -r "${HOME}/dotfiles/bash/functions.sh" ] && . "${HOME}/dotfiles/bash/functions.sh"
 
 if [ ! -z "$BASH_COMPLETION_VERSINFO" ]
 then
