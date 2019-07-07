@@ -25,5 +25,9 @@ myproject_augment_path() {
     LAST_WD=`pwd`
 }
 
-PROMPT_COMMAND_OLD="${PROMPT_COMMAND%; augment_path}"
-PROMPT_COMMAND="$PROMPT_COMMAND_OLD; myproject_augment_path"
+PROMPT_COMMAND_OLD="${PROMPT_COMMAND%; myproject_augment_path}"
+if [ -z "$PROMPT_COMMAND_OLD" ]; then
+    PROMPT_COMMAND="myproject_augment_path"
+else
+    PROMPT_COMMAND="$PROMPT_COMMAND_OLD; myproject_augment_path"
+fi
