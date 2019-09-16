@@ -1,8 +1,0 @@
-#!/bin/php
-<?php
-$url = "http://www.iabilet.humeniuc.core.localdomain/post.php";
-
-$stdin = file_get_contents('php://stdin');
-var_dump($stdin);
-
-
