@@ -1,6 +1,6 @@
 Pentru a adauga un submodul, ruleaza
-$ cd ~/.vim
-$ git submodule add git://github.com/tpope/vim-fugitive.git bundle/fugitive
+$ cd ~/dotfiles
+$ git submodule add git@github.com:editorconfig/editorconfig-vim.git ./.vim/bundle/editorconfig-vim
 $ git submodule init && git submodule update
 
 

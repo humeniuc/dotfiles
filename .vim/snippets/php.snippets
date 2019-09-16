@@ -166,10 +166,33 @@ snippet =?:
 snippet ?:
 	${1:true} ? ${2:a} : ${3}
 #
-snippet filter_var int
+snippet fv int
 	filter_var(get_script_param('${1:var}'), FILTER_VALIDATE_INT, ['options' => ['min_range' => '1', 'default' => null]]);
-snippet filter_var email
+snippet fv email
 	filter_var(get_script_param('${1:var}'), FILTER_VALIDATE_EMAIL);
+snippet armap
+	array_map(function($item) {
+		${2:// callback}
+		return $item;
+	}, ${1:$array})
+snippet arred
+	array_reduce(${1:$array}, function($carry, $item) {
+		${2:// callback}
+		return $carry;
+	}, [])
+snippet arwalk
+	array_walk(${1:array}, function(&$item, $key) {
+	})
+snippet imp
+	implode(${1:', '}, ${2:$array})
+snippet ake
+	array_key_exists(${1:'key'}, ${2:$array})
+snippet in
+	is_null(${1})
+snippet em
+	empty(${1})
+snippet uid
+	uniqid('${1}-')
 
 snippet C
 	$_COOKIE['${1:variable}']${2}
@@ -189,20 +212,6 @@ snippet SS
 	$_SESSION['${1:variable}']${2}
 #
 
-snippet armap
-	array_map(function($item) {
-		${2:// callback}
-		return $item;
-	}, ${1:$array})
-snippet arred
-	array_reduce(${1:$array}, function($carry, $item) {
-		${2:// callback}
-		return $carry;
-	}, [])
-snippet imp
-	implode(${1:', '}, ${2:$array})
-snippet ake
-	array_key_exists(${1:'key'}, ${2:$array})
 snippet for
 	for ($${2:i} = 0; $$2 < ${1:count}; $$2${3:++}) {
 		${4: // code...}
@@ -230,7 +239,7 @@ snippet nl
 	PHP_EOL
 #
 snippet ret
-	return
+	return ${1}
 #
 snippet rett
 	return true;

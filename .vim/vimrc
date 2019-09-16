@@ -199,7 +199,8 @@ augroup ft
     " autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
     " remove trailing spaces
-    autocmd BufWritePre * let b:winview=winsaveview() | %s/\s\+$//e | call winrestview(b:winview)
+    " renuntat momentan, pentru ca am editorconfig,
+    " autocmd BufWritePre * let b:winview=winsaveview() | %s/\s\+$//e | call winrestview(b:winview)
 
     " on leaving insert mode, drop nopaste
     autocmd InsertLeave * set nopaste
