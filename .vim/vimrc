@@ -11,13 +11,6 @@ endif
 " plugin: php
 let php_var_selector_is_identifier=1
 
-" plugin: ale
-let g:ale_lint_delay=1000
-let g:ale_lint_on_enter=0
-let g:ale_lint_on_insert_leave=0
-let g:ale_lint_on_text_changed='never'
-let g:ale_php_phpcs_standard='PSR2'
-
 " plugin: unite
 let g:unite_source_history_yank_enable = 1
 nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
@@ -33,7 +26,6 @@ let g:vdebug_options= {
 \    "break_on_open" : 0,
 \    "watch_window_style" : 'compact'
 \}
-
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()

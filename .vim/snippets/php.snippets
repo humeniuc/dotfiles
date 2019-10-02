@@ -346,10 +346,18 @@ snippet ya
 	Yii::app()${1}
 snippet y$
 	Yii::$app->${1}
-snippet yadb
+snippet ydb db
 	Yii::app()->db${1}
-snippet yadbcc
-	Yii::app()->db->createCommand('${1}');
+snippet ydb createCommand
+	Yii::app()->db->createCommand('${1}')
+snippet ydb join
+	->join(${1:Model}::model()->tableName(). ' AS ${2:alias}', '$2.${3:id} = ${4:alias.camp}')
+snippet ydb leftJoin
+	->leftJoin(${1:Model}::model()->tableName(). ' AS ${2:alias}', '$2.${3:id} = ${4:alias.camp}')
+snippet ydb where
+	->where('${1:alias}.${2:camp} = :${3:value_placeholder}', [':$3' => ${4:value}])
+snippet ydb andWhere
+	->andWhere('${1:alias}.${2:camp} = :${3:value_placeholder}', [':$3' => ${4:value}])
 snippet yapp
 	Yii::app()${1}
 snippet yass
