@@ -1,0 +1,2 @@
+# identificare .myproject/bin
+source "$HOME/dotfiles/bash/myproject_augment_path.sh"
