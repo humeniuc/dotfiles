@@ -4,10 +4,6 @@ filetype off
 call pathogen#infect()
 call pathogen#helptags()
 
-if !exists('myruntime')
-    let myruntime = split(&rtp, ',')[0]
-endif
-
 " plugin: php
 let php_var_selector_is_identifier=1
 
@@ -40,12 +36,11 @@ endfunction
 " localvimrc
 let g:localvimrc_sandbox=0
 let g:localvimrc_ask=0
-let g:localvimrc_name=['.myproject.lvimrc']
+let g:localvimrc_name=['.myproject/.lvimrc']
 let g:localvimrc_event=['BufEnter']
 
 "snipmate
-" let g:snippets_dir = myruntime . '/bundle/gabi/snippets/'
-let g:snippets_dir = myruntime . '/snippets/'
+let g:snippets_dir = split(&rtp, ',')[0] . '/snippets/'
 
 " gutentags
 " pentru CVS nu exista "root dir", nu se poate folosi "CVS" pentru ca apare in
