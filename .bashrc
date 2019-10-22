@@ -10,12 +10,12 @@ export EDITOR=vim
 # functii generice
 [ -r "${HOME}/dotfiles/bash/functions.sh" ] && . "${HOME}/dotfiles/bash/functions.sh"
 
-if [ ! -z "$BASH_COMPLETION_VERSINFO" ]
-then
-    for bcfile in "${HOME}"/dotfiles/.bash_completion.d/* ; do
-    . $bcfile
-    done
-fi
+# if [ ! -z "$BASH_COMPLETION_VERSINFO" ]
+# then
+for bcfile in "${HOME}"/dotfiles/.bash_completion.d/* ; do
+. $bcfile
+done
+# fi
 
 # alias pentru xclip
 [[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
