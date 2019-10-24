@@ -233,7 +233,7 @@ else
     colorscheme apprentice
 endif
 
-set guifont=Roboto\ Mono\ Bold\ 10
+set guifont=Terminus\ 11
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
 
 " Protect large files from sourcing and other overhead.
