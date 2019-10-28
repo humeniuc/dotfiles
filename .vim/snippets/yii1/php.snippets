@@ -179,7 +179,7 @@ snippet ytransaction simple
 		throw $e;
 	}
 	// </transaction>
-
+#
 snippet ytransaction retry
 	$maxStrikes = 10;
 	$strike     = 0;
@@ -216,6 +216,13 @@ snippet ytransaction retry
 			throw $e;
 		}
 	}
+#
+snippet ytransaction Yii::app()->db->runInTransaction
+	Yii::app()->db->runInTransaction(function ($params) {
+		$db = Yii::app()->db;
+		$sql = 'UPDATE ...';
+		$db->createCommand($sql)->execute();
+	}, [$params], 10);
 #
 
 snippet yform yii form definition
