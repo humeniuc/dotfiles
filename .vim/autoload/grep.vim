@@ -1,7 +1,7 @@
 function! grep#fill(s, wb)
     let l:param = a:s
 
-    let l:param = escape(l:param, '^$\?+{}[]')
+    let l:param = escape(l:param, '^$\*?+-{}[]()')
 
     if a:wb
         let l:param = '\b'. l:param. '\b'
@@ -11,7 +11,7 @@ function! grep#fill(s, wb)
     let l:param = escape(l:param, '|%#')
 
     let l:cmd = "\<ESC>"
-    let l:cmd .= ':grep '
+    let l:cmd .= ':grep -E '
     let l:cmd .= l:param
     let l:cmd .= ' -r .'
 
@@ -20,7 +20,7 @@ endfunction
 
 " testing
 " bash echo 'controller::metoda | pipe (p) [d] ^ $var '\''simple'\'' "duble" #hash after' > sample.txt
-" call grep#fill('controller::metoda | pipe (p) [d] ^ $var ''simple'' "duble" #hash')
+" call grep#fill('controller::metoda | pipe (p) [d] ^ $var ''simple'' "duble" #hash * star + plus ? question - dash', 1)
 " call grep#fill('gigi')
 " call grep#fill('gigi', 0)
 " call grep#fill('gigi', 1)
