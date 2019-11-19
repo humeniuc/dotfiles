@@ -170,6 +170,11 @@ snippet fv int
 	filter_var(get_script_param('${1:var}'), FILTER_VALIDATE_INT, ['options' => ['min_range' => '1', 'default' => null]]);
 snippet fv email
 	filter_var(get_script_param('${1:var}'), FILTER_VALIDATE_EMAIL);
+snippet fv scalar
+	filter_var(get_script_param('page'), FILTER_DEFAULT, array('flags' => FILTER_REQUIRE_SCALAR | FILTER_NULL_ON_FAILURE));
+snippet fv array
+	filter_var(get_script_param('page'), FILTER_DEFAULT, array('flags' => FILTER_REQUIRE_ARRAY | FILTER_NULL_ON_FAILURE));
+
 snippet armap
 	array_map(function($item) {
 		${2:// callback}
