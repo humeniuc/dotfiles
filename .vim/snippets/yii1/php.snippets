@@ -35,8 +35,15 @@ snippet ypoa
 snippet yt
 	t('${1}')
 #yii.trace
-snippet ytr
+snippet ytr Yii::trace
 	Yii::trace(${1:message}, ${2:'category'});${3}
+#
+snippet ytrd Yii::trace('message', 'debug');
+	Yii::trace('${1:message}', 'debug');${2}
+snippet ytrd Yii::trace(print_r($var, true), 'debug');
+	Yii::trace('$$1 = '. print_r($${1:var}, true), 'debug');${2}
+snippet ytrd Yii::trace(POST+GET+COOKIE+SESSION+FILES+SERVER+php::input, 'debug');
+	Yii::trace(print_r(['POST' => (isset($_POST) ? $_POST : []), 'GET' => (isset($_GET) ? $_GET : []), 'COOKIE' => (isset($_COOKIE) ? $_COOKIE : []), 'SESSION' => (isset($_SESSION) ? $_SESSION : []), 'FILES' => (isset($_FILES) ? $_FILES : []), 'SERVER' => (isset($_SERVER) ? $_SERVER : []), 'php://input' => @file_get_contents('php://input'),], true), 'debug');${2}
 #
 
 #yii.log
@@ -179,7 +186,7 @@ snippet ytransaction simple
 		throw $e;
 	}
 	// </transaction>
-
+#
 snippet ytransaction retry
 	$maxStrikes = 10;
 	$strike     = 0;
@@ -216,6 +223,13 @@ snippet ytransaction retry
 			throw $e;
 		}
 	}
+#
+snippet ytransaction Yii::app()->db->runInTransaction
+	Yii::app()->db->runInTransaction(function ($params) {
+		$db = Yii::app()->db;
+		$sql = 'UPDATE ...';
+		$db->createCommand($sql)->execute();
+	}, [$params], 10);
 #
 
 snippet yform yii form definition
@@ -407,13 +421,16 @@ snippet ymigrate createTable
 	);
 snippet ymigrate addColumn
 	$this->addColumn('${1:table}', '${2:column}', 'int(11) DEFAULT NULL AFTER id');
-snippet ymigrate createIndex
-	$this->createIndex('$1_$2', '${1:table}', '${2:column}', ${3:false});
-snippet ymigrate addForeignKey
-	$this->addForeignKey('$1_$2', '${1:table}', '${2:column}', '${3:ref_table}', '${4:ref_colun}', 'CASCADE', 'CASCADE');
 snippet ymigrate dropColumn
 	$this->dropColumn('${1:table}', '${2:column}');
+snippet ymigrate alterColumn
+	// adăugat moudul maintenance
+	$this->alterColumn('${1:table}', '${2:column}', '${3:ENUM("one", "two") DEFAULT NULL}');
+snippet ymigrate createIndex
+	$this->createIndex('$1_$2', '${1:table}', '${2:column}', ${3:false});
 snippet ymigrate dropIndex
 	$this->dropIndex('${1:name}', '${2:table}');
+snippet ymigrate addForeignKey
+	$this->addForeignKey('$1_$2', '${1:table}', '${2:column}', '${3:ref_table}', '${4:ref_colun}', 'CASCADE', 'CASCADE');
 snippet ymigrate dropForeignKey
 	$this->dropForeignKey('${1:name}', '${2:table}');
