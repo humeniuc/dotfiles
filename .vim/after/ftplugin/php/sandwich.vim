@@ -6,7 +6,7 @@ scriptencoding utf-8
 if !exists('s:local_recipes')
   let s:local_recipes = [
         \   {'__filetype__': 'tex', 'buns': ['“', '”'],    'nesting': 1, 'input': [ 'p"' ], 'filetype': ['php']},
-        \   {'__filetype__': 'tex', 'buns': ['<?= htmlspecialchars(''', ''') ?>'],    'nesting': 1, 'input': [ 'p=' ], 'filetype': ['php']},
+        \   {'__filetype__': 'tex', 'buns': ['<?= htmlspecialchars(''', ''', ENT_QUOTES, ''UTF-8'') ?>'],    'nesting': 1, 'input': [ 'p=' ], 'filetype': ['php']},
         \   {'__filetype__': 'tex', 'buns': ['<?= h(''', ''') ?>'],    'nesting': 1, 'input': [ 'p-' ], 'filetype': ['php']},
         \ ]
 endif
