@@ -272,3 +272,11 @@ function! QuickfixFilenames()
   endfor
   return join(values(buffer_numbers))
 endfunction
+
+" comandă + funcție care scoate alinierea verticală și păstrează indentarea
+" TODO: este posibil să nu fie cu execute
+command! -nargs=0 -range FixAllignSpace silent call FixAllignSpace(<line1>, <line2>)
+function! FixAllignSpace(line1, line2)
+    let cmd = printf('%d,%ds/\v(^\s*)@<!\s{2,}/ /g', a:line1, a:line2)
+    execute cmd
+endfunction
