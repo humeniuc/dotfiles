@@ -1,0 +1,121 @@
+# snippets specifici yii2
+# in .myproject/.lvimrc pune
+#
+# if ! exists('yii1_snippets_loaded')
+#     let yii1_snippets_loaded = 1
+#     call ExtractSnipsFile(split(&rtp, ',')[0]. '/snippets/yii2/php.snippets', 'php')  
+# endif
+
+#yii.app
+snippet ya
+	Yii::$app->${1}
+snippet y$
+	Yii::$app->${1}
+snippet yuser
+	Yii::$app->user
+#yii.request
+snippet yreq Yii::$app->request
+	Yii::$app->request${1}
+snippet yreq Yii::$app->request->post()
+	Yii::$app->request->post(${1})
+snippet yreq Yii::$app->request->isGet
+	Yii::$app->request->isGet
+snippet yreq Yii::$app->request->isPost
+	Yii::$app->request->isPost
+snippet yreq Yii::$app->request->isAjax
+	Yii::$app->request->isAjax
+#
+snippet yt t($category, $message, $params = [], $language = null)
+	t('app', '${1:message}')
+snippet yt Yii::t($category, $message, $params, $language)
+	Yii::t('app', '${1:message}')
+
+# y form
+snippet yform form active
+	<?php $form = ActiveForm::begin([
+		'id' => '${1}',
+		'enableClientValidation' => false,
+	]); ?>
+	<div class="row">
+		<div class="col-sm-6">
+		<?= Html::submitButton(t('app', 'Save'), ['class' => 'btn', 'name' => 'save']) ?>
+		</div>
+	</div>
+	<?php ActiveForm::end(); ?>
+#
+
+snippet yform textarea form->textarea
+	$form->field(${1:model}, '${2:attribute}')->textarea(['class' => 'form-control']); 
+#
+
+snippet yform dropdown
+	Html::dropDownList(${1:name}, ${2:selection}, ${3:items}, [
+		'options' => $options,
+	]);
+#
+
+snippet yform dropdown active
+	Html::activeDropDownList(${1:model}, ${2:attribute}, ${3:items}, [
+		'options' => $options,
+	]);
+#
+
+snippet yform dropdown form->dropDownList
+	$form->field(${1:model}, '${2:attribute}')->dropDownList([
+		${3}
+	]);
+#
+
+snippet yform checkboxList
+	Html::checkboxList(${1:name}, ${2:selection}, ${3:items}, [
+		'itemOptions' => [
+			'data-checkbox' => 'true',
+		]
+	]);
+#
+snippet yform checkboxList active
+	Html::activeCheckboxList(${1:model}, ${2:attribute}, ${3:items}, [
+		'itemOptions' => [
+			'data-checkbox' => 'true',
+		]
+	]);
+#
+snippet yform checkboxList form->checkboxList
+	$form->field(${1:model}, '${2:attribute}')->checkboxList(${3:items}, [
+		'itemOptions' => [
+			'data-checkbox' => 'true',
+		]
+	]);
+#
+
+snippet yform textInput
+	Html::textInput(${1:name}, ${2:value}, ${3:[options]});   
+#
+
+snippet yform textInput active
+	Html::activeTextInput(${1:model}, ${2:attribute}, ${3:[options]});   
+#
+
+snippet yform textInput form->textInput
+	$form->field(${1:model}, '${2:attribute}')->textInput(['class' => 'form-control']); 
+#
+
+snippet yform hiddenInput
+	Html::hiddenInput(${1:name}, ${2:value}, ${3:[options]});   
+#
+
+snippet yform hiddenInput active
+	Html::activeHiddenInput(${1:model}, ${2:attribute}, ${3:[options]});   
+#
+
+snippet yform hiddenInput form->hiddenInput
+	$form->field(${1:model}, '${2:attribute}')->hiddenInput(); 
+#
+
+snippet yscript <script>[…]</script>
+	<script>
+	<?php ob_start(); ?>
+	(function() {
+	})();
+	<?php $this->registerJs(ob_get_clean(), \yii\web\View::POS_READY, sprintf('script-%s', microtime(true))); ?>
+	</script>

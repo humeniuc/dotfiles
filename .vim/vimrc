@@ -34,10 +34,15 @@ function! s:unite_settings()
 endfunction
 
 " localvimrc
-let g:localvimrc_sandbox=0
-let g:localvimrc_ask=0
-let g:localvimrc_name=['.myproject/.lvimrc']
-let g:localvimrc_event=['BufEnter']
+" disabled for diff mode
+if &diff
+    let g:localvimrc_enable=0
+else
+    let g:localvimrc_sandbox=0
+    let g:localvimrc_ask=1
+    let g:localvimrc_name=['.myproject/.lvimrc']
+    let g:localvimrc_event=['BufEnter']
+endif
 
 "snipmate
 let g:snippets_dir = split(&rtp, ',')[0] . '/snippets/'
@@ -237,7 +242,7 @@ else
     colorscheme apprentice
 endif
 
-set guifont=Roboto\ Mono\ Bold\ 10
+set guifont=Terminus\ 11
 set guioptions=ci " meniu simplu; icon vizibil; aegimrLtT default
 
 " Protect large files from sourcing and other overhead.
@@ -266,4 +271,12 @@ function! QuickfixFilenames()
     let buffer_numbers[quickfix_item['bufnr']] = bufname(quickfix_item['bufnr'])
   endfor
   return join(values(buffer_numbers))
+endfunction
+
+" comandă + funcție care scoate alinierea verticală și păstrează indentarea
+" TODO: este posibil să nu fie cu execute
+command! -nargs=0 -range FixAllignSpace silent call FixAllignSpace(<line1>, <line2>)
+function! FixAllignSpace(line1, line2)
+    let cmd = printf('%d,%ds/\v(^\s*)@<!\s{2,}/ /g', a:line1, a:line2)
+    execute cmd
 endfunction
