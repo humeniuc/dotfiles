@@ -31,9 +31,9 @@ SRC="$SRC"$( printf "tags: %s\n" $( date --iso-8601 ) )
 RESULT=$( zenity \
     --text-info \
     --editable \
-    --font="Terminus 14" \
+    --font="Terminus 11" \
     --title="$1" \
-    --width=600 \
+    --width=900 \
     --height=600 \
     < <( printf "%s" "$SRC" ) \
 )
