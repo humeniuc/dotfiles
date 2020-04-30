@@ -283,7 +283,7 @@ endfunction
 
 " command + functie care converteste array-urile din sintaxa veche în sintaxa
 " nouă
-command -nargs=0 FixArraySyntax call PhpArraySyntaxConvert()
+command -nargs=0 FixArraySyntax call FixArraySyntax()
 function! FixArraySyntax()
     let l:pos = match(getline('.'), '\v<array\(')
     if (l:pos == -1)
