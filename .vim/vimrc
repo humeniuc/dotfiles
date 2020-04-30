@@ -280,3 +280,16 @@ function! FixAllignSpace(line1, line2)
     let cmd = printf('%d,%ds/\v(^\s*)@<!\s{2,}/ /g', a:line1, a:line2)
     execute cmd
 endfunction
+
+" command + functie care converteste array-urile din sintaxa veche în sintaxa
+" nouă
+command -nargs=0 FixArraySyntax call PhpArraySyntaxConvert()
+function! FixArraySyntax()
+    let l:pos = match(getline('.'), '\v<array\(')
+    if (l:pos == -1)
+        return v:false
+    endif
+
+    call cursor(0, l:pos + 1)
+    normal dt(%r]r[
+endfunction
