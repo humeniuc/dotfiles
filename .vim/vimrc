@@ -302,3 +302,15 @@ function! FixArraySyntax()
     call cursor(0, l:pos + 1)
     normal dt(%r]r[
 endfunction
+
+command -nargs=? GitBlame call GitBlame(<q-args>)
+function! GitBlame(c)
+    if a:c > 0
+        let c = a:c
+    else
+        let c = 0
+    endif
+
+    let cmd = printf('!git blame -L %d,%d %%', line('.') - c, line('.') + c)
+    execute cmd
+endfunction
