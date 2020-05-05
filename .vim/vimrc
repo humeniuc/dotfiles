@@ -54,6 +54,12 @@ let g:gutentags_project_root = ['.myproject']
 let g:gutentags_generate_on_missing = 0
 let g:gutentags_generate_on_new = 0
 
+" coc
+if (exists(':CocDisable'))
+    CocDisable
+endif
+
+
 syntax on " syntax highlighting on
 
 " General {
@@ -159,8 +165,10 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 " nnoremap <leader>gw :grep -E '\b''<C-R><C-W>''\b' -r .
 nnoremap <leader>gg :<C-u>call grep#fill('<C-R><C-W>', 0)<CR>
 nnoremap <leader>gw :<C-u>call grep#fill('<C-R><C-W>', 1)<CR>
+nnoremap <leader>gy :<C-u>call grep#searchGetter('<C-R><C-W>')<CR>
 xnoremap <leader>gg :<C-u>call grep#fill(visual#GetSelection(), 0)<CR>
 xnoremap <leader>gw :<C-u>call grep#fill(visual#GetSelection(), 1)<CR>
+xnoremap <leader>gy :<C-u>call grep#searchGetter(visual#GetSelection())<CR>
 " gp -> selectare ultimul text paste-uit
 " de aici: http://vim.wikia.com/wiki/Selecting_your_pasted_text
 " converteste expresia in `[v`] sau `[V`] = selecteaza textul dintre
