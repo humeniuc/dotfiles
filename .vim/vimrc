@@ -56,7 +56,7 @@ let g:gutentags_generate_on_new = 0
 
 " coc
 nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gt <Plug>(coc-type-definition)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
 
@@ -311,6 +311,6 @@ function! GitBlame(c)
         let c = 0
     endif
 
-    let cmd = printf('!git blame -L %d,%d %%', line('.') - c, line('.') + c)
+    let cmd = printf('!git blame -w -L %d,%d %%', line('.') - c, line('.') + c)
     execute cmd
 endfunction
