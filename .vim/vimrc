@@ -1,4 +1,4 @@
-let mapleader ="\<Space>"
+let mapleader="\<Space>"
 
 filetype off
 call pathogen#infect()
@@ -53,6 +53,13 @@ let g:snippets_dir = split(&rtp, ',')[0] . '/snippets/'
 let g:gutentags_project_root = ['.myproject']
 let g:gutentags_generate_on_missing = 0
 let g:gutentags_generate_on_new = 0
+
+" coc
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gy <Plug>(coc-type-definition)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>gr <Plug>(coc-references)
+
 
 syntax on " syntax highlighting on
 
@@ -159,8 +166,10 @@ nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 " nnoremap <leader>gw :grep -E '\b''<C-R><C-W>''\b' -r .
 nnoremap <leader>gg :<C-u>call grep#fill('<C-R><C-W>', 0)<CR>
 nnoremap <leader>gw :<C-u>call grep#fill('<C-R><C-W>', 1)<CR>
+nnoremap <leader>gy :<C-u>call grep#searchMagicMethods('<C-R><C-W>')<CR>
 xnoremap <leader>gg :<C-u>call grep#fill(visual#GetSelection(), 0)<CR>
 xnoremap <leader>gw :<C-u>call grep#fill(visual#GetSelection(), 1)<CR>
+xnoremap <leader>gy :<C-u>call grep#searchMagicMethods(visual#GetSelection())<CR>
 " gp -> selectare ultimul text paste-uit
 " de aici: http://vim.wikia.com/wiki/Selecting_your_pasted_text
 " converteste expresia in `[v`] sau `[V`] = selecteaza textul dintre
@@ -278,5 +287,31 @@ endfunction
 command! -nargs=0 -range FixAllignSpace silent call FixAllignSpace(<line1>, <line2>)
 function! FixAllignSpace(line1, line2)
     let cmd = printf('%d,%ds/\v(^\s*)@<!\s{2,}/ /g', a:line1, a:line2)
+    execute cmd
+endfunction
+
+" command + functie care converteste array-urile din sintaxa veche în sintaxa
+" nouă
+command -nargs=0 FixArraySyntax call FixArraySyntax()
+function! FixArraySyntax()
+    let l:pos = match(getline('.'), '\v<array\(')
+    if (l:pos == -1)
+        return v:false
+    endif
+
+    call cursor(0, l:pos + 1)
+    normal dt(%r]r[
+endfunction
+
+command -nargs=? GitBlame call GitBlame(<q-args>)
+function! GitBlame(c)
+    if a:c > 0
+        let c = a:c
+    else
+        let c = 0
+    endif
+
+    let cmd = printf('!git --no-pager blame -L %d,%d %%', max([line('.') - c, 1]), min([line('.') + c, line('$')]))
+    echom cmd
     execute cmd
 endfunction
