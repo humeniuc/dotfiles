@@ -1,6 +1,0 @@
-#!/bin/bash
-TOVIMTMP=mktemp
-cat > $TOVIMTMP
-vim $TOVIMTMP < /dev/tty > /dev/tty
-cat $TOVIMTMP
-rm $TOVIMTMP

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+ssh-add "$HOME/.ssh/id_rsa"
+ssh-add "$HOME/.ssh/id_rsa_1"
+ssh-add "$HOME/.ssh/id_rsa_2"
+
+xfce4-terminal --initial-title="local" &
+
+xdotool search --sync --onlyvisible --class "xfce4-terminal"
+
+xdotool type --delay 0 "if ! tmux has-session -t local; then tmux new-session -s local; fi; tmux attach-session -t local"
+xdotool key "Return"
+
+xfce4-terminal --tab --title="server1" 
+xdotool type --delay 0 "ssh gabi@server1 -XYA"
+xdotool key "Return"
+
+xfce4-terminal --tab --title="server2" 
+xdotool type --delay 0 "ssh gabi@server2 -XYA"
+xdotool key "Return"

@@ -6,7 +6,7 @@ myproject_augment_path() {
     if [ "$PWD" = "$LAST_WD" ]; then return 0; fi;
 
     # curat caile vechi existente
-    PATH=$(echo "$PATH" | sed -s 's/:/\n/g' | sed '/\/.myproject\/bin$/d'| sed '/^$/d' | tr '\n' ':')
+    PATH=$(echo "$PATH" | sed 's/:/\n/g' | sed '/\/.myproject\/bin$/d' | sed '/^$/d' | tr '\n' ':')
 
     # incep sa scanez incepand cu directorul curent, in sus cautant .myproject/bin
     PATH_ADDITION=""
