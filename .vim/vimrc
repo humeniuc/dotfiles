@@ -323,7 +323,7 @@ function! NoteNew()
         silent put =''
     endif
 
-    silent put ='tags: '. systemlist('date --iso-8601')[0]. ','. expand('%:t:r')
+    silent put ='tags: '. systemlist('date --iso-8601')[0]. ', '. expand('%:t:r')
     silent put =''
     silent put =''
 endfunction
