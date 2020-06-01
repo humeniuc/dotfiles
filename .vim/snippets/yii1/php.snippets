@@ -267,14 +267,14 @@ snippet yform yii from html
 	<?php echo $form->renderBegin(); ?>
 	<?php $formWidget = $form->activeFormWidget; ?>
 		<?php
-		echo Html::errorSummary($form->model, null, null, ['class' => 'alert alert-danger']);
+		echo Html::errorSummary(${1:$form->model}, null, null, ['class' => 'alert alert-danger']);
 		echo Html::flashMessages();
 		?>
-		${2}
+		${3}
 		<div>
 		<?php
-		$form->buttons['${1:submit}']->class = 'btn btn-primary';
-		echo $form->buttons['$1']->render();
+		$form->buttons['${2:submit}']->class = 'btn btn-primary';
+		echo $form->buttons['$2']->render();
 		?>
 		</div>
 	<?php echo $form->renderEnd(); ?>
@@ -284,7 +284,7 @@ snippet yform yii from html
 	<?php ob_start();?>
 	ajaxFormInit(<?php echo CJavaScript::encode([
 		'formContainerId'    => $formContainerId,
-		'modelClass'         => get_class($form->model),
+		'modelClass'         => get_class($1),
 		'multiSubmitButtons' => true,
 		'onSuccess'          => new JavaScriptFunction(['form', 'data'], '
 			// console.log("form submit OK.");
@@ -295,47 +295,47 @@ snippet yform yii from html
 #
 
 snippet yform yii form input hidden
-	<?php echo $formWidget->hiddenField($form->model, '${1:attribute}'); ?>
+	<?php echo $formWidget->hiddenField(${1:$form->model}, '${2:attribute}'); ?>
 #
 
 snippet yform yii form input textfield
-	<div class="form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
-		<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
-		<?php echo $formWidget->textField($form->model, '$1', [
+	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
+		<?php echo $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
+		<?php echo $formWidget->textField($1, '$2', [
 			'class' => 'form-control',
-			'placeholder' => '${2:field placeholder}'
+			'placeholder' => '${3:attribute placeholder}'
 		]); ?>
 		<div class="help-block">
-			<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
+			<?php echo $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
 snippet yform yii form input textarea
-	<div class="form-group <?php if ($form->model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
-		<?php echo $formWidget->labelEx($form->model, '$1', ['class' => 'control-label']); ?>
-		<?php echo $formWidget->textArea($form->model, '$1', [
+	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
+		<?php echo $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
+		<?php echo $formWidget->textArea($1, '$2', [
 			'class' => 'form-control',
-			'placeholder' => '${2:field placeholder}',
-			'rows' => ${2:5},
-			'cols' => ${3:50},
+			'placeholder' => '${3:attribute placeholder}',
+			'rows' => ${3:5},
+			'cols' => ${4:50},
 		]); ?>
 		<div class="help-block">
-			<?php echo $formWidget->error($form->model, '$1', ['class' => 'text text-danger']); ?>
+			<?php echo $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
 snippet yform yii form input checkbox
-	<div class="form-group <?php if ($model->hasErrors('${1:field}')) { echo 'has-error'; } ?>">
-		<?php echo $form->labelEx($model, '$1', ['class' => 'col-lg-2 control-label']); ?>
-		<div class="col-lg-6">
+	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
+		<?php echo $form->labelEx($1, '$2', ['class' => 'col-lg-2 control-label']); ?>
+		<div class="col-lg-5">
 			<div class="checkbox">
 				<label>
 				<?php
 				echo $form->checkBox(
-					$model,
-					'$1',
+					$1,
+					'$2',
 					[
 						'value'        => 'Y',
 						'uncheckValue' => 'N',
@@ -344,22 +344,22 @@ snippet yform yii form input checkbox
 				?> &nbsp; </label>
 			</div>
 		</div>
-		<?php echo $form->error($model, '$1', ['class' => 'text text-danger']); ?>
+		<?php echo $form->error($1, '$2', ['class' => 'text text-danger']); ?>
 	</div>
 #
 
 snippet yform yii form input dropdown
-	<div class="form-group <?php if ($model->hasErrors('${1:attribute}')) { echo 'has-error'; } ?>">
-		<?php echo $form->labelEx($model, '$1', ['class' => 'col-lg-2 control-label']); ?>
-		<div class="col-lg-6">
+	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
+		<?php echo $form->labelEx($1, '$2', ['class' => 'col-lg-2 control-label']); ?>
+		<div class="col-lg-5">
 		<?php
 			$dropDownList = [
 				'event_list_paginated' => t('Lista de evenimente paginată'),
 				'first_event'          => t('Primul eveniment'),
 			];
 			echo $form->dropDownList(
-				$model,
-				'$1',
+				$1,
+				'$2',
 				$dropDownList,
 				[
 					//'prompt' => t('Prompt'),
@@ -370,14 +370,14 @@ snippet yform yii form input dropdown
 		?>
 		</div>
 		<div class="help-block">
-			<?php echo $form->error($model, '$1', ['class' => 'text text-danger']); ?>
+			<?php echo $form->error($1, '$2', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
 snippet yvalidator exist
 	[
-		'${1:field}',
+		'${1:attribute}',
 		'exist',
 		'className'     => '${2:ModelName}', // numele modelului de validat. Order, Booking, etc
 		'attributeName' => '${3:id}',		 // numele campului de verificat. de obicei este id

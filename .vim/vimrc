@@ -304,13 +304,13 @@ function! FixArraySyntax()
 endfunction
 
 command -nargs=? GitBlame call GitBlame(<q-args>)
-function! GitBlame(c)
-    if a:c > 0
-        let c = a:c
+function! GitBlame(contextLines)
+    if a:contextLines > 0
+        let contextLines = a:contextLines
     else
-        let c = 0
+        let contextLines = 0
     endif
 
-    let cmd = printf('!git blame -w -L %d,%d %%', line('.') - c, line('.') + c)
+    let cmd = printf('!git --no-pager blame -L %d,%d %%', max([line('.') - contextLines, 1]), min([line('.') + contextLines, line('$')]))
     execute cmd
 endfunction
