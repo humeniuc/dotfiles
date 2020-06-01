@@ -311,6 +311,6 @@ function! GitBlame(contextLines)
         let contextLines = 0
     endif
 
-    let cmd = printf('!git --no-pager blame -L %d,%d %%', max([line('.') - contextLines, 1]), min([line('.') + contextLines, line('$')]))
+    let cmd = printf('!git --no-pager blame -w -L %d,%d %%', max([line('.') - contextLines, 1]), min([line('.') + contextLines, line('$')]))
     execute cmd
 endfunction
