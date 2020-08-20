@@ -12,9 +12,9 @@ xdotool type --delay 0 "if ! tmux has-session -t local; then tmux new-session -s
 xdotool key "Return"
 
 xfce4-terminal --tab --title="server1" 
-xdotool type --delay 0 "ssh gabi@server1 -XYA"
-xdotool key "Return"
+xdotool type --delay 0 "ssh gabi@server1 -XYA"; xdotool key "Return"
+xdotool type --delay 0 "tmux a"; xdotool key "Return"
 
 xfce4-terminal --tab --title="server2" 
-xdotool type --delay 0 "ssh gabi@server2 -XYA"
-xdotool key "Return"
+xdotool type --delay 0 "ssh gabi@server2 -XYA"; xdotool key "Return"
+xdotool type --delay 0 "tmux a"; xdotool key "Return"

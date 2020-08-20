@@ -1,2 +1,6 @@
 # identificare .myproject/bin
 source "$HOME/dotfiles/bash/myproject_augment_path.sh"
+
+# fzf
+source /usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash

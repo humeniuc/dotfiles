@@ -1,3 +1,6 @@
+# în $HOME/.bashrc / $HOME/.bashrc_local adaugă:
+# source "$HOME/dotfiles/bash/myproject_augment_path.sh"
+
 LAST_WD=""
 
 myproject_augment_path() {
