@@ -438,6 +438,7 @@ snippet ajax ajax()		Perform an asynchronous HTTP (Ajax) request.
 		type: '${2:POST}',
 		dataType: '${3:xml/html/script/json}',
 		data: ${4:$.param( $('Element or Expression}') )},
+		cache: false,
 		complete: function (jqXHR, textStatus) {
 			${5:// callback}
 		},
