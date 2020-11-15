@@ -20,16 +20,14 @@ done
 # alias pentru xclip
 [[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
 
-
 function __ps1_git()
 {
-    git branch 2> /dev/null | sed -e "/^[^*]/d" -e "s/* \(.*\)/(\1) /"
-    # git symbolic-ref -q --short HEAD || echo "not on a branch "
-}
-
-function __ps1_svn()
-{
-    svn info 2>/dev/null | sed -n "/^URL: /s/.*\/\(\(trunk\)\|branches\/\([^/]*\)\).*/(\2\3) /p"
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+    if [ -n "$branch" ]; then
+        echo "($branch) "
+    else
+        echo ""
+    fi;
 }
 
 #PS1='[\u@\h \W]\$ ' # default
