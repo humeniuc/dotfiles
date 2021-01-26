@@ -434,3 +434,8 @@ snippet ymigrate addForeignKey
 	$this->addForeignKey('$1_$2', '${1:table}', '${2:column}', '${3:ref_table}', '${4:ref_colun}', 'CASCADE', 'CASCADE');
 snippet ymigrate dropForeignKey
 	$this->dropForeignKey('${1:name}', '${2:table}');
+snippet ymigrate dev
+	if (APPLICATION_ENV == 'development') {
+		return true;
+	}
+

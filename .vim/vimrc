@@ -40,7 +40,7 @@ if &diff
 else
     let g:localvimrc_sandbox=0
     let g:localvimrc_ask=1
-    let g:localvimrc_name=['.myproject/.lvimrc']
+    let g:localvimrc_name=['.workspace/.lvimrc', '.myproject/.lvimrc']
     let g:localvimrc_event=['BufEnter']
 endif
 
