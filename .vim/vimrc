@@ -1,8 +1,6 @@
 let mapleader="\<Space>"
 
 filetype off
-call pathogen#infect()
-call pathogen#helptags()
 
 " plugin: php
 let php_var_selector_is_identifier=1
@@ -46,20 +44,6 @@ endif
 
 "snipmate
 let g:snippets_dir = split(&rtp, ',')[0] . '/snippets/'
-
-" gutentags
-" pentru CVS nu exista "root dir", nu se poate folosi "CVS" pentru ca apare in
-" toate directoarele. este necesar director custom
-let g:gutentags_project_root = ['.myproject']
-let g:gutentags_generate_on_missing = 0
-let g:gutentags_generate_on_new = 0
-
-" coc
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gt <Plug>(coc-type-definition)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
-nmap <silent> <leader>gr <Plug>(coc-references)
-
 
 syntax on " syntax highlighting on
 
@@ -329,22 +313,3 @@ function! NoteNew()
     silent put =''
     silent put =''
 endfunction
-
-
-" ----------------------------------------------------------------------------------------------------
-
-let g:lsc_server_commands = {
-  \ 'php': {
-  \     'command': 'intelephense --stdio',
-  \     'message_hooks': {
-  \         'initialize': {
-  \             'initializationOptions': {
-  \                 'storagePath': '/tmp/intelephense'
-  \             },
-  \         },
-  \     },
-  \     'workspace_config': {
-  \         'intelephense.files.exclude': ['**/node_modules/**']
-  \     },
-  \ },
-  \}
