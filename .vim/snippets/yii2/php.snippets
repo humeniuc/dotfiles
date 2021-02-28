@@ -119,3 +119,11 @@ snippet yscript <script>[…]</script>
 	})();
 	<?php $this->registerJs(ob_get_clean(), \yii\web\View::POS_READY, sprintf('script-%s', microtime(true))); ?>
 	</script>
+
+snippet ymigrate addColumn
+	$this->addColumn('{{%${1:table}}}', '${2:column}', 'TEXT CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci NULL AFTER ${3:after_column}');
+#
+
+snippet ymigrate dropColumn
+	$this->dropColumn('{{%${1:table}}}', '${2:column}');
+#
