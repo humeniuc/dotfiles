@@ -1,9 +1,6 @@
 [submodule ".vim/pack/plugins/start/tabular"]
 	path = .vim/pack/plugins/start/tabular
 	url = git@github.com:godlygeek/tabular.git
-[submodule ".vim/pack/plugins/opt/unite.vim"]
-	path = .vim/pack/plugins/opt/unite.vim
-	url = git@github.com:Shougo/unite.vim.git
 [submodule ".vim/pack/syntax/start/vim-javascript"]
 	path = .vim/pack/syntax/start/vim-javascript
 	url = git@github.com:pangloss/vim-javascript.git
@@ -49,3 +46,6 @@
 [submodule ".vim/pack/plugins/start/sandwich"]
 	path = .vim/pack/plugins/start/sandwich
 	url = git@github.com:machakann/vim-sandwich.git
+[submodule ".vim/pack/plugins/start/unite"]
+	path = .vim/pack/plugins/start/unite
+	url = git@github.com:Shougo/unite.vim.git
