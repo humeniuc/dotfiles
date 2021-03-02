@@ -1,25 +1,13 @@
 let mapleader="\<Space>"
 
-filetype off
-
 " plugin: php
 let php_var_selector_is_identifier=1
 
 " plugin: unite
-let g:unite_source_history_yank_enable = 1
 nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
 nnoremap <leader>l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
-nnoremap <leader>y :<C-u>Unite -buffer-name=yank    history/yank<CR>
 nnoremap <leader>b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
-" nnoremap <leader>tf :<C-u>Unite -buffer-name=tagfiles -start-insert tag/file<CR>
 nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
-
-" plugin: vdebug
-let g:vdebug_options= {
-\    "port" : 9002,
-\    "break_on_open" : 0,
-\    "watch_window_style" : 'compact'
-\}
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
@@ -54,7 +42,6 @@ set backspace=indent,eol,start
 set nobackup
 set nowritebackup
 set noswapfile
-set fileformats=unix,dos,mac
 set hidden
 set noerrorbells
 
@@ -68,7 +55,6 @@ set wildignore+=.svn/*
 set wildignore+=tags
 
 set history=500
-set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 " Time out on key codes but not mappings.
 " Basically this makes terminal Vim work sanely.
