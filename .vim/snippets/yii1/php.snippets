@@ -115,7 +115,15 @@ snippet yflash setFlash
 #
 
 snippet yflash addFlash
-	Yii::app()->user->addFlash('success',${1});${2}
+	Yii::app()->user->addFlash('success', ${1});${2}
+#
+
+snippet yflash setFlashMessage
+	Yii::app()->user->setFlashMessage('success', ${1});${2}
+#
+
+snippet yflash addFlashMessage
+	Yii::app()->user->addFlashMessage('success', ${1});${2}
 #
 
 snippet ystate setState

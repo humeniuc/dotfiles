@@ -49,3 +49,6 @@
 [submodule ".vim/pack/plugins/start/unite"]
 	path = .vim/pack/plugins/start/unite
 	url = git@github.com:Shougo/unite.vim.git
+[submodule ".vim/pack/plugins/opt/gutentags"]
+	path = .vim/pack/plugins/opt/gutentags
+	url = git@github.com:ludovicchabant/vim-gutentags.git
