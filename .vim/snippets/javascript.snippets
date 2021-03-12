@@ -414,7 +414,7 @@ snippet exp
 # JQUERY #
 ##########
 # jquery stub
-snippet ready
+snippet ready jQuery
 	$(document).ready(function() {
 		${1}
 	});
@@ -1340,3 +1340,8 @@ snippet jquery jquery widget
 	        });
 	    };
 	}(jQuery));
+
+snippet ready nativ
+	document.addEventListener('DOMContentLoaded', function () {	
+		${1}
+	});
