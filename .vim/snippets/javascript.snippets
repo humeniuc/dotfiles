@@ -1028,45 +1028,6 @@ snippet width
 	width(${1:integer})
 snippet wrap
 	wrap('${1:&lt;div class="extra-wrapper"&gt;&lt;/div&gt;}')
-#
-#
-#
-#############
-# TWEENLITE #
-#############
-snippet tw
-	Tween${1:Lite|Max}.${2:to|from}(${3:element}, ${4:1}, {${5}});
-snippet tl
-	var ${1:tl} = new TimelineLite();
-snippet to to()		TimelineLite: Adds a TweenLite.to() tween to the end of the timeline (or elsewhere using the "position" parameter).
-	to(${1:element}, ${2:1}, {${3}});
-snippet meth call()	TimelineLite: Adds a callback to the end of the timeline (or elsewhere using the "position" parameter).
-	call(${1:function_name});
-snippet meth pause()	TimelineLite: Pauses the instance, optionally jumping to a specific time.
-	pause(${1});
-snippet meth resume()	TimelineLite: Resumes playing without altering direction (forward or reversed), optionally jumping to a specific time first.
-	resume(${1});
-snippet meth restart()	TimelineLite: Restarts and begins playing forward from the beginning.
-	restart(${1});
-snippet meth reverse()	TimelineLite: Reverses playback so that all aspects of the animation are oriented backwards including, for example, a tween's ease.
-	reverse(${1});
-snippet meth play()	TimelineLite: Begins playing forward, optionally from a specific time (by default playback begins from wherever the playhead currently is).
-	play(${1});
-snippet meth seek()	TimelineLite: [override] Jumps to a specific time (or label) without affecting whether or not the instance is paused or reversed.
-	seek(${1:2});
-snippet meth timescale()	TimelineLite: Factor that's used to scale time in the animation where 1 = normal speed (the default), 0.5 = half speed, 2 = double speed, etc.
-	timeScale(${1:0.5});
-snippet meth add()	TimelineLite: [override] Adds a tween, timeline, callback, or label (or an array of them) to the timeline.
-	add(${1:what}, ${2:where});
-snippet meth addLabel()	TimelineLite: Adds a label to the timeline, making it easy to mark important positions/times.
-	addLabel(${1:label}, ${2:position});
-snippet onc
-	onComplete: function() {${1}}
-snippet ons
-	onStart: function() {${1}}
-#
-#
-#
 
 #
 # metrological
@@ -1340,6 +1301,11 @@ snippet jquery jquery widget
 	        });
 	    };
 	}(jQuery));
+
+snippet promise 
+	new Promise(function(resolve, reject) {
+		resolve();
+	});
 
 snippet ready nativ
 	document.addEventListener('DOMContentLoaded', function () {	
