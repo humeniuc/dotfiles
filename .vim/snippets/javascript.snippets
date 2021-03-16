@@ -186,20 +186,24 @@ snippet geti
 # EVENTS #
 ##########
 # Add Events
-snippet events
-	if (typeof(document.addEventListener) !== 'undefined') {
-		${1:element}.addEventListener('${2:event_name}', ${3:handler_name}, false);
-	} else if (typeof(document.attachEvent) !== 'undefined') {
-		$1.attachEvent('on' + '$2', $3);
-	} else {
-		$1.['on' + $2] = $3;
-	}${4}
 # Add Event
 snippet adde
-	addEventListener('${1:event_name}', ${2:function_name}, false);${3}
-# Attach Event
-snippet atte
-	attachEvent('on' + '${1:event_name}', ${2:function_name});${3}
+	addEventListener('${1:event_name}', function(event) {
+		${2}
+	}, false);
+#
+snippet ev addEventListener
+	addEventListener('${1:event_name}', function(event) {
+		${2}
+	}, false);
+#
+snippet ev preventDefault
+	.preventDefault();
+#
+snippet ev stopPropagation
+	.stopPropagation();
+#
+
 # Event handler
 snippet handler
 	function ${1:function_name}(e) {
@@ -223,10 +227,7 @@ snippet handler
 # Target
 snippet targ
 	var ${1:target} = ${2:event}.target || $2.srcElement;${3}
-# Event
-snippet ev
-	var ${1:event} = ${2:ev} || window.event;${3}
-#
+
 #
 #
 #########
@@ -1310,4 +1311,44 @@ snippet promise
 snippet ready nativ
 	document.addEventListener('DOMContentLoaded', function () {	
 		${1}
+	});
+
+snippet fetch fetch json
+	fetch(${1:url}, {	
+		'method': 'post',
+		body: new URLSearchParams
+	}).then(function(response) {	
+		return response.json();
+	}).then(function(json) {	
+		console.log(json);
+	}).catch(function(error) {	
+		console.log(error);
+	});
+
+snippet fetch fetch form json
+	const formData = new FormData(form);
+	const searchParams = new URLSearchParams(formData);
+
+	fetch(form.action, {	
+		'method': 'post',
+		body: searchParams
+	}).then(function(response) {	
+		return response.json();
+	}).then(function(json) {	
+		console.log(json);
+	}).catch(function(error) {	
+		console.log(error);
+	});
+
+
+snippet fetch fetch text
+	fetch(${1:url}, {	
+		'method': 'post',
+		body: new URLSearchParams
+	}).then(function(response) {	
+		return response.text();
+	}).then(function(text) {	
+		console.log(text);
+	}).catch(function(error) {	
+		console.log(error);
 	});
