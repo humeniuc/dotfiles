@@ -7,7 +7,7 @@ let php_var_selector_is_identifier=1
 nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
 nnoremap <leader>l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
 nnoremap <leader>b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
-nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
+" nnoremap <leader>t :<C-u>Unite -buffer-name=tags -start-insert tag<CR>
 
 " Custom mappings for the unite buffer
 autocmd FileType unite call s:unite_settings()
