@@ -469,9 +469,12 @@ hi! link markdownHeadingDelimiter Keyword
 call s:hi("perlPackageDecl", s:nord7_gui, "", s:nord7_term, "", "", "")
 
 call s:hi("phpClasses", s:nord7_gui, "", s:nord7_term, "", "", "")
+call s:hi("phpClass", s:nord7_gui, "", s:nord7_term, "", "", "")
 call s:hi("phpDocTags", s:nord7_gui, "", s:nord7_term, "", "", "")
 hi! link phpDocCustomTags phpDocTags
 hi! link phpMemberSelector Keyword
+hi! link phpMethod Function
+hi! link phpFunction Function
 
 call s:hi("podCmdText", s:nord7_gui, "", s:nord7_term, "", "", "")
 call s:hi("podVerbatimLine", s:nord4_gui, "", "NONE", "", "", "")
@@ -561,6 +564,8 @@ call s:hi("ALEError" , s:nord11_gui, "", s:nord11_term, "", "undercurl", "")
 
 " Coc
 " > neoclide/coc
+call s:hi("CocWarningHighlight" , s:nord13_gui, "", s:nord13_term, "", "undercurl", "")
+call s:hi("CocErrorHighlight" , s:nord11_gui, "", s:nord11_term, "", "undercurl", "")
 call s:hi("CocWarningSign", s:nord13_gui, "", s:nord13_term, "", "", "")
 call s:hi("CocErrorSign" , s:nord11_gui, "", s:nord11_term, "", "", "")
 call s:hi("CocInfoSign" , s:nord8_gui, "", s:nord8_term, "", "", "")
@@ -637,6 +642,11 @@ hi! link ClapPreview Pmenu
 hi! link ClapProviderAbout ClapDisplay
 hi! link ClapProviderColon Type
 hi! link ClapProviderId Type
+
+" vim-indent-guides
+" > nathanaelkane/vim-indent-guides
+call s:hi("IndentGuidesEven", "", s:nord1_gui, "", s:nord1_term, "", "")
+call s:hi("IndentGuidesOdd", "", s:nord2_gui, "", s:nord3_term, "", "")
 
 " vim-plug
 " > junegunn/vim-plug
