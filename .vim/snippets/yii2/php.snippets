@@ -109,7 +109,7 @@ snippet yform hiddenInput active
 #
 
 snippet yform hiddenInput form->hiddenInput
-	$form->field(${1:model}, '${2:attribute}')->hiddenInput(); 
+	$form->field(${1:model}, '${2:attribute}', ['options' => ['class' => 'hidden']])->hiddenInput()->label(false); 
 #
 
 snippet yscript <script>[…]</script>

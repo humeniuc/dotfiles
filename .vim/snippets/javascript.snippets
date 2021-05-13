@@ -1312,6 +1312,7 @@ snippet ready nativ
 	document.addEventListener('DOMContentLoaded', function () {	
 		${1}
 	});
+#
 
 snippet fetch fetch json
 	fetch(${1:url}, {	
@@ -1324,6 +1325,7 @@ snippet fetch fetch json
 	}).catch(function(error) {	
 		console.log(error);
 	});
+#
 
 snippet fetch fetch form json
 	const formData = new FormData(form);
@@ -1339,7 +1341,7 @@ snippet fetch fetch form json
 	}).catch(function(error) {	
 		console.log(error);
 	});
-
+#
 
 snippet fetch fetch text
 	fetch(${1:url}, {	
@@ -1352,3 +1354,9 @@ snippet fetch fetch text
 	}).catch(function(error) {	
 		console.log(error);
 	});
+#
+
+snippet range
+	var element = document.createRange().createContextualFragment(${1:'<div></div>'}).querySelector(${2:'div'});
+#
+
