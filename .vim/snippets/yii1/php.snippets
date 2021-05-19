@@ -274,11 +274,15 @@ snippet yform yii from html
 	<div id="<?php echo $formContainerId = uniqid('FormContainer'); ?>" class="form">
 	<?php echo $form->renderBegin(); ?>
 	<?php $formWidget = $form->activeFormWidget; ?>
+		<div data-is-error-container="true">
 		<?php
 		echo Html::errorSummary(${1:$form->model}, null, null, ['class' => 'alert alert-danger']);
 		echo Html::flashMessages();
 		?>
+		</div>
+
 		${3}
+
 		<div>
 		<?php
 		$form->buttons['${2:submit}']->class = 'btn btn-primary';
@@ -290,14 +294,18 @@ snippet yform yii from html
 
 	<script>
 	<?php ob_start();?>
-	ajaxFormInit(<?php echo CJavaScript::encode([
-		'formContainerId'    => $formContainerId,
-		'modelClass'         => get_class($1),
-		'multiSubmitButtons' => true,
-		'onSuccess'          => new JavaScriptFunction(['form', 'data'], '
-			// console.log("form submit OK.");
-		')
-	]); ?>);
+	(function(containerId, modelClass) {
+		var messageHandler = messageHandlerContainer(document.querySelector('#' + containerId + ' [data-is-error-container]'));
+
+		ajaxFormInit({
+			'formContainerId': containerId,
+			'multiSubmitButtons': true,
+			'modelClass': modelClass,
+			'messageHandler': messageHandler,
+			'onSuccess' : function(form, data) {	
+			}
+		});
+	})(<?= json_encode($formContainerId) ?>, <?= json_encode(get_class($1)) ?>);
 	<?php csScript(ob_get_clean(), 'ready'); ?>
 	</script>
 #
