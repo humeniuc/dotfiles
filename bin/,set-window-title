@@ -1,0 +1,8 @@
+#!/bin/bash
+# Setează window title 
+if [ ! -z "$1" ]; then
+    title="$1"
+else
+    read -p "window title: " title
+fi
+printf "\033]0;%s\007" "$title"
