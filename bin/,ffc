@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function start_ff
+{
+    PROFILE_DIR=$(mktemp -d '/tmp/firefox.XXXXXXXXXX')
+
+    firefox \
+        --profile "$PROFILE_DIR" \
+        --new-instance \
+        --no-remote \
+        --private-window \
+
+    rm -r -f "$PROFILE_DIR"
+}
+
+start_ff &
+# TODO: studiaza cum este cu double-fork
+# (start_ff &) &

@@ -32,10 +32,10 @@ function __ps1_git()
 
 #PS1='[\u@\h \W]\$ ' # default
 export PS1=\
-'\u@\h \[\033[93m\]\w'\
+'\u@\h \[\033[38;2;255;255;0m\]\w'\
 '\n'\
-'\[\033[33m\]$( declare -F __ps1_git &>/dev/null && __ps1_git )\[\033[00m\]'\
-'\[\033[0;36m\]▶\[\033[00m\] '
+'\[\033[38;2;0;111;184m\]$( declare -F __ps1_git &>/dev/null && __ps1_git )\[\033[00m\]'\
+'\[\033[38;2;0;128;128m\]▶\[\033[00m\] '
 
 # .bashrc_local in home dir
 [ -r "${HOME}/.bashrc_local" ] && . "${HOME}/.bashrc_local"

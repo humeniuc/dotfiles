@@ -2,16 +2,17 @@
 
 SCRIPT_PATH=$( if [ "${BASH_SOURCE[0]:0:1}" == "/" ]; then echo "${BASH_SOURCE[0]}"; else echo "$(pwd)/${BASH_SOURCE[0]}"; fi )
 SCRIPT_DIR="${SCRIPT_PATH%/*}"
-REPODIR="$HOME/repositories/tabbed"
+REPO_URL="git://git.suckless.org/tabbed"
+REPO_DIR="$HOME/repositories/tabbed"
 
-[ -d "$REPODIR" ] || mkdir -p "$REPODIR"
-[ -d "$REPODIR" ] || { echo "$REPODIR does not exists"; exit 2; }
+[ -d "$REPO_DIR" ] || mkdir -p "$REPO_DIR"
+[ -d "$REPO_DIR" ] || { echo "$REPO_DIR does not exists"; exit 2; }
 
-cd "$REPODIR"
+cd "$REPO_DIR"
 
 stat="$(git rev-parse --is-inside-work-tree)"
 if [ "$stat" != "true" ]; then
-    git clone git://git.suckless.org/tabbed .
+    git clone "$REPO_URL" .
 fi
 
 make clean
