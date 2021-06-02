@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 SCRIPT_PATH=$( if [ "${BASH_SOURCE[0]:0:1}" == "/" ]; then echo "${BASH_SOURCE[0]}"; else echo "$(pwd)/${BASH_SOURCE[0]}"; fi )
 SCRIPT_DIR="${SCRIPT_PATH%/*}"
 REPO_URL="git://git.suckless.org/tabbed"
@@ -22,6 +24,8 @@ git checkout -- .
 git apply "$SCRIPT_DIR/patch-install-path.diff"
 git apply "$SCRIPT_DIR/patch-new-tab-at-the-end.diff"
 git apply "$SCRIPT_DIR/patch-nav-with-page-up-down.diff"
+git apply "$SCRIPT_DIR/patch-nav-disable-number.diff"
+git apply "$SCRIPT_DIR/patch-nav-ctrl-shift-q.diff"
 
 make clean install
 
