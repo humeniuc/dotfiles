@@ -23,9 +23,7 @@ git checkout -- .
 
 git apply "$SCRIPT_DIR/patch-install-path.diff"
 git apply "$SCRIPT_DIR/patch-new-tab-at-the-end.diff"
-git apply "$SCRIPT_DIR/patch-nav-with-page-up-down.diff"
-git apply "$SCRIPT_DIR/patch-nav-disable-number.diff"
-git apply "$SCRIPT_DIR/patch-nav-ctrl-shift-q.diff"
+git apply "$SCRIPT_DIR/patch-nav-fix.diff"
 
 make clean install
 
