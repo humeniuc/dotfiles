@@ -1,0 +1,45 @@
+#!/bin/bash
+
+_TERM="${1:-xfce4-terminal}"
+
+ssh-add "$HOME/.ssh/id_rsa"
+ssh-add "$HOME/.ssh/id_rsa_1"
+ssh-add "$HOME/.ssh/id_rsa_2"
+
+# @param command
+# @param windowname 
+function new_tab()
+{   
+    if [ "$1" == "1" ]; then
+        if [ "$_TERM" == "xfce4-terminal" ]; then
+            xfce4-terminal --tab --title="$3"
+        fi
+
+        if [ "$_TERM" == "st" ]; then
+            xdotool key "Ctrl+grave"
+            sleep 0.1
+            xdotool type --delay 0 -- "-t $3"
+            xdotool key "Return"
+            sleep 0.1
+        fi
+    fi
+
+    xdotool type --delay 0 "$2"
+    xdotool key "Return"
+}
+
+if [ "$_TERM" == "xfce4-terminal" ]; then
+    xfce4-terminal --initial-title="local" &
+    xdotool search --sync --onlyvisible --class "xfce4-terminal"
+fi
+
+if [ "$_TERM" == "st" ]; then
+    tabbed -r 2 -n "tabbed-st" st -w '' &
+    xdotool search --sync --onlyvisible --class "tabbed"
+    sleep 0.1
+fi
+
+new_tab "0" "tmux new -A -s \"local\"" "local"
+new_tab "1" "ssh gabi@server1" "server1"
+new_tab "2" "ssh gabi@server1" "server2"
+
