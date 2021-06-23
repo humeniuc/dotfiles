@@ -1,0 +1,2 @@
+# Autocomplete pentru bash
+. /usr/share/bash-completion/completions/git
