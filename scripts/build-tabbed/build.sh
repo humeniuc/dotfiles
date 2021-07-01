@@ -22,6 +22,7 @@ git checkout -- .
 [ -f ./config.h ] && rm ./config.h
 
 git apply "$SCRIPT_DIR/patch-install-path.diff"
+git apply "$SCRIPT_DIR/patch-font.diff"
 git apply "$SCRIPT_DIR/patch-new-tab-at-the-end.diff"
 git apply "$SCRIPT_DIR/patch-nav-fix.diff"
 

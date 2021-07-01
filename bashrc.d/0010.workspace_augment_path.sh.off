@@ -9,7 +9,8 @@ workspace_augment_path() {
     if [ "$PWD" = "$LAST_WD" ]; then return 0; fi;
 
     # curat caile vechi existente
-    PATH=$(echo "$PATH" | sed 's/:/\n/g' | sed '/\/.workspace\/bin$/d' | sed '/^$/d' | tr '\n' ':')
+    export PATH=$(printf "%s" "$PATH" | sed 's/:/\n/g' | sed '/\/.workspace\/bin$/d' | sed '/^$/d' | tr '\n' ':')
+    # curat caile vechi existente
 
     # incep sa scanez incepand cu directorul curent, in sus cautant .workspace/bin
     PATH_ADDITION=""
@@ -24,7 +25,10 @@ workspace_augment_path() {
         SCANDIR="${SCANDIR%/*}"
     done
 
-    PATH="$PATH_ADDITION:$PATH"
+    if [ ! -z "$PATH_ADDITION" ]; then
+        export PATH="$PATH_ADDITION:$PATH"
+    fi
+
     LAST_WD=`pwd`
 }
 

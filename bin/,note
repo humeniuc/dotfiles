@@ -17,7 +17,11 @@ ROOT_DIR="$HOME/Dropbox/Desktop/notes"
 mkdir -p "$ROOT_DIR"
 
 if [ ! -z "$1" ]; then 
-    FILEPATH="$ROOT_DIR/$1"
+    if [ "$1" = "j" ] || [ "$1" = "journal" ]; then
+        FILEPATH="$ROOT_DIR/$( date +%Y/%m/%d ).md"
+    else
+        FILEPATH="$ROOT_DIR/$1"
+    fi
 else
     RELATIVE_FILEPATH=$( find "$ROOT_DIR" -type f -name "*.md" -printf "%P\n" | dmenu -i -l 10 -p 'notiță: ' -fn 'Terminus:regular:size=12' )
 

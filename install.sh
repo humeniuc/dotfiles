@@ -1,28 +1,10 @@
 #!/bin/bash
 
-dir="${HOME}/dotfiles"
-olddir="${HOME}/dotfiles_old"
-files=(
-    .bash_aliases
-    .bashrc
-    .ctags
-    .tmux.conf
-    .vim
-)
+DOTFILES="${HOME}/dotfiles"
 
-set -x
-cd ~
-mkdir -p $olddir
+ln -s -r -f "$DOTFILES/.vim" "${HOME}/.vim"
+ln -s -r -f "$DOTFILES/.bashrc" "${HOME}/.bashrc"
+ln -s -r -f "$DOTFILES/.ctags" "${HOME}/.ctags"
+ln -s -r -f "$DOTFILES/.tmux.conf" "${HOME}/.tmux.conf"
+ln -s -r -f "$DOTFILES/bin" "${HOME}/.local/bin/dotfiles"
 
-for file in "${files[@]}";
-do
-    mv "${HOME}/$file" "$olddir"
-    ln -s -r "$dir/$file" "${HOME}/$file"
-done
-
-for f in "$HOME/dotfiles/bin/*";
-do
-    if [[ -f "$f" ]]; then
-        ln -s "$f" "$HOME/bin/"$(basename "$f");
-    fi
-done

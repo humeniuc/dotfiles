@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_TERM="${1:-xfce4-terminal}"
+_TERM="${1:-st}"
 
 ssh-add "$HOME/.ssh/id_rsa"
 ssh-add "$HOME/.ssh/id_rsa_1"
