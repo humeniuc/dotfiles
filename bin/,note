@@ -18,7 +18,7 @@ mkdir -p "$ROOT_DIR"
 
 if [ ! -z "$1" ]; then 
     if [ "$1" = "j" ] || [ "$1" = "journal" ]; then
-        FILEPATH="$ROOT_DIR/$( date +%Y/%m/%d ).md"
+        FILEPATH="$ROOT_DIR/journal/$( date +%Y/%m/%d ).md"
     else
         FILEPATH="$ROOT_DIR/$1"
     fi
