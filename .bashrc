@@ -14,5 +14,3 @@ for file in "$HOME/dotfiles/bashrc.d/"*.sh; do
     [ -r "$file" ] && . "$file"
 done
 unset file
-
-echo "$PATH" >> ~/tmp/path.log
