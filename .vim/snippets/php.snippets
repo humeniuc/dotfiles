@@ -76,7 +76,8 @@ snippet dbr
 	debug_request();${2}
 #
 snippet dbb
-	debug(debug_backtrace());${1}
+	/* debug backtrace */ $__log = []; foreach(debug_backtrace() as $_db) { $__log[] = $_db['file']. ':'. $_db['line']. (! empty($_db['class']) ? ' '. $_db['class']. '::'. $_db['function']. '()' : (! empty($_db['function']) ? ' '. $_db['function']. '()' : '')); } echo PHP_SAPI == 'cli' ? '' : '<pre>'; print_r($__log); echo PHP_SAPI == 'cli' ? '' : '<pre>'; unset($__log);
+	${1}
 #
 snippet dbl
 	debug('line '. __LINE__. "<br/>\n");
