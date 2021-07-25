@@ -1,2 +1,8 @@
 # alias pentru xclip
 [[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
+
+[[ $(type git 2>/dev/null) ]] && {
+    alias gs="git status"
+    alias gf="git fetch"
+    alias gprb="git pull --rebase"
+};
