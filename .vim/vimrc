@@ -115,7 +115,7 @@ nnoremap <F2> <ESC>:ls<CR>:b<SPACE>
 nnoremap <F3> <ESC>:set paste!<RETURN>
 " in 'proiecte' leader-u este pentru a deschide unite cu lista de fisiere
 " daca nu sunt intr-un fisier din proiecte ar insemna undo.
-" pentru a preveni undo-urile inutile dezactivez <u> cand este prefixat de
+" pentru a preveni undo-urile accidentale dezactivez <u> cand este prefixat de
 " <leader>
 nnoremap <leader>u <NOP>
 nnoremap <leader><CR> <ESC>:update<CR><ESC>
@@ -131,7 +131,6 @@ nnoremap / /\v\c
 " cautare restrictionata la linia curenta. ex daca esti pe linia 150 cu regular expression, case insensitive: /\%150l\v\c
 nnoremap <leader>/l /\%<C-R>=line('.')<CR>l\v\c
 
-"
 " nnoremap <leader>gg :grep -E '<C-R><C-W>' -r .
 " nnoremap <leader>gw :grep -E '\b''<C-R><C-W>''\b' -r .
 nnoremap <leader>gg :<C-u>call grep#fill('<C-R><C-W>', 0)<CR>
@@ -167,6 +166,18 @@ for char in [ '_', '.', ':', ',', ';', '<bar>', '/', '<bslash>', '*', '+', '%', 
     execute 'onoremap a'. char. ' :<C-u>normal! F'. char. 'vf'. char. '<CR>'
 endfor
 
+" Autocomplete
+inoremap "<TAB> ""<LEFT>
+inoremap '<TAB> ''<LEFT>
+inoremap (<TAB> ()<LEFT>
+inoremap [<TAB> []<LEFT>
+inoremap ["<TAB> [""]<LEFT><LEFT>
+inoremap ['<TAB> ['']<LEFT><LEFT>
+inoremap {<TAB> {}<LEFT>
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+inoremap jk <ESC>
+
 " autogroup
 augroup ft
     autocmd!
@@ -180,25 +191,11 @@ augroup ft
     " on leaving insert mode, drop nopaste
     autocmd InsertLeave * set nopaste
 
-    " show cursorline only in active window
-    " autocmd WinEnter * :setlocal cursorline
-    " autocmd WinLeave * :setlocal nocursorline
-
-    "test pentru evenimente
-    "autocmd BufEnter * :call system('echo "$(date) BufEnter" >> /tmp/vim_events_test')
-    "autocmd BufLeave * :call system('echo "$(date) BufLeave" >> /tmp/vim_events_test')
-
-    "de debug
-    "autocmd BufEnter * echom "enter ". expand('%')
-    "autocmd BufLeave * echom "leave ". expand('%')
-
     " autoopen quickfix on :grep
     " https://stackoverflow.com/questions/39009792/vimgrep-pattern-and-immediately-open-quickfix-in-split-mode
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l*    lwindow
-
 augroup END
-
 
 " colorscheme
 if has('termguicolors')
