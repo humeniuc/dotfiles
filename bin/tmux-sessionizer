@@ -5,6 +5,7 @@ if [[ $# -eq 1 ]]; then
 else
     items=$(find "$HOME/work/project" -maxdepth 1 -mindepth 1 -type d)
     items+=("$HOME/dotfiles")
+    items+=("$HOME/GoogleDrive/resurse/hear")
     items+=("$HOME")
     selected=$(printf "%s\n" "${items[@]}" | sort | fzf)
 fi
