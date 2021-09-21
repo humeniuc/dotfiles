@@ -22,5 +22,3 @@ if [[ $? -eq 0 ]]; then
 fi
 
 tmux new-session -d -c "$selected" -s "$tmux_session_name" && tmux switch-client -t "$tmux_session_name" || tmux new -c "$selected" -A -s "$tmux_session_name"
-
-
