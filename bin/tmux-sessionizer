@@ -3,11 +3,13 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    items=$(find "$HOME/work/project" -maxdepth 1 -mindepth 1 -type d)
-    items+=("$HOME/dotfiles")
-    items+=("$HOME/GoogleDrive/resurse/hear")
-    items+=("$HOME")
-    selected=$(printf "%s\n" "${items[@]}" | sort | fzf)
+    if [ -z "$TMUX_SESSIONIZER_PATHS" ]; then
+        echo "TMUX_SESSIONIZER_PATHS is not defined"
+        exit 1
+    fi
+
+    items="$TMUX_SESSIONIZER_PATHS"
+    selected=$(printf "%s" "$items" | sort | fzf)
 fi
 
 if [ -z "$selected" ]; then
