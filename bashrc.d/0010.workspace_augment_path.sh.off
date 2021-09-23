@@ -32,9 +32,7 @@ workspace_augment_path() {
     LAST_WD=`pwd`
 }
 
-PROMPT_COMMAND_OLD="${PROMPT_COMMAND%; workspace_augment_path}"
-if [ -z "$PROMPT_COMMAND_OLD" ]; then
-    PROMPT_COMMAND="workspace_augment_path"
-else
-    PROMPT_COMMAND="$PROMPT_COMMAND_OLD; workspace_augment_path"
-fi
+workspace_augment_path_cmd=$'\n''workspace_augment_path'$'\n'
+PROMPT_COMMAND="${PROMPT_COMMAND/$workspace_augment_path_cmd/}$workspace_augment_path_cmd"
+
+echo "prompt_command is: $PROMPT_COMMAND"
