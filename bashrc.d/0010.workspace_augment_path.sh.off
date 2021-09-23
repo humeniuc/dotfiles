@@ -34,5 +34,3 @@ workspace_augment_path() {
 
 workspace_augment_path_cmd=$'\n''workspace_augment_path'$'\n'
 PROMPT_COMMAND="${PROMPT_COMMAND/$workspace_augment_path_cmd/}$workspace_augment_path_cmd"
-
-echo "prompt_command is: $PROMPT_COMMAND"
