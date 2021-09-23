@@ -1,8 +1,11 @@
 # alias pentru xclip
-[[ $(type "xclip" 2>/dev/null) ]] && alias xc='xclip -selection clipboard'
+[ $(command -v "xclip" 2>/dev/null) ] && alias xc='xclip -selection clipboard'
 
-[[ $(type git 2>/dev/null) ]] && {
+[ $(command -v git 2>/dev/null) ] && {
     alias gs="git status"
     alias gf="git fetch"
     alias gprb="git pull --rebase"
-};
+
+    [ $(command -v fzf 2>/dev/null) ] && alias gfzf='git status -s| sort| fzf | awk '\''{print $2}'\'
+
+}
