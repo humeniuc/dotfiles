@@ -1,0 +1,6 @@
+# vim's documentation tags
+/**/doc/tags
+
+# bashrc local include scripts
+/bashrc.d/*.local.sh
+
