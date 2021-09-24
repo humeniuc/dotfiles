@@ -4,9 +4,6 @@
 [submodule ".vim/pack/syntax/start/vim-javascript"]
 	path = .vim/pack/syntax/start/vim-javascript
 	url = git@github.com:pangloss/vim-javascript.git
-[submodule ".vim/pack/plugins/start/snipmate.vim"]
-	path = .vim/pack/plugins/start/snipmate.vim
-	url = git@github.com:msanders/snipmate.vim.git
 [submodule ".vim/pack/plugins/start/vim-localvimrc"]
 	path = .vim/pack/plugins/start/vim-localvimrc
 	url = git@github.com:embear/vim-localvimrc.git
