@@ -37,9 +37,6 @@
 [submodule ".vim/pack/plugins/opt/vim-lsp"]
 	path = .vim/pack/plugins/opt/vim-lsp
 	url = git@github.com:prabirshrestha/vim-lsp
-[submodule ".vim/pack/plugins/start/sandwich"]
-	path = .vim/pack/plugins/start/sandwich
-	url = git@github.com:machakann/vim-sandwich.git
 [submodule ".vim/pack/plugins/opt/gutentags"]
 	path = .vim/pack/plugins/opt/gutentags
 	url = git@github.com:ludovicchabant/vim-gutentags.git
