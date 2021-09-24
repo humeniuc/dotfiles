@@ -25,9 +25,6 @@
 [submodule ".vim/pack/plugins/opt/vdebug"]
 	path = .vim/pack/plugins/opt/vdebug
 	url = git@github.com:joonty/vdebug.git
-[submodule ".vim/pack/plugins/start/editorconfig-vim"]
-	path = .vim/pack/plugins/start/editorconfig-vim
-	url = git@github.com:editorconfig/editorconfig-vim.git
 [submodule ".vim/pack/plugins/opt/async.vim"]
 	path = .vim/pack/plugins/opt/async.vim
 	url = git@github.com:prabirshrestha/async.vim
