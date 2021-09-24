@@ -1,21 +1,12 @@
 [submodule ".vim/pack/syntax/start/vim-javascript"]
 	path = .vim/pack/syntax/start/vim-javascript
 	url = git@github.com:pangloss/vim-javascript.git
-[submodule ".vim/pack/plugins/start/vim-localvimrc"]
-	path = .vim/pack/plugins/start/vim-localvimrc
-	url = git@github.com:embear/vim-localvimrc.git
 [submodule ".vim/pack/syntax/start/vim-less"]
 	path = .vim/pack/syntax/start/vim-less
 	url = git@github.com:genoma/vim-less.git
 [submodule ".vim/pack/syntax/start/smarty.vim"]
 	path = .vim/pack/syntax/start/smarty.vim
 	url = git@github.com:blueyed/smarty.vim.git
-[submodule ".vim/pack/plugins/start/vim-commentary"]
-	path = .vim/pack/plugins/start/vim-commentary
-	url = git@github.com:tpope/vim-commentary.git
-[submodule ".vim/pack/plugins/start/vim-qlist"]
-	path = .vim/pack/plugins/start/vim-qlist
-	url = git@github.com:romainl/vim-qlist.git
 [submodule ".vim/pack/syntax/start/php.vim"]
 	path = .vim/pack/syntax/start/php.vim
 	url = git@github.com:StanAngeloff/php.vim.git
