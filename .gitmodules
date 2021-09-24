@@ -25,6 +25,3 @@
 [submodule ".vim/pack/plugins/opt/vim-lsp"]
 	path = .vim/pack/plugins/opt/vim-lsp
 	url = git@github.com:prabirshrestha/vim-lsp
-[submodule ".vim/pack/plugins/opt/gutentags"]
-	path = .vim/pack/plugins/opt/gutentags
-	url = git@github.com:ludovicchabant/vim-gutentags.git
