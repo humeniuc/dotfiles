@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Sample pentru un executabil care sa returneze caile pentru tmux-sessionizer
+
+echo "$HOME"
+echo "$HOME/dotfiles"
+echo "$HOME/dir1"
+echo "$HOME/dir2"
+
+find "$HOME/path/of/projects/dir" -maxdepth 1 -mindepth 1 -type d
+

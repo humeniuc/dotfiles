@@ -4,13 +4,7 @@
 # Arch
 [ -r /etc/bash.bashrc ] && source /etc/bash.bashrc
 
-# $HOME/.local/bin and its's recursive subdirectories added in $PATH.
-# That way, if I symlink dotfiles/bin to $HOME/.local/bin/dotfiles, the dotfiles/bin executables whould be accesible.
-# PATH_AUGMENTED prevents re-augment PATH when starting bash from bash or bash > mc or bash > tmux > bash > mc, etc. 
-[ -z "$PATH_AUGMENTED" ] && {
-    export PATH="$(find -L "${HOME}/.local/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g"):$PATH"
-    export PATH_AUGMENTED=true
-}
+. "${HOME}/dotfiles/lib/bash/path_augment_local.sh"
 
 export EDITOR=vim
 

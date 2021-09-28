@@ -3,13 +3,13 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    if [ -z "$TMUX_SESSIONIZER_PATHS" ]; then
-        echo "TMUX_SESSIONIZER_PATHS is not defined"
-        exit 1
-    fi
+    items="$(tmux-sessionizer-paths)"
 
-    items="$TMUX_SESSIONIZER_PATHS"
-    selected=$(printf "%s" "$items" | sort | fzf)
+    if [ -t 0 ]; then
+        selected=$(printf "%s" "$items" | sort | fzf)
+    else
+        selected=$(printf "%s" "$items" | sort | dmenu -i -l 10 -p 'Alege un proiect:' -fn 'Terminus:regular:size=12')
+    fi
 fi
 
 if [ -z "$selected" ]; then
