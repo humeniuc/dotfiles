@@ -1,26 +1,37 @@
 #!/usr/bin/env bash
 
 if [[ $# -eq 1 ]]; then
-    selected=$1
+    session_path=$1
+    session_name=$2
 else
-    items="$(tmux-sessionizer-paths)"
+    function _select_path_and_name() {
+        items="$(tmux-sessionizer-paths)"
+        # echo $items
+        if [ -t 0 ]; then
+            tmux-sessionizer-paths | sort | fzf
+        else
+            tmux-sessionizer-paths | sort | dmenu -i -l 10 -p 'Alege un proiect:' -fn 'Terminus:regular:size=12'
+        fi
+    }
 
-    if [ -t 0 ]; then
-        selected=$(printf "%s" "$items" | sort | fzf)
-    else
-        selected=$(printf "%s" "$items" | sort | dmenu -i -l 10 -p 'Alege un proiect:' -fn 'Terminus:regular:size=12')
-    fi
+    < <(_select_path_and_name) read session_path session_name
 fi
 
-if [ -z "$selected" ]; then
-    exit
+# Session path is required.
+if [ -z "$session_path" ]; then
+    exit 1
 fi
 
-tmux_session_name=$(basename "$selected" | tr . _)
+# Determine session name from path if not set.
+if [ -z "$session_name" ]; then
+    session_name=$(basename "$session_path" | tr . _)
+fi
 
-tmux switch-client -t "$tmux_session_name" 2>/dev/null
+# Switch to session if exists
+tmux switch-client -t "$session_name" 2>/dev/null
 if [[ $? -eq 0 ]]; then
     exit 0
 fi
 
-tmux new-session -d -c "$selected" -s "$tmux_session_name" && tmux switch-client -t "$tmux_session_name" || tmux new -c "$selected" -A -s "$tmux_session_name"
+# Create new session
+tmux new-session -d -c "$session_path" -s "$session_name" && tmux switch-client -t "$session_name" || tmux new -c "$session_path" -A -s "$session_name"

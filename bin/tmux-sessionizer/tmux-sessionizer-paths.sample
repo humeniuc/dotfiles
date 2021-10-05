@@ -1,11 +1,16 @@
 #!/bin/bash
 
-# Sample pentru un executabil care sa returneze caile pentru tmux-sessionizer
+# Sample for the executable which display tmux-sessionizer sessions paths
 
+# Only paths. Session name would be determined from dirname.
+# /path/to/session/root
 echo "$HOME"
 echo "$HOME/dotfiles"
 echo "$HOME/dir1"
 echo "$HOME/dir2"
-
 find "$HOME/path/of/projects/dir" -maxdepth 1 -mindepth 1 -type d
 
+# With session name. Session name should appear after path
+# /path/to/session/root session_name
+echo "$HOME/dir3" "custom-session-name-3"
+find "$HOME/path/of/projects/dir" -maxdepth 1 -mindepth 1 -type d -printf "%p doc-%f \n"
