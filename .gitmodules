@@ -7,9 +7,6 @@
 [submodule ".vim/pack/syntax/start/smarty.vim"]
 	path = .vim/pack/syntax/start/smarty.vim
 	url = git@github.com:blueyed/smarty.vim.git
-[submodule ".vim/pack/syntax/start/php.vim"]
-	path = .vim/pack/syntax/start/php.vim
-	url = git@github.com:StanAngeloff/php.vim.git
 [submodule ".vim/pack/plugins/opt/vdebug"]
 	path = .vim/pack/plugins/opt/vdebug
 	url = git@github.com:joonty/vdebug.git
