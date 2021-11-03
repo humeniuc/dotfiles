@@ -1,5 +1,5 @@
-# în $HOME/.bashrc / $HOME/.bashrc_local adaugă:
-# source "$HOME/dotfiles/bash/workspace_augment_path.sh"
+# Obsolete: Use cdinout.
+# Add script to `$HOME/.bashrc`.
 
 LAST_WD=""
 
