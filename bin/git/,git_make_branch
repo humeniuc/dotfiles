@@ -1,0 +1,11 @@
+#!/bin/bash
+
+[ -z "$1" ] && { 
+    echo "specifică un cod";
+    exit 1; 
+}
+
+branch=$( printf "wip_%s_%s" $(date +%F) "$1" );
+
+set -x
+git checkout -b "$branch"
