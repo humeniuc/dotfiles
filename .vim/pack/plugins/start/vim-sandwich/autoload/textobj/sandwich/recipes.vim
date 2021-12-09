@@ -41,7 +41,7 @@ function! s:recipes.uniq(opt) dict abort "{{{
   endwhile
 endfunction
 "}}}
-function! s:recipes.query(opt, timeoutlen) dict abort "{{{
+function! s:recipes.query(opt, timeout, timeoutlen) dict abort "{{{
   let recipes = deepcopy(self.integrated)
   let clock = sandwich#clock#new()
   let input = ''
@@ -49,7 +49,7 @@ function! s:recipes.query(opt, timeoutlen) dict abort "{{{
   while 1
     let c = getchar(0)
     if empty(c)
-      if clock.started && a:timeoutlen > 0 && clock.elapsed() > a:timeoutlen
+      if clock.started && a:timeout && a:timeoutlen > 0 && clock.elapsed() > a:timeoutlen
         let [input, recipes] = last_compl_match
         break
       else
@@ -59,6 +59,13 @@ function! s:recipes.query(opt, timeoutlen) dict abort "{{{
     endif
 
     let c = type(c) == s:type_num ? nr2char(c) : c
+
+    " exit loop if <Esc> is pressed
+    if c is# "\<Esc>"
+      let input = "\<Esc>"
+      break
+    endif
+
     let input .= c
 
     " check forward match

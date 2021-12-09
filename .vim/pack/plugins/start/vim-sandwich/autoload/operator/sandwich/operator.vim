@@ -414,7 +414,8 @@ function! s:operator.query() dict abort  "{{{
   let recipes = filter(deepcopy(self.recipes.integrated), filter)
   let opt = self.opt
   let clock = sandwich#clock#new()
-  let timeoutlen = max([0, s:get('timeoutlen', &timeoutlen)])
+  let timeout = s:get_sandwich_option('timeout', &timeout)
+  let timeoutlen = max([0, s:get_sandwich_option('timeoutlen', &timeoutlen)])
 
   " query phase
   let input   = ''
@@ -422,7 +423,7 @@ function! s:operator.query() dict abort  "{{{
   while 1
     let c = getchar(0)
     if empty(c)
-      if clock.started && timeoutlen > 0 && clock.elapsed() > timeoutlen
+      if clock.started && timeout && timeoutlen > 0 && clock.elapsed() > timeoutlen
         let [input, recipes] = last_compl_match
         break
       else
@@ -432,6 +433,13 @@ function! s:operator.query() dict abort  "{{{
     endif
 
     let c = type(c) == s:type_num ? nr2char(c) : c
+
+    " exit loop if <Esc> is pressed
+    if c is# "\<Esc>"
+      let input = "\<Esc>"
+      break
+    endif
+
     let input .= c
 
     " check forward match
@@ -584,7 +592,7 @@ function! s:operator.highlight_added(opt) dict abort  "{{{
   endif
 
   let hi_duration = a:opt.of('hi_duration', '')
-  let hi_method = s:get('persistent_highlight', 'glow')
+  let hi_method = s:get_operator_option('persistent_highlight', 'glow')
   if hi_method ==# 'glow' && s:has_timer
     call self.glow('added', 'OperatorSandwichAdd', hi_duration)
   else
@@ -1032,8 +1040,8 @@ function! s:reg_executing() abort "{{{
   return ''
 endfunction "}}}
 
-let [s:get_left_pos, s:get_right_pos, s:c2p, s:is_valid_2pos, s:is_ahead, s:is_equal_or_ahead, s:get]
-      \ = operator#sandwich#lib#funcref(['get_left_pos', 'get_right_pos', 'c2p', 'is_valid_2pos', 'is_ahead', 'is_equal_or_ahead', 'get'])
+let [s:get_left_pos, s:get_right_pos, s:c2p, s:is_valid_2pos, s:is_ahead, s:is_equal_or_ahead, s:get_operator_option, s:get_sandwich_option]
+      \ = operator#sandwich#lib#funcref(['get_left_pos', 'get_right_pos', 'c2p', 'is_valid_2pos', 'is_ahead', 'is_equal_or_ahead', 'get_operator_option', 'get_sandwich_option'])
 
 
 " vim:set foldmethod=marker:

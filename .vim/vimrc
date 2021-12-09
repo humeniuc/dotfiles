@@ -3,6 +3,10 @@ let mapleader="\<Space>"
 " plugin: php
 let php_var_selector_is_identifier=1
 
+" Manual load of exrc plugin for easy disable if needed.
+packadd exrc.vim
+let g:exrc#names = ['.vimrc.local']
+
 " Default for fzf with fallback to unite
 if executable('fzf')
     packadd fzf
