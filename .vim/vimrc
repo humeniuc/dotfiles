@@ -130,7 +130,8 @@ nnoremap <F3> <ESC>:set paste!<RETURN>
 " pentru a preveni undo-urile accidentale dezactivez <u> cand este prefixat de
 " <leader>
 nnoremap <leader>u <NOP>
-nnoremap <leader><CR> <ESC>:update<CR><ESC>
+" Write 
+nnoremap <leader>w <ESC>:update<CR>
 
 " current word, make-it uppercase
 inoremap <C-u> <ESC>mzgUiw`za
