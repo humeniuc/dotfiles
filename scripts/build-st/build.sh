@@ -19,18 +19,21 @@ mkdir -p "$PATCHES_DIR"
 
 make clean
 git checkout -- .
+git pull origin master
 [ -f ./config.h ] && rm ./config.h
 
 function install_patch()
 {   
     URL=$1
     FILENAME=${URL/*\//}
+    echo $'\n'"install patch $FILENAME"
 
     if [ ! -f "$PATCHES_DIR/$FILENAME" ]; then
         ( cd $PATCHES_DIR && curl -O "$URL")
     fi
     patch -p1 < "$PATCHES_DIR/$FILENAME"
     # git apply < "$PATCHES_DIR/$FILENAME"
+    # echo $'\n'"$?"$'\n'
 }
 
 # scrollback
@@ -45,10 +48,15 @@ install_patch "https://st.suckless.org/patches/scrollback/st-scrollback-mouse-al
 # clipboard
 install_patch "https://st.suckless.org/patches/clipboard/st-clipboard-20180309-c5ba9c0.diff"
 
+echo "apply patch-install-local.diff"
 git apply "$SCRIPT_DIR/patch-install-local.diff"
+echo "apply patch-color.diff"
 git apply "$SCRIPT_DIR/patch-color.diff"
+echo "apply patch-delkey.diff"
 git apply "$SCRIPT_DIR/patch-delkey.diff"
+echo "apply patch-font-terminus.diff"
 git apply "$SCRIPT_DIR/patch-font-terminus.diff"
+echo "apply patch-osc52-enable.diff"
 git apply "$SCRIPT_DIR/patch-osc52-enable.diff"
 
 # make st

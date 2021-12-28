@@ -19,6 +19,7 @@ fi
 
 make clean
 git checkout -- .
+git pull origin master
 [ -f ./config.h ] && rm ./config.h
 
 git apply "$SCRIPT_DIR/patch-install-path.diff"
