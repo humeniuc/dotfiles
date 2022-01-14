@@ -191,6 +191,12 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 inoremap jk <ESC>
 
+cabbrev grepphp grep --include="*.php"
+cabbrev grepjs grep --include="*.js"
+cabbrev greptpl grep --include="*.tpl"
+cabbrev grepless grep --include="*.less"
+cabbrev grepcss grep --include="*.css"
+
 " autogroup
 augroup ft
     autocmd!
