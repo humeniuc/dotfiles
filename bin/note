@@ -23,7 +23,8 @@ if [ ! -z "$1" ]; then
         FILEPATH="$ROOT_DIR/$1"
     fi
 else
-    RELATIVE_FILEPATH=$( find "$ROOT_DIR" -type f -name "*.md" -printf "%P\n" | dmenu -i -l 10 -p 'notiță: ' -fn 'Terminus:regular:size=12' )
+    # RELATIVE_FILEPATH=$( find "$ROOT_DIR" -type f -name "*.md" -printf "%P\n" | dmenu -i -l 10 -p 'notiță: ' -fn 'Terminus:regular:size=12' )
+    RELATIVE_FILEPATH=$( find "$ROOT_DIR" -type f -name "*.md" -printf "%P\n" | dmenu -i -l 10 -p 'notiță: ' -fn 'JetBrains\ Mono\ Medium:regular:size=12' )
 
     if [ $? -eq 1 ]; then
         zenity --error --text="Specifică un nume de fișier"
