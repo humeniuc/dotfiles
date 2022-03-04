@@ -1,0 +1,22 @@
+#!/bin/bash
+
+SCRIPT_PATH=$( realpath "${BASH_SOURCE[0]}" )
+DOTFILES_PATH="${SCRIPT_PATH%/*}"
+
+cd "$DOTFILES_PATH/xprofile.d" || { echo "xprofile.d directory does not exists" >&2; exit; }
+
+echo "# Generated from dotfiles"
+echo "# ----------"
+echo "export DOTFILES_PATH=\"$DOTFILES_PATH\""
+echo ""
+
+for file in "./"*.sh; do
+    if test -r "$file"; then
+        echo "# ----------"
+        echo "# $file"
+        echo "# ----------"
+        echo ""
+        cat "$file"
+        echo ""
+    fi
+done

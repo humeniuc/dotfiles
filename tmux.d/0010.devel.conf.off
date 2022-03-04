@@ -1,0 +1,3 @@
+# Culori devel
+set -g status-left "#[fg=#ffffff,bg=#8A2BE2] #S #[bg=default,fg=default]"
+set -g status-right " #H #[fg=#ffffff,bg=#8A2BE2] devel #[bg=default,fg=default]"

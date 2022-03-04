@@ -3,4 +3,7 @@
 
 # bashrc local include scripts
 /bashrc.d/*.local.sh
+/xprofile.d/*.local.sh
+
+/tmux.d/*.local.conf
 

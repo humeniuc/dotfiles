@@ -1,0 +1,21 @@
+#!/bin/bash
+
+SCRIPT_PATH=$( realpath "${BASH_SOURCE[0]}" )
+DOTFILES_PATH="${SCRIPT_PATH%/*}"
+
+cd "$DOTFILES_PATH/tmux.d" || { echo "tmux.d directory does not exists" >&2; exit; }
+
+echo "# Generated from dotfiles"
+echo "# ----------"
+echo ""
+
+for file in "./"*.conf; do
+    if test -r "$file"; then
+        echo "# ----------"
+        echo "# $file"
+        echo "# ----------"
+        echo ""
+        cat "$file"
+        echo ""
+    fi
+done

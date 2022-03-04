@@ -1,14 +1,12 @@
 #!/bin/bash
 
-DOTFILES="${HOME}/dotfiles"
+SCRIPT_PATH=$( realpath "${BASH_SOURCE[0]}" )
+DOTFILES_PATH="${SCRIPT_PATH%/*}"
 
+ln -s -r -f -T "$DOTFILES_PATH/.vim" "${HOME}/.vim"
+ln -s -r -f "$DOTFILES_PATH/.ctags" "${HOME}/.ctags"
 
-ln -s -r -f -T "$DOTFILES/.vim" "${HOME}/.vim"
-ln -s -r -f "$DOTFILES/.bashrc" "${HOME}/.bashrc"
-ln -s -r -f "$DOTFILES/.ctags" "${HOME}/.ctags"
-ln -s -r -f "$DOTFILES/.tmux.conf" "${HOME}/.tmux.conf"
-mkdir -p "${HOME}/.local/bin"
-ln -s -r -f -T "$DOTFILES/bin" "${HOME}/.local/bin/dotfiles"
-mkdir -p "${HOME}/.local/share/mc/skins"
-ln -s -r -f -T "$DOTFILES/mc/skins/nord16M.ini" "${HOME}/.local/share/mc/skins/nord16M.ini"
+bash "$DOTFILES_PATH/build-bashrc" > "$HOME/.bashrc"
+bash "$DOTFILES_PATH/build-xprofile" > "$HOME/.xprofile"
+bash "$DOTFILES_PATH/build-tmux" > "$HOME/.tmux.conf"
 

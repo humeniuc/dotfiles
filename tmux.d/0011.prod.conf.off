@@ -1,0 +1,3 @@
+# Culori productie
+set -g status-left "#[fg=white,bg=red] #S (P) #[bg=default,fg=default]"
+set -g status-right "#[fg=white,bg=red] #H productie #[bg=default,fg=default]"
