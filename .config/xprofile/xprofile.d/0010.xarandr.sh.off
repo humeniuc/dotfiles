@@ -1,0 +1,8 @@
+# Generate config through arandr
+xrandr \
+    --dpi 144 \
+    --output eDP1 --off \
+    --output DP1 --mode 3840x2160 --pos 0x0 --rotate normal \
+    --output HDMI1 --off \
+    --output HDMI2 --primary --mode 2560x1440 --pos 3840x0 --rotate normal \
+    --output VIRTUAL1 --off

@@ -1,11 +1,12 @@
 #!/bin/bash
 
-SCRIPT_PATH=$( realpath "${BASH_SOURCE[0]}" )
-DOTFILES_PATH="${SCRIPT_PATH%/*}"
+DOTFILES_PATH="$1"
+SCRIPT_PATH="$( realpath "${BASH_SOURCE[0]}" )"
+CONFIG_PATH="${SCRIPT_PATH%/*}/xprofile.d"
 
-cd "$DOTFILES_PATH/bashrc.d" || { echo "bashrc.d directory does not exists" >&2; exit; }
+cd "$CONFIG_PATH" || { echo "$CONFIG_PATH does not exists" >&2; exit; }
 
-echo "# Generated from dotfiles"
+echo "# Generated from $SCRIPT_PATH"
 echo "# ----------"
 echo "export DOTFILES_PATH=\"$DOTFILES_PATH\""
 echo ""

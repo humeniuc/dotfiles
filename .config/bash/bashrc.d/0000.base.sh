@@ -4,7 +4,7 @@
 # Arch
 [ -r /etc/bash.bashrc ] && source /etc/bash.bashrc
 
-. "$DOTFILES_PATH/lib/bash/path_augment_local.sh"
+source "$DOTFILES_PATH/lib/bash/path_augment_local.sh"
 
 export EDITOR=vim
 

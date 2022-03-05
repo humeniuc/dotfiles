@@ -1,4 +1,5 @@
 # $HOME/.local/bin and its's recursive subdirectories added in $PATH.
+# $DOTFILES_PATH/bin and its's recursive subdirectories added in $PATH.
 # That way, if I symlink dotfiles/bin to $HOME/.local/bin/dotfiles, the dotfiles/bin executables whould be accesible.
 # PATH_AUGMENT_LOCAL prevents re-augment PATH when starting bash from bash or bash > mc or bash > tmux > bash > mc, etc.
 function _path_augment_local() {
