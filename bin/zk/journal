@@ -1,0 +1,7 @@
+#!/bin/bash
+
+filename=$(date -u +'%Y-%m-%d')
+[ ! -z "$1" ] && filename="$filename-$1"
+filename="${filename}.md"
+
+"$EDITOR" "$filename"

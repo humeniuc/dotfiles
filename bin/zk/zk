@@ -1,7 +1,10 @@
 #!/bin/bash
 
-filename=$(date -u +'%Y-%m-%d-%H-%M-%S')
-[ ! -z "$1" ] && filename="$filename-$1"
-filename="${filename}.md"
+dirname=$(date -u +'%Y-%m-%d-%H-%M-%S')
+[ ! -z "$1" ] && dirname="$dirname-$1"
+
+mkdir -p "$dirname"
+
+filename="$dirname/index.md"
 
 "$EDITOR" "$filename"
