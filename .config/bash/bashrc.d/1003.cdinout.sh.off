@@ -1,1 +1,1 @@
-. "${HOME}/.cdinout/cdinout.sh"
+source "${HOME}/.cdinout/cdinout.sh"

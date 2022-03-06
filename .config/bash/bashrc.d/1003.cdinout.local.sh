@@ -1,1 +1,0 @@
-. "${HOME}/.cdinout/cdinout.sh"
