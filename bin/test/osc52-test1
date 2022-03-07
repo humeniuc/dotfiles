@@ -1,0 +1,11 @@
+#!/bin/bash
+
+TEXT1="lăsăm"
+TEXT2="osc52"
+
+str="$(printf "DATE=%s, TERM=%s, TEXT1=%s TEXT2=%s" "$(date "+%F %T")" "$TERM" "$TEXT1" "$TEXT2")"
+
+echo "str in clipboard: $str"
+
+printf "\033]52;c;$(printf "%s" "$str" | base64)\a"
+
