@@ -1,0 +1,24 @@
+#!/bin/bash
+
+read -r -d "" options <<- EOF
+Romanian Programmers (ro, )
+Romanian Starndard (ro, std)
+Us (us, )
+EOF
+
+option=$(printf "%s" "$options" | dmenu -l 10 -i -p "Choose a keyboard layout/variant") && {
+    setxkbmap $(printf "%s" "$option" | sed -E 's/^.*\(([^)]+)\)$/\1/' | awk  -F ',' '{
+        layout=1
+        variant=2
+
+        gsub(/ /, "", $layout)
+        gsub(/ /, "", $variant)
+
+        if ($layout) 
+            print "-layout", $layout
+
+        if ($variant) 
+            print "-variant", $variant
+    }')
+}
+
