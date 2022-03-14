@@ -1,10 +1,10 @@
 #!/bin/bash
 
-SCRIPT_PATH=$( realpath "${BASH_SOURCE[0]}" )
+SCRIPT_PATH=$( command -v /bin/realpath && /bin/realpath "${BASH_SOURCE[0]}" || /bin/readlink -f "${BASH_SOURCE[0]}" )
 DOTFILES_PATH="${SCRIPT_PATH%/*}"
 
-ln -s -r -f -T "$DOTFILES_PATH/.vim" "${HOME}/.vim"
-# ln -s -r -f "$DOTFILES_PATH/.ctags" "${HOME}/.ctags"
+ln -s -f -T "$DOTFILES_PATH/.vim" "${HOME}/.vim"
+# ln -s -f "$DOTFILES_PATH/.ctags" "${HOME}/.ctags"
 
 bash "$DOTFILES_PATH/.config/bash/build" "$DOTFILES_PATH" > "$HOME/.bashrc"
 bash "$DOTFILES_PATH/.config/xprofile/build" "$DOTFILES_PATH" > "$HOME/.xprofile"
