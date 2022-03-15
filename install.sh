@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT_PATH=$( command -v /bin/realpath && /bin/realpath "${BASH_SOURCE[0]}" || /bin/readlink -f "${BASH_SOURCE[0]}" )
+SCRIPT_PATH=$( command -v /bin/realpath > /dev/null && /bin/realpath "${BASH_SOURCE[0]}" || /bin/readlink -f "${BASH_SOURCE[0]}" )
 DOTFILES_PATH="${SCRIPT_PATH%/*}"
 
 ln -s -f -T "$DOTFILES_PATH/.vim" "${HOME}/.vim"
