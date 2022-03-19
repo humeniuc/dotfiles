@@ -17,3 +17,8 @@ TMUX_CONFIG_PATH="$HOME/.config/tmux/tmux.conf"
 mkdir -p "${TMUX_CONFIG_PATH%/*}"
 bash "$DOTFILES_PATH/.config/tmux/build" "$DOTFILES_PATH" > "$TMUX_CONFIG_PATH"
 
+# rofi
+ROFI_CONFIG_PATH="$HOME/.config/rofi"
+mkdir -p "$ROFI_CONFIG_PATH/themes"
+ln -s -f "$DOTFILES_PATH/.config/rofi/themes/nord.rasi" "$ROFI_CONFIG_PATH/themes/nord.rasi"
+ln -s -f "$DOTFILES_PATH/.config/rofi/config.rasi" "$ROFI_CONFIG_PATH/config.rasi"
