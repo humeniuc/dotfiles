@@ -6,7 +6,10 @@ Romanian Starndard (ro, std)
 Us (us, )
 EOF
 
-option=$(printf "%s" "$options" | dmenu -l 10 -i -p "Choose a keyboard layout/variant") && {
+select_keyboard()
+{
+    option="$1"
+
     setxkbmap $(printf "%s" "$option" | sed -E 's/^.*\(([^)]+)\)$/\1/' | awk  -F ',' '{
         layout=1
         variant=2
@@ -14,11 +17,19 @@ option=$(printf "%s" "$options" | dmenu -l 10 -i -p "Choose a keyboard layout/va
         gsub(/ /, "", $layout)
         gsub(/ /, "", $variant)
 
-        if ($layout) 
+        if ($layout)
             print "-layout", $layout
 
-        if ($variant) 
+        if ($variant)
             print "-variant", $variant
     }')
 }
 
+main() {
+    option=$(
+        printf "%s" "$options" | rofi -dmenu -no-custom -i -p "Choose a keyboard layout/variant"
+    ) && select_keyboard "$option"
+}
+
+
+main
