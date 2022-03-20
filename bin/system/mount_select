@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Partitions, rom
+# Only with labels, letters and digits
+# Unmounted
+< <( 
+    lsblk  \
+        --pairs \
+        --paths \
+        --output "label,name,size,type,mountpoints,hotplug" \
+    | \
+    awk 'match($0, /^(LABEL="[A-Za-z0-9]*" NAME="[^"]+") SIZE="[^"]+" TYPE="(part|rom)" MOUNTPOINTS="" HOTPLUG="1"$/, m) {
+        print m[1]
+    }'
+) readarray -t UNMOUNTED_DRIVES
+
+< <( 
+    lsblk  \
+        --pairs \
+        --paths \
+        --output "label,name,size,type,mountpoints,hotplug" \
+    | \
+    awk 'match($0, /^(LABEL="[A-Za-z0-9]*" NAME="[^"]+") SIZE="[^"]+" TYPE="(part|rom)" MOUNTPOINTS="[^"]+" HOTPLUG="1"$/, m) {
+        print m[1]
+    }'
+) readarray -t MOUNTED_DRIVES
+
+mount_usb() {
+    option_id=$(printf "%s\n" "${UNMOUNTED_DRIVES[@]}" | rofi -dmenu -i -p "Choose a drive:" -monitor -4 -format i ) && {
+        line="${UNMOUNTED_DRIVES[$option_id]}"
+        drive=$(printf "%s" "${UNMOUNTED_DRIVES[$option_id]}"| awk 'match($0, /NAME="([^"]+)"/, m) { print m[1]}')
+        message=$(udisksctl mount --no-user-interaction -b "$drive" 2>/dev/null) && notify-send "💻 USB mounting" "$message" && exit 0
+    }
+}
+
+unmount_usb() {
+    option_id=$(printf "%s\n" "${MOUNTED_DRIVES[@]}" | rofi -dmenu -i -p "Choose a drive:" -monitor -4 -format i ) && {
+        line="${MOUNTED_DRIVES[$option_id]}"
+        drive=$(printf "%s" "${MOUNTED_DRIVES[$option_id]}"| awk 'match($0, /NAME="([^"]+)"/, m) { print m[1]}')
+        message=$(udisksctl unmount --no-user-interaction -b "$drive" 2>/dev/null) && notify-send "💻 USB unmounting" "$message" && exit 0
+    }
+}
+
+main() {
+    option_select() {
+        case "$option" in
+            "Mount")
+                if [ "${#UNMOUNTED_DRIVES[@]}" -eq 0 ];then
+                    notify-send "No drives available"
+                else
+                    mount_usb
+                fi
+                ;;
+
+            "Unmount")
+                if [ "${#MOUNTED_DRIVES[@]}" -eq 0 ];then
+                    notify-send "No drives mounted"
+                else
+                    unmount_usb
+                fi
+                ;;
+        esac
+    }
+
+    options=("Mount" "Unmount")
+    option=$(printf "%s\n" "${options[@]}" | rofi -dmenu -i -p "Choose" -monitor -4) && option_select "$option"
+}
+
+main
+

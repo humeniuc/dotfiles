@@ -8,3 +8,5 @@ flameshot - screenshot and edit.
 x11-ssh-askpass
 simplescreenrecorder
 screenkey
+rofi
+udiskctl
