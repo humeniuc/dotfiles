@@ -10,7 +10,15 @@ else
         if [ -t 0 ]; then
             tmux-sessionizer-paths | sort | fzf
         else
-            tmux-sessionizer-paths | sort | dmenu -i -l 10 -p 'Alege un proiect:' -fn 'Terminus:regular:size=12'
+            prompt='Alege un proiect'
+
+            if [ $(command -v rofi) ]; then
+                launcher_cmd=("rofi" "-dmenu" "-i" "-no-custom" "-p" "$prompt")
+            else
+                launcher_cmd=("dmenu" "-i" "-l" "10" "-p" "${prompt}:" "-fn" "Terminus:regular:size=12")
+            fi
+
+            tmux-sessionizer-paths | sort | "${launcher_cmd[@]}"
         fi
     }
 
