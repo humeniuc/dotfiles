@@ -1,1 +1,12 @@
 exec --no-startup-id feh --bg-scale "/home/gabi/GoogleDrive/resurse/image/wallpaper/Minimal-Nord.png"
+
+workspace $ws1 output DP1
+workspace $ws2 output HDMI2
+workspace $ws3 output DP1
+workspace $ws4 output HDMI2
+workspace $ws5 output HDMI2
+workspace $ws6 output DP1
+workspace $ws7 output DP1
+workspace $ws8 output HDMI2
+workspace $ws9 output HDMI2
+workspace $ws10 output HDMI2
