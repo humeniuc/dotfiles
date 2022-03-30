@@ -3,7 +3,12 @@
 # That way, if I symlink dotfiles/bin to $HOME/.local/bin/dotfiles, the dotfiles/bin executables whould be accesible.
 # PATH_AUGMENT_LOCAL prevents re-augment PATH when starting bash from bash or bash > mc or bash > tmux > bash > mc, etc.
 function _path_augment_local() {
-    PATH="${PATH/$PATH_AUGMENT_LOCAL/}"
+    if [ ! -z "$PATH_AUGMENT_LOCAL" ]; then
+        PATH=":$PATH:"
+        PATH="${PATH/:$PATH_AUGMENT_LOCAL:/:}"
+        PATH="${PATH#:}"
+        PATH="${PATH%:}"
+    fi
 
     PATH_AUGMENT_LOCAL=""
     local SUBPATH
@@ -19,6 +24,9 @@ function _path_augment_local() {
         PATH_AUGMENT_LOCAL="${PATH_AUGMENT_LOCAL%:}:${SUBPATH%:}"
     fi
 
+    PATH_AUGMENT_LOCAL="${PATH_AUGMENT_LOCAL#:}"
+    PATH_AUGMENT_LOCAL="${PATH_AUGMENT_LOCAL%:}"
+
     if test ! -z "$PATH_AUGMENT_LOCAL"; then
         PATH="${PATH_AUGMENT_LOCAL}:${PATH}"
     fi
@@ -27,4 +35,4 @@ function _path_augment_local() {
     export PATH_AUGMENT_LOCAL
 }
 
-[ -z "$PATH_AUGMENT_LOCAL" ] && _path_augment_local
+_path_augment_local
