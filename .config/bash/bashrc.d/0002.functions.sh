@@ -59,3 +59,6 @@ function forget() {
    history -d $(expr $(history | tail -n 1 | grep -oP '^ \d+') - 1);
 }
 
+function debug_path() {
+    echo "$PATH"| tr ":" "\n"
+}
