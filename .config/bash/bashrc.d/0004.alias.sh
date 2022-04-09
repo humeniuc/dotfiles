@@ -13,3 +13,5 @@
 }
 
 alias x1='xargs -n1'
+
+[ $(command -v setsid) ] && [ $(command -v xdg-open) ] && alias xo='setsid xdg-open'
