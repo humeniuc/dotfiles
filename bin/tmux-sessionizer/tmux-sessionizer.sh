@@ -5,20 +5,21 @@ if [[ $# -eq 1 ]]; then
     session_name=$2
 else
     function _select_path_and_name() {
-        items="$(tmux-sessionizer-paths)"
-        # echo $items
+        paths_command=( "bash" "$DOTFILES_PATH/bin/tmux-sessionizer/tmux-sessionizer-paths.sh" )
+
+        # is termial
         if [ -t 0 ]; then
-            tmux-sessionizer-paths | sort | fzf
+            "${paths_command[@]}" | sort | fzf
         else
             prompt='Alege un proiect'
 
             if [ $(command -v rofi) ]; then
-                launcher_cmd=("rofi" "-dmenu" "-i" "-no-custom" "-p" "$prompt")
+                launcher_cmd=("rofi" "-dmenu" "-i" "-no-custom" "-p" "$prompt" "-monitor" "-4")
             else
                 launcher_cmd=("dmenu" "-i" "-l" "10" "-p" "${prompt}:" "-fn" "Terminus:regular:size=12")
             fi
 
-            tmux-sessionizer-paths | sort | "${launcher_cmd[@]}"
+            "${paths_command[@]}" | sort | "${launcher_cmd[@]}"
         fi
     }
 
