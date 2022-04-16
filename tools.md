@@ -10,3 +10,4 @@ simplescreenrecorder
 screenkey
 rofi
 udiskctl
+numlockx
