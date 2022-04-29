@@ -1,13 +1,14 @@
 Install tools
 
-firefox
 chromium
-tmux
-parcellite - multiple clipboard.
+firefox
 flameshot - screenshot and edit.
-x11-ssh-askpass
-simplescreenrecorder
-screenkey
-rofi
-udiskctl
 numlockx
+parcellite - multiple clipboard.
+rofi
+screenkey
+simplescreenrecorder
+tmux
+udiskctl
+volumeicon - widget în tray pentru volum
+x11-ssh-askpass
