@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Current sessions at the top
+tmux list-sessions -F '#{session_name}'
+
 # Sample for the executable which display tmux-sessionizer sessions paths
 
 # Only paths. Session name would be determined from dirname.

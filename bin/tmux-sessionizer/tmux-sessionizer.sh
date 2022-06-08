@@ -9,7 +9,7 @@ else
 
         # is termial
         if [ -t 0 ]; then
-            "${paths_command[@]}" | sort | fzf
+            "${paths_command[@]}" | fzf
         else
             prompt='Alege un proiect'
 
@@ -19,7 +19,7 @@ else
                 launcher_cmd=("dmenu" "-i" "-l" "10" "-p" "${prompt}:" "-fn" "Terminus:regular:size=12")
             fi
 
-            "${paths_command[@]}" | sort | "${launcher_cmd[@]}"
+            "${paths_command[@]}" | "${launcher_cmd[@]}"
         fi
     }
 
