@@ -43,4 +43,17 @@ if [[ $? -eq 0 ]]; then
 fi
 
 # Create new session
-tmux new-session -d -c "$session_path" -s "$session_name" && tmux switch-client -t="$session_name" || tmux new -c "$session_path" -A -s "$session_name"
+# tmux new-session -d -c "$session_path" -s "$session_name" && tmux switch-client -t="$session_name" || tmux new -c "$session_path" -A -s "$session_name"
+
+tmux new-session -d -c "$session_path" -s "$session_name" && tmux switch-client -t="$session_name" || {
+    cmd=("tmux" "attach-session" "-t" "$session_name")
+
+    if [ -t "0" ]; then
+        "${cmd[@]}"
+    else
+        "$TERMINAL" &
+        xdotool search --sync --onlyvisible --class "$TERMINAL" && \
+        xdotool type --delay 0 -- "${cmd[*]}" && \
+        xdotool key "Return"
+    fi
+}
