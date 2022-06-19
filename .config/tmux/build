@@ -1,22 +1,8 @@
 #!/bin/bash
 
-DOTFILES_PATH="$1"
 SCRIPT_PATH=$( command -v /bin/realpath > /dev/null && /bin/realpath "${BASH_SOURCE[0]}" || /bin/readlink -f "${BASH_SOURCE[0]}" )
-CONFIG_PATH="${SCRIPT_PATH%/*}/tmux.d"
+[ -f "${SCRIPT_PATH%/*}/../.share/common.sh" ] && . "${SCRIPT_PATH%/*}/../.share/common.sh" || exit 1
 
-cd "$CONFIG_PATH" || { echo "$CONFIG_PATH does not exists" >&2; exit; }
+_show_header "$SCRIPT_PATH"
+_include_files "${SCRIPT_PATH%/*}/tmux.d" ".conf"
 
-echo "# Generated from $SCRIPT_PATH"
-echo "# ----------"
-echo ""
-
-for file in "./"*.conf; do
-    if test -r "$file"; then
-        echo "# ----------"
-        echo "# $file"
-        echo "# ----------"
-        echo ""
-        cat "$file"
-        echo ""
-    fi
-done

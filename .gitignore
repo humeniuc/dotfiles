@@ -4,3 +4,5 @@
 # bashrc local include scripts
 /.config/**/*.local.sh
 /.config/**/*.local.config
+
+/bin/tmux-sessionizer/tmux-sessionizer-paths.sh
