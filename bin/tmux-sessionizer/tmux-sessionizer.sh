@@ -8,7 +8,7 @@ else
         paths_command=( "bash" "$DOTFILES_PATH/bin/tmux-sessionizer/tmux-sessionizer-paths.sh" )
 
         # is termial
-        if [ -t 0 ]; then
+        if [ -t "0" ]; then
             "${paths_command[@]}" | fzf
         else
             prompt='Alege un proiect'
@@ -27,33 +27,43 @@ else
 fi
 
 # Session path is required.
-if [ -z "$session_path" ]; then
-    exit 1
-fi
+[ -z "$session_path" ] && { echo "No session path" >&2; exit 1; }
 
 # Determine session name from path if not set.
-if [ -z "$session_name" ]; then
-    session_name=$(basename "$session_path" | tr . _)
-fi
+[ -z "$session_name" ] && session_name=$(basename "$session_path" | tr . _)
 
-# Switch to session if exists
-tmux switch-client -t="$session_name" 2>/dev/null
-if [[ $? -eq 0 ]]; then
-    exit 0
-fi
+# Start session if it does not exists
+tmux has-session -t="$selected_name" 2>/dev/null || tmux new-session -d -s "$session_name" -c "$session_path" 
 
-# Create new session
-# tmux new-session -d -c "$session_path" -s "$session_name" && tmux switch-client -t="$session_name" || tmux new -c "$session_path" -A -s "$session_name"
+cmd_attach=("tmux" "attach-session" "-t" "$session_name")
+cmd_switch=("tmux" "switch-client" "-t" "$session_name")
 
-tmux new-session -d -c "$session_path" -s "$session_name" && tmux switch-client -t="$session_name" || {
-    cmd=("tmux" "attach-session" "-t" "$session_name")
+# Terminal
+if [ -t "0" ]; then
+    # Switch or attach depending if inside tmux or not
+    [ -n "$TMUX" ] && "${cmd_switch[@]}" || "${cmd_attach[@]}"
+else
+    if ! "${cmd_switch[@]}" 2>/dev/null; then
+        existing_windows=$( xdotool search --onlyvisible --class "$TERMINAL" | sort )
 
-    if [ -t "0" ]; then
-        "${cmd[@]}"
-    else
-        "$TERMINAL" &
-        xdotool search --sync --onlyvisible --class "$TERMINAL" && \
-        xdotool type --delay 0 -- "${cmd[*]}" && \
-        xdotool key "Return"
+        setsid "$TERMINAL" &
+
+        idx=0
+        while true; do
+            ((idx=idx+1))
+            [ $idx -gt 10 ] && break
+
+            new_windows=$( xdotool search --onlyvisible --class "$TERMINAL" | sort )
+
+            winid=$( comm -13 <( echo "$existing_windows" ) <( echo "$new_windows" ) | tail -n1 )
+
+            if [ ! -z "$winid" ]; then
+                xdotool type --window "$winid" --delay 0 -- "${cmd_attach[*]}" 
+                xdotool key --window "$winid" "Return"
+                break
+            fi
+
+            sleep 0.2
+        done
     fi
-}
+fi
