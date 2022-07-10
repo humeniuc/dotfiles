@@ -5,6 +5,7 @@ firefox
 flameshot - screenshot and edit.
 numlockx
 parcellite - multiple clipboard.
+greenclip - multiple clipboard, rofi integration
 rofi
 screenkey
 simplescreenrecorder
