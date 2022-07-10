@@ -13,3 +13,5 @@ udiskctl
 volumeicon - widget în tray pentru volum
 x11-ssh-askpass
 xpanes https://github.com/greymd/tmux-xpanes
+polybar
+autorandr profile monitoare

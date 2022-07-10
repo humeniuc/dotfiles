@@ -13,6 +13,8 @@ I3_CONFIG_PATH="$HOME/.config/i3/config"
 mkdir -p "${I3_CONFIG_PATH%/*}"
 DOTFILES_PATH="$DOTFILES_PATH" bash "$DOTFILES_PATH/.config/i3/build" > "$I3_CONFIG_PATH"
 
+ln -s -f -T "$DOTFILES_PATH/.config/polybar" "${HOME}/.config/polybar"
+
 TMUX_CONFIG_PATH="$HOME/.config/tmux/tmux.conf"
 mkdir -p "${TMUX_CONFIG_PATH%/*}"
 DOTFILES_PATH="$DOTFILES_PATH" bash "$DOTFILES_PATH/.config/tmux/build" > "$TMUX_CONFIG_PATH"
