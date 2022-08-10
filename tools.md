@@ -1,4 +1,4 @@
-Install tools
+# Install tools
 
 chromium
 firefox
@@ -16,3 +16,9 @@ x11-ssh-askpass
 xpanes https://github.com/greymd/tmux-xpanes
 polybar
 autorandr profile monitoare
+
+
+# Misc
+
+linssid 
+    Wireless scanner
