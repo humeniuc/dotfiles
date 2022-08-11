@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Redshift
+GenericName=Redshift
+Comment=Launch Redshift
+Icon=redshift
+Exec=redshift-gtk -l 26.10252346268249:44.4355087534986
+Terminal=false
