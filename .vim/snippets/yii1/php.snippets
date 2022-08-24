@@ -26,6 +26,8 @@ snippet ydb where
 	->where('${1:alias}.${2:camp} = :${3:value_placeholder}', [':$3' => ${4:value}])
 snippet ydb andWhere
 	->andWhere('${1:alias}.${2:camp} = :${3:value_placeholder}', [':$3' => ${4:value}])
+snippet ydb debug sql 
+	strtr($sql, array_map(function($v) { return "'$v'";}, $binds))
 snippet yapp
 	Yii::app()${1}
 snippet yass
@@ -496,5 +498,3 @@ snippet yscope method join
 		return $this;
 	}
 
-snippet ysql 
-	strtr($sql, array_map(function($v) { return "'$v'";}, $binds))
