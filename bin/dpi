@@ -1,0 +1,10 @@
+#!/bin/bash
+[ -z "$1" ] && { echo "Setează un dpi (96/120/140)" 1>&2; exit; }
+
+echo "Curent:"
+xrdb -query | grep Xft.dpi
+
+xrdb -merge <( echo "Xft.dpi: $1" )
+
+echo "Schimbat la:"
+xrdb -query | grep Xft.dpi
