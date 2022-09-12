@@ -1,0 +1,2 @@
+#!/bin/bash
+[ $(command -v rofi) ] && exec rofi -sort -show run -monitor -4 || exec dmenu_run

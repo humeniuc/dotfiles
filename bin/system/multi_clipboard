@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# force greenclip start.
+# TODO: greenclip crapa cateodata la pornire. ar trebui corectat acolo, in systemctl, sa reincerce
+systemctl --user is-active --quiet greenclip.service || systemctl --user start greenclip.service
+
+rofi -monitor 4 -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
