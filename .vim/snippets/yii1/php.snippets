@@ -301,72 +301,68 @@ snippet yform yii from html
 #
 
 snippet yform yii form input hidden
-	<?php echo $formWidget->hiddenField(${1:$form->model}, '${2:attribute}'); ?>
+	<?= $formWidget->hiddenField(${1:$form->model}, '${2:attribute}'); ?>
 #
 
 snippet yform yii form input textfield
 	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
-		<?php echo $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
-		<?php echo $formWidget->textField($1, '$2', [
+		<?= $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
+		<?= $formWidget->textField($1, '$2', [
 			'class' => 'form-control',
 			'placeholder' => '${3:attribute placeholder}'
 		]); ?>
 		<div class="help-block">
-			<?php echo $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
+			<?= $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
 snippet yform yii form input textarea
 	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
-		<?php echo $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
-		<?php echo $formWidget->textArea($1, '$2', [
+		<?= $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
+		<?= $formWidget->textArea($1, '$2', [
 			'class' => 'form-control',
 			'placeholder' => '${3:attribute placeholder}',
 			'rows' => ${3:5},
 			'cols' => ${4:50},
 		]); ?>
 		<div class="help-block">
-			<?php echo $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
+			<?= $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
 snippet yform yii form input checkbox
 	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
-		<?php echo $form->labelEx($1, '$2', ['class' => 'col-lg-2 control-label']); ?>
-		<div class="col-lg-5">
-			<div class="checkbox">
-				<label>
-				<?php
-				echo $form->checkBox(
-					$1,
-					'$2',
-					[
-						'value'        => 'Y',
-						'uncheckValue' => 'N',
-					]
-				);
-				?> &nbsp; </label>
-			</div>
+		<?= $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
+		<div class="checkbox">
+			<label>
+			<?= $formWidget->checkBox(
+				$1,
+				'$2',
+				[
+					'value'        => 'Y',
+					'uncheckValue' => 'N',
+				]
+			);
+			?> &nbsp; </label>
 		</div>
-		<?php echo $form->error($1, '$2', ['class' => 'text text-danger']); ?>
+		<?= $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
 	</div>
 #
 
 snippet yform yii form input dropdown
 	<div class="form-group <?php if (${1:$form->model}->hasErrors('${2:attribute}')) { echo 'has-error'; } ?>">
-		<?php echo $form->labelEx($1, '$2', ['class' => 'col-lg-2 control-label']); ?>
-		<div class="col-lg-5">
+		<?= $formWidget->labelEx($1, '$2', ['class' => 'control-label']); ?>
 		<?php
-			$dropDownList = [
-				'event_list_paginated' => t('Lista de evenimente paginată'),
-				'first_event'          => t('Primul eveniment'),
-			];
-			echo $form->dropDownList(
+			echo $formWidget->dropDownList(
 				$1,
 				'$2',
 				$dropDownList,
+				[
+					'event_list_paginated' => t('Lista de evenimente paginată'),
+					'first_event'          => t('Primul eveniment'),
+				],
 				[
 					//'prompt' => t('Prompt'),
 					'empty' => t('Alege o valoare'),
@@ -374,24 +370,28 @@ snippet yform yii form input dropdown
 				]
 			);
 		?>
-		</div>
 		<div class="help-block">
-			<?php echo $form->error($1, '$2', ['class' => 'text text-danger']); ?>
+			<?= $formWidget->error($1, '$2', ['class' => 'text text-danger']); ?>
 		</div>
 	</div>
 #
 
-snippet yvalidator exist
-	[
-		'${1:attribute}',
-		'exist',
-		'className'     => '${2:ModelName}', // numele modelului de validat. Order, Booking, etc
-		'attributeName' => '${3:id}',		 // numele campului de verificat. de obicei este id
-		'allowEmpty'    => false, // permite sa fie empty campul
-		'skipOnError'   => true,  // nu se aplica validatorul daca exista deja o eroare pe acest camp. de ex exista valdatorul de "integer" care se aplica inainte, si da eroare, caz in care nu mai aplic validatorul curent
-		'on'            => ['insert', 'insert_admin'], // scenariile permise
-		'except'        => ['testcode', 'search'],		// scenariile excluse
-	],
+snippet yval exist
+	['${1:attribute}', 'exist', 'className' => ${2:ModelName}::class, 'attributeName' => '${3:id}', 'message' => t('$2 nu există'), $3],
+snippet yval required
+	['${1:attribute}', 'required', 'message' => t('Completează $1.'), $2],
+snippet yval type
+	['${1:attribute}', 'type',  'type' => 'string', $2],
+snippet yval date
+	['${1:attribute}', 'type',  'type' => 'date', 'dateFormat' => 'yyyy-MM-dd', $2],
+snippet yval time
+	['${1:attribute}', 'type',  'type' => 'time', $2],
+snippet yval skipOnError
+	'skipOnError' => true, 
+snippet yval on
+	'on' => ['${1:scenario}'], 
+snippet yval except
+	'except' => ['${1:scenario}'], 
 #
 snippet yfilter filter
 	public function filter${1:FilterName}($filterChain)
