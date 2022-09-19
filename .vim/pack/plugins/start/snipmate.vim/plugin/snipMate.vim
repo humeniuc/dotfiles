@@ -166,13 +166,18 @@ fun! TriggerSnippet()
 	if exists('g:snipPos') | return snipMate#jumpTabStop(0) | endif
 
 	let word = matchstr(getline('.'), '\S\+\%'.col('.').'c')
+	let _col = col('.')
 	for scope in [bufnr('%')] + split(&ft, '\.') + ['_']
 		let [trigger, snippet] = s:GetSnippet(word, scope)
 		" If word is a trigger for a snippet, delete the trigger & expand
 		" the snippet.
 		if snippet != ''
 			let col = col('.') - len(trigger)
-			sil exe 's/\V'.escape(trigger, '/\.').'\%#//'
+			" înlocuiesc pe linia curentă între coloana de început și coloana de final.
+			silent execute 's/\V\%' . (_col - len(trigger)). 'c\.\*\%' . (_col). 'c//'
+			" Versiunea veche, nu funcționează ok cu LSP.
+			" Schimbă poziția cursorului, din câte m-am prins.
+			" sil exe 's/\V'.escape(trigger, '/\.').'\%#//'
 			return snipMate#expandSnip(snippet, col)
 		endif
 	endfor
