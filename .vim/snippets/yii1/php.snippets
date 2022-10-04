@@ -498,3 +498,17 @@ snippet yscope method join
 		return $this;
 	}
 
+snippet yit
+	$it = new CDataProviderIterator(new CActiveDataProvider(${1:model}::class, [
+		'criteria' => [
+			'with' => [],
+			'scopes' => [
+				'scope${2:Demo}' => [],
+			]
+		]
+	]), 100);
+
+	foreach ($it as $$1) {
+		//
+	}
+
