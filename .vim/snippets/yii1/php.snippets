@@ -11,13 +11,13 @@
 
 #yii.app
 snippet ya
-	Yii::app()${1}
+	\Yii::app()${1}
 snippet y$
-	Yii::$app->${1}
+	\Yii::$app->${1}
 snippet ydb db
-	Yii::app()->db${1}
+	\Yii::app()->db${1}
 snippet ydb createCommand
-	Yii::app()->db->createCommand('${1}')
+	\Yii::app()->db->createCommand('${1}')
 snippet ydb join
 	->join(${1:Model}::model()->tableName(). ' AS ${2:alias}', '$2.${3:id} = ${4:alias.camp}')
 snippet ydb leftJoin
@@ -27,74 +27,75 @@ snippet ydb where
 snippet ydb andWhere
 	->andWhere('${1:alias}.${2:camp} = :${3:value_placeholder}', [':$3' => ${4:value}])
 snippet ydb debug sql 
-	strtr($sql, array_map(function($v) { return "'$v'";}, $binds))
+	$queryDebug = strtr($query, array_map(fn($v) => "'$v'", $params));
+	debug($queryDebug, 'q');
 snippet yapp
-	Yii::app()${1}
+	\Yii::app()${1}
 snippet yass
-	Yii::app()->getAssetManager()${1}
+	\Yii::app()->getAssetManager()${1}
 snippet ypoa
-	Yii::getPathOfAlias(${1})
+	\Yii::getPathOfAlias(${1})
 snippet yt
 	t('${1}')
 #yii.trace
 snippet ytr Yii::trace
-	Yii::trace(${1:message}, ${2:'category'});${3}
+	\Yii::trace(${1:message}, ${2:'category'});${3}
 snippet ytr Yii::trace('message', 'debug');
-	Yii::trace('${1:message}', 'debug');${2}
+	\Yii::trace('${1:message}', 'debug');${2}
 snippet ytr Yii::trace(print_r($var, true), 'debug');
-	Yii::trace('$$1 = '. print_r($${1:var}, true), 'debug');${2}
+	\Yii::trace('$$1 = '. print_r($${1:var}, true), 'debug');${2}
 snippet ytr Yii::trace(POST+GET+COOKIE+SESSION+FILES+SERVER+php::input, 'debug');
-	Yii::trace(print_r(['POST' => (isset($_POST) ? $_POST : []), 'GET' => (isset($_GET) ? $_GET : []), 'COOKIE' => (isset($_COOKIE) ? $_COOKIE : []), 'SESSION' => (isset($_SESSION) ? $_SESSION : []), 'FILES' => (isset($_FILES) ? $_FILES : []), 'SERVER' => (isset($_SERVER) ? $_SERVER : []), 'php://input' => @file_get_contents('php://input'),], true), 'debug');${2}
+	\Yii::trace(print_r(['POST' => (isset($_POST) ? $_POST : []), 'GET' => (isset($_GET) ? $_GET : []), 'COOKIE' => (isset($_COOKIE) ? $_COOKIE : []), 'SESSION' => (isset($_SESSION) ? $_SESSION : []), 'FILES' => (isset($_FILES) ? $_FILES : []), 'SERVER' => (isset($_SERVER) ? $_SERVER : []), 'php://input' => @file_get_contents('php://input'),], true), 'debug');${2}
 snippet ytr Yii::trace(time, 'debug'); // profile time
-	Yii::trace(isset($GLOBALS['_profile_time']) ? '[ time: '. ((microtime(true) - $GLOBALS['_profile_time']) * 1000). 'ms ] '. __FILE__. ':'. __LINE__ : 'register profile time', 'debug.time'); $GLOBALS['_profile_time'] = microtime(true); ${1}
+	\Yii::trace(isset($GLOBALS['_profile_time']) ? '[ time: '. ((microtime(true) - $GLOBALS['_profile_time']) * 1000). 'ms ] '. __FILE__. ':'. __LINE__ : 'register profile time', 'debug.time'); $GLOBALS['_profile_time'] = microtime(true); ${1}
 #
 
 #yii.log
 snippet ylog trace
-	Yii::log(${1:message}, CLogger::LEVEL_TRACE, '${2:application}');${3}
+	\Yii::log(${1:message}, CLogger::LEVEL_TRACE, '${2:application}');${3}
 snippet ylog warning
-	Yii::log(${1:message}, CLogger::LEVEL_WARNING, '${2:application}');${3}
+	\Yii::log(${1:message}, CLogger::LEVEL_WARNING, '${2:application}');${3}
 snippet ylog error
-	Yii::log(${1:message}, CLogger::LEVEL_ERROR, '${2:application}');${3}
+	\Yii::log(${1:message}, CLogger::LEVEL_ERROR, '${2:application}');${3}
 snippet ylog info
-	Yii::log(${1:message}, CLogger::LEVEL_INFO, '${2:application}');${3}
+	\Yii::log(${1:message}, CLogger::LEVEL_INFO, '${2:application}');${3}
 snippet ylog profile
-	Yii::log(${1:message}, CLogger::LEVEL_PROFILE, '${2:application}');${3}
+	\Yii::log(${1:message}, CLogger::LEVEL_PROFILE, '${2:application}');${3}
 snippet ylog time
-	Yii::log(isset($GLOBALS['_profile_time']) ? '[ time: '. ((microtime(true) - $GLOBALS['_profile_time']) * 1000). 'ms ] '. __FILE__. ':'. __LINE__ : 'register profile time', CLogger::LEVEL_INFO, 'debug.time'); $GLOBALS['_profile_time'] = microtime(true); ${1}
+	\Yii::log(isset($GLOBALS['_profile_time']) ? '[ time: '. ((microtime(true) - $GLOBALS['_profile_time']) * 1000). 'ms ] '. __FILE__. ':'. __LINE__ : 'register profile time', CLogger::LEVEL_INFO, 'debug.time'); $GLOBALS['_profile_time'] = microtime(true); ${1}
 #
 
 #yii.request
 snippet yreq Yii::app()->request
-	Yii::app()->request${1}
+	\Yii::app()->request${1}
 #
 
 #yii.request.post
 snippet yreq Yii::app()->request->getPost()
-	Yii::app()->request->getPost(${1})${2}
+	\Yii::app()->request->getPost(${1})${2}
 #
 
 #yii.request.param
 snippet yreq Yii::app()->request->getParam()
-	Yii::app()->request->getParam(${1})${2}
+	\Yii::app()->request->getParam(${1})${2}
 #
 
 #yii.request.query
 snippet yreq Yii::app()->request->getQuery()
-	Yii::app()->request->getQuery(${1})${2}
+	\Yii::app()->request->getQuery(${1})${2}
 #
 
 #yii.request.ip
 snippet yreq Yii::app()->request->getUserHostAddress()
-	Yii::app()->request->getUserHostAddress()${1}
+	\Yii::app()->request->getUserHostAddress()${1}
 #
 
 snippet yreq Yii::app()->request->cookies[]
-	Yii::app()->request->cookies['${1}']
+	\Yii::app()->request->cookies['${1}']
 #
 
 snippet yreq Yii::app()->request->getIsPostRequest
-	Yii::app()->request->getIsPostRequest()
+	\Yii::app()->request->getIsPostRequest()
 #
 snippet yfbpk
 	findByPk(${1|pk})
@@ -112,64 +113,64 @@ snippet ymfba
 #
 
 snippet yp
-	Yii::app()->params['${1}']${2}
+	\Yii::app()->params['${1}']${2}
 #
 
 snippet yflash setFlash
-	Yii::app()->user->setFlash('success', ${1});${2}
+	\Yii::app()->user->setFlash('success', ${1});${2}
 #
 
 snippet yflash addFlash
-	Yii::app()->user->addFlash('success', ${1});${2}
+	\Yii::app()->user->addFlash('success', ${1});${2}
 #
 
 snippet yflash setFlashMessage
-	Yii::app()->user->setFlashMessage('success', ${1});${2}
+	\Yii::app()->user->setFlashMessage('success', ${1});${2}
 #
 
 snippet yflash addFlashMessage
-	Yii::app()->user->addFlashMessage('success', ${1});${2}
+	\Yii::app()->user->addFlashMessage('success', ${1});${2}
 #
 
 snippet ystate setState
-	Yii::app()->user->setState('${1}', ${2});
+	\Yii::app()->user->setState('${1}', ${2});
 #
 
 snippet ystate getState
-	Yii::app()->user->getState('${1}');
+	\Yii::app()->user->getState('${1}');
 #
 
-snippet ycache Yii::app()->cache->get
-	Yii::app()->cache->get('${1:key}');
+snippet ycache \Yii::app()->cache->get
+	\Yii::app()->cache->get('${1:key}');
 #
 
 snippet ycache Yii::app()->cache->set
-	Yii::app()->cache->set('${1:key}', ${2:data}, ${3:3600});
+	\Yii::app()->cache->set('${1:key}', ${2:data}, ${3:3600});
 #
 
 snippet yprofile
-	Yii::beginProfile('${1:}');${2}
-	Yii::endProfile('$1');
+	\Yii::beginProfile('${1:}');${2}
+	\Yii::endProfile('$1');
 #
 
 snippet yexit
-	Yii::app()->end();${1}
+	\Yii::app()->end();${1}
 #
 
 snippet yend
-	Yii::app()->end();${1}
+	\Yii::app()->end();${1}
 #
 
 snippet yus
-	Yii::app()->user${1}
+	\Yii::app()->user${1}
 #
 
 snippet yuser
-	Yii::app()->user${1}
+	\Yii::app()->user${1}
 #
 
 snippet yacc
-	Yii::app()->user->account${1}
+	\Yii::app()->user->account${1}
 #
 
 snippet yscript
@@ -183,7 +184,7 @@ snippet yscript
 snippet ytransaction simple
 	// <transaction>
 	try {
-		$transaction = Yii::app()->db->getCurrentTransaction() ? null : Yii::app()->db->beginTransaction();
+		$transaction = \Yii::app()->db->getCurrentTransaction() ? null : \Yii::app()->db->beginTransaction();
 
 		${1}
 
@@ -207,7 +208,7 @@ snippet ytransaction retry
 		$strike++;
 
 		try {
-			$transaction = Yii::app()->db->getCurrentTransaction() ? null : Yii::app()->db->beginTransaction();
+			$transaction = \Yii::app()->db->getCurrentTransaction() ? null : \Yii::app()->db->beginTransaction();
 
 			if ($transaction) {
 				$transaction->commit();
@@ -238,11 +239,12 @@ snippet ytransaction retry
 	}
 #
 snippet ytransaction Yii::app()->db->runInTransaction
-	Yii::app()->db->runInTransaction(function ($params) {
-		$db = Yii::app()->db;
+	$result = \Yii::app()->db->runInTransaction(function (${1:$params}) {
+		$db = \Yii::app()->db;
 		$sql = 'UPDATE ...';
 		$db->createCommand($sql)->execute();
-	}, [$params], 10);
+		return true;
+	}, [$1], 10);
 #
 
 snippet yform yii form definition
@@ -401,7 +403,7 @@ snippet yfilter filter
 	}
 #
 snippet yuca user->checkAccess
-	Yii::app()->user->checkAccess('${1:rule}')
+	\Yii::app()->user->checkAccess('${1:rule}')
 snippet yuca userCheckAccess
 	userCheckAccess('${1:rule}')
 snippet yuca userCheckAccess cu handle
