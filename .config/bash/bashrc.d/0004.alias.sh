@@ -10,6 +10,7 @@ alias ll='ls -Alt'
     alias gs='git status'
     alias gf='git fetch'
     alias gprb='git pull --rebase'
+    alias gpo='git pull origin'
 
     # fzf giff selector
     [ $(command -v fzf 2>/dev/null) ] && alias gfs='git status -s| sort| fzf --multi | awk '\''{print $2}'\'
