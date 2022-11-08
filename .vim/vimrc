@@ -80,7 +80,7 @@ set nomodeline " dezactivare modeline, sursa de probleme de securitate
 
 " Vim UI {
     " set nocursorcolumn
-    set cursorline
+    " set cursorline
     set incsearch           " BUT do highl " don't use a pop up menu for completion " don't use a pop up menu for completionssight as you type you
                             " search phrase
     set laststatus=2        " always show the status line
@@ -214,6 +214,9 @@ augroup ft
     " https://stackoverflow.com/questions/39009792/vimgrep-pattern-and-immediately-open-quickfix-in-split-mode
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l*    lwindow
+
+    autocmd WinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
 augroup END
 
 " colorscheme
