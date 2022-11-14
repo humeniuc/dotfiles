@@ -1,5 +1,5 @@
 # Autocomplete pentru bash
-. /usr/share/bash-completion/completions/git
+[ -f /usr/share/bash-completion/completions/git ] && . /usr/share/bash-completion/completions/git
 
 # Autocomplete pentru bash
 [ -f /usr/share/bash-completion/completions/git ] && . /usr/share/bash-completion/completions/git
