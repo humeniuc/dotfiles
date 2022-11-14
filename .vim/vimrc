@@ -318,3 +318,9 @@ function! NoteNew()
     silent put =''
     silent put =''
 endfunction
+
+command! -nargs=0 -range HtmlTagOnOneLine silent call HtmlTagOnOneLine(<line1>, <line2>)
+function! HtmlTagOnOneLine(line1, line2)
+    let cmd = printf('%d,%ds/\v\<[^>]+\>/\r&\r/g', a:line1, a:line2)
+    execute cmd
+endfunction
