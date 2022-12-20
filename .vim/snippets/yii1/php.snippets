@@ -146,6 +146,18 @@ snippet ycache \Yii::app()->cache->get
 
 snippet ycache Yii::app()->cache->set
 	\Yii::app()->cache->set('${1:key}', ${2:data}, ${3:3600});
+
+snippet ycache $this->beginCache
+	if ($this->beginCache('{key}', $this->cacheContextProperties([
+		'duration' => yiiparam('cache.ttl.{key}'),
+		'varyByExpression' => $event->id,
+		'dependency' => new CacheDependencyEvent($event, $this),
+	]))) {
+		?>
+		${2:HTML}
+		<?php
+		$this->endCache();
+	}
 #
 
 snippet yprofile
