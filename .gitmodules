@@ -1,27 +1,27 @@
 [submodule ".vim/pack/syntax/start/vim-javascript"]
-	path = .vim/pack/syntax/start/vim-javascript
+	path = .config/vim/pack/syntax/start/vim-javascript
 	url = git@github.com:pangloss/vim-javascript.git
 [submodule ".vim/pack/syntax/start/vim-less"]
-	path = .vim/pack/syntax/start/vim-less
+	path = .config/vim/pack/syntax/start/vim-less
 	url = git@github.com:genoma/vim-less.git
 [submodule ".vim/pack/syntax/start/smarty.vim"]
-	path = .vim/pack/syntax/start/smarty.vim
+	path = .config/vim/pack/syntax/start/smarty.vim
 	url = git@github.com:blueyed/smarty.vim.git
 [submodule ".vim/pack/plugins/opt/vdebug"]
-	path = .vim/pack/plugins/opt/vdebug
+	path = .config/vim/pack/plugins/opt/vdebug
 	url = git@github.com:joonty/vdebug.git
 [submodule ".vim/pack/plugins/opt/async.vim"]
-	path = .vim/pack/plugins/opt/async.vim
+	path = .config/vim/pack/plugins/opt/async.vim
 	url = git@github.com:prabirshrestha/async.vim
 [submodule ".vim/pack/plugins/opt/asyncomplete.vim"]
-	path = .vim/pack/plugins/opt/asyncomplete.vim
+	path = .config/vim/pack/plugins/opt/asyncomplete.vim
 	url = git@github.com:prabirshrestha/asyncomplete.vim
 [submodule ".vim/pack/plugins/opt/asyncomplete-lsp.vim"]
-	path = .vim/pack/plugins/opt/asyncomplete-lsp.vim
+	path = .config/vim/pack/plugins/opt/asyncomplete-lsp.vim
 	url = git@github.com:prabirshrestha/asyncomplete-lsp.vim
 [submodule ".vim/pack/plugins/opt/vim-lsp"]
-	path = .vim/pack/plugins/opt/vim-lsp
+	path = .config/vim/pack/plugins/opt/vim-lsp
 	url = git@github.com:prabirshrestha/vim-lsp
 [submodule ".vim/pack/plugins/opt/vimspector"]
-	path = .vim/pack/plugins/opt/vimspector
+	path = .config/vim/pack/plugins/opt/vimspector
 	url = git@github.com:humeniuc/vimspector.git

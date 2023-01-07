@@ -12,8 +12,7 @@ install_xprofile() {
 }
 
 install_vim() {
-    ln -s -f -T "$DOTFILES_PATH/.vim" "${HOME}/.vim"
-
+    ln -s -f -T "$DOTFILES_PATH/.config/vim" "${HOME}/.vim"
 }
 
 install_ctags() {
