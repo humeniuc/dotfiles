@@ -1,6 +1,7 @@
 # Install tools
 
 chromium
+dex - interpretează fișierele `.desktop`. La loging rulează fișierele `.desktop` din `$HOME/.config/autostart`.
 firefox
 flameshot - screenshot and edit.
 numlockx
