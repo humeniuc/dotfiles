@@ -51,4 +51,4 @@ command -v polybar >/dev/null && { echo "installing polybar config." ;  install_
 command -v tmux >/dev/null && { echo "installing tmux config." ;  install_tmux; } || { echo "tmux not installed." >&2; }
 command -v rofi >/dev/null && { echo "installing rofi config." ;  install_rofi; } || { echo "rofi not installed." >&2; }
 
-bash "$DOTFILES_PATH/check.sh"
+bash "$DOTFILES_PATH/tools-check.sh"

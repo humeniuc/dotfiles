@@ -1,11 +1,14 @@
 #!/bin/bash
 
 declare -a executables=(
+    "autorandr"
     "chromium"
+    "dex"
     "firefox"
     "flameshot"
-    "numlockx"
     "greenclip"
+    "numlockx"
+    "polybar"
     "rofi"
     "screenkey"
     "simplescreenrecorder"
@@ -14,8 +17,6 @@ declare -a executables=(
     "volumeicon"
     "x11-ssh-askpass"
     "xpanes"
-    "polybar"
-    "autorandr"
 )
 
 for executable in "${executables[@]}"
