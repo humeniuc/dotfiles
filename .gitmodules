@@ -58,3 +58,6 @@
 [submodule ".config/vim/pack/plugins/opt/vim-unite.vim"]
 	path = .config/vim/pack/plugins/opt/vim-unite.vim
 	url = git@github.com:humeniuc/clone-vim-unite.vim.git
+[submodule ".config/vim/pack/plugins/opt/vim-localvimrc"]
+	path = .config/vim/pack/plugins/opt/vim-localvimrc
+	url = git@github.com:humeniuc/clone-vim-localvimrc.git
