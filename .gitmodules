@@ -49,3 +49,9 @@
 [submodule ".config/vim/pack/plugins/opt/vim-fugitive"]
 	path = .config/vim/pack/plugins/opt/vim-fugitive
 	url = git@github.com:humeniuc/clone-vim-fugitive.git
+[submodule ".config/vim/pack/plugins/opt/vim-fzf"]
+	path = .config/vim/pack/plugins/opt/vim-fzf
+	url = git@github.com:humeniuc/clone-vim-fzf.git
+[submodule ".config/vim/pack/plugins/opt/vim-fzf.vim"]
+	path = .config/vim/pack/plugins/opt/vim-fzf.vim
+	url = git@github.com:humeniuc/clone-vim-fzf.vim.git
