@@ -22,9 +22,6 @@
 [submodule ".vim/pack/plugins/opt/vim-lsp"]
 	path = .config/vim/pack/plugins/opt/vim-lsp
 	url = git@github.com:prabirshrestha/vim-lsp
-[submodule ".vim/pack/plugins/opt/vimspector"]
-	path = .config/vim/pack/plugins/opt/vimspector
-	url = git@github.com:humeniuc/vimspector.git
 [submodule ".config/vim/pack/plugins/start/vim-qlist"]
 	path = .config/vim/pack/plugins/start/vim-qlist
 	url = git@github.com:humeniuc/clone-vim-qlist.git
@@ -61,3 +58,6 @@
 [submodule ".config/vim/pack/plugins/opt/vim-localvimrc"]
 	path = .config/vim/pack/plugins/opt/vim-localvimrc
 	url = git@github.com:humeniuc/clone-vim-localvimrc.git
+[submodule ".config/vim/pack/plugins/opt/vim-vimspector"]
+	path = .config/vim/pack/plugins/opt/vim-vimspector
+	url = https://github.com/humeniuc/clone-vim-vimspector
