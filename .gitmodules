@@ -55,3 +55,6 @@
 [submodule ".config/vim/pack/plugins/opt/vim-fzf.vim"]
 	path = .config/vim/pack/plugins/opt/vim-fzf.vim
 	url = git@github.com:humeniuc/clone-vim-fzf.vim.git
+[submodule ".config/vim/pack/plugins/opt/vim-unite.vim"]
+	path = .config/vim/pack/plugins/opt/vim-unite.vim
+	url = git@github.com:humeniuc/clone-vim-unite.vim.git
