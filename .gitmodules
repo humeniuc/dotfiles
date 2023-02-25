@@ -37,3 +37,6 @@
 [submodule ".config/vim/pack/plugins/start/vim-tabular"]
 	path = .config/vim/pack/plugins/start/vim-tabular
 	url = git@github.com:humeniuc/clone-vim-tabular.git
+[submodule ".config/vim/pack/plugins/start/vim-snipmate"]
+	path = .config/vim/pack/plugins/start/vim-snipmate
+	url = git@github.com:humeniuc/clone-vim-snipmate.git
