@@ -15,7 +15,7 @@ if executable('fzf')
     nnoremap <leader>l :<C-u>Lines<CR>
     nnoremap <leader>b :<C-u>Buffers<CR>
 else
-    packadd unite.vim
+    packadd vim-unite
     nnoremap <leader>f :<C-u>Unite -buffer-name=files   -start-insert file<CR>
     nnoremap <leader>l :<C-u>Unite -buffer-name=line   -start-insert line<CR>
     nnoremap <leader>b :<C-u>Unite -buffer-name=buffer -start-insert buffer<CR>
