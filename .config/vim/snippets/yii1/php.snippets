@@ -32,7 +32,13 @@ snippet ydb debug sql
 snippet yapp
 	\Yii::app()${1}
 snippet yass
-	\Yii::app()->getAssetManager()${1}
+	\Yii::app()->getAssetManager()${2}
+snippet ypub publish dir + js + css
+	$pubDir = \Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias('path.to.assets.directory'));
+	// csScriptFile($pubDir. '/js/script.js');
+	// csCss($pubDir. '/css/styles.css');
+snippet ypub csScriptFile(pub/script)
+	csScriptFile(\Yii::app()->getAssetManager()->publish(\Yii::getPathOfAlias('path.to.assets.directory'). '/script.js'));
 snippet ypoa
 	\Yii::getPathOfAlias(${1})
 snippet yt
