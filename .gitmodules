@@ -60,4 +60,4 @@
 	url = git@github.com:humeniuc/clone-vim-localvimrc.git
 [submodule ".config/vim/pack/plugins/opt/vim-vimspector"]
 	path = .config/vim/pack/plugins/opt/vim-vimspector
-	url = https://github.com/humeniuc/clone-vim-vimspector
+    url = git@github.com:humeniuc/clone-vim-vimspector.git
