@@ -1,13 +1,13 @@
-diff --git a/config.mk b/config.mk
-index 29caa84..e098bc1 100644
---- a/config.mk
-+++ b/config.mk
-@@ -4,7 +4,7 @@ VERSION = 0.6
- # Customize below to fit your system
+diff --git a/Makefile b/Makefile
+index 54ba350..b50955e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,7 +4,7 @@ NAME = tabbed
+ VERSION = 0.7
  
  # paths
 -PREFIX = /usr/local
 +PREFIX = /home/gabi/.local
  MANPREFIX = ${PREFIX}/share/man
+ DOCPREFIX = ${PREFIX}/share/doc/${NAME}
  
- X11INC = /usr/X11R6/include
