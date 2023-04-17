@@ -324,3 +324,13 @@ function! HtmlTagOnOneLine(line1, line2)
     let cmd = printf('%d,%ds/\v\<[^>]+\>/\r&\r/g', a:line1, a:line2)
     execute cmd
 endfunction
+
+" Activare vimspector cu maps
+function! VimspectorEnable()
+    let g:vimspector_enable_mappings = 'HUMAN'
+    packadd vimspector
+    nnoremap <leader>dt :call vimspector#Reset()<CR>
+    nnoremap <leader>di :call vimspector#StepInto()<CR>
+    nnoremap <leader>du :call vimspector#StepOut() <CR>
+    nnoremap <leader>dv :call vimspector#StepOver()<CR>
+endfunction
