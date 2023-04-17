@@ -58,9 +58,9 @@
 [submodule ".config/vim/pack/plugins/opt/vim-localvimrc"]
 	path = .config/vim/pack/plugins/opt/vim-localvimrc
 	url = git@github.com:humeniuc/clone-vim-localvimrc.git
-[submodule ".config/vim/pack/plugins/opt/vim-vimspector"]
-	path = .config/vim/pack/plugins/opt/vim-vimspector
-    url = git@github.com:humeniuc/clone-vim-vimspector.git
 [submodule ".config/vim/pack/plugins/opt/vim-http-client"]
 	path = .config/vim/pack/plugins/opt/vim-http-client
 	url = git@github.com:humeniuc/clone-vim-http-client.git
+[submodule ".config/vim/pack/plugins/opt/vimspector"]
+	path = .config/vim/pack/plugins/opt/vimspector
+	url = git@github.com:humeniuc/clone-vim-vimspector.git
