@@ -5,6 +5,7 @@ DOTFILES_PATH="${SCRIPT_PATH%/*}"
 
 install_basrc() {
     DOTFILES_PATH="$DOTFILES_PATH" bash "$DOTFILES_PATH/.config/bash/build" > "$HOME/.bashrc"
+    ln -f -s "$DOTFILES_PATH/.config/bash/.bash_profile" "$HOME/.bash_profile"
 }
 
 install_xprofile() {
