@@ -1,30 +1,20 @@
 #!/bin/bash
-filepath="$1"
 
-if [ -z "$filepath" ]; then
-    echo "specifica un fisier"
-    exit
-fi
+_debug() {
+    [ "$TVIM_DEBUG" == "1" ] && echo "$1" >&2
+}
 
+_error() {
+    echo "$1" >&2
+}
 
-if [ -z "$TMUX" ];
-then
+if [ -z "$TMUX" ]; then
+    _debug 'Not in tmux'
     exec vim "$1"
     exit
 fi
 
 target_id=''
-
-if [ "${filepath:0:1}" != "/" ];
-then
-    filepath="$(pwd)/$filepath"
-fi
-
-# trimit tastele care imi deschide in vim fisierul catre editare
-# filepath=ul trebuie esacpe-uit ca path corect
-# de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
-# TODO: de vazut ce alte caractere mai trebuie escape-uite
-filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
 
 tmuxversion=$(tmux -V | sed 's/tmux //')
 
@@ -53,9 +43,6 @@ else
     done < <( tmux list-panes -s -F "#{pane_id} #{pane_current_command}" )
 fi
 
-
-# TODO vezi mai multe despre sintaxa cu  < <(...)
-
 if [ -z "$target_id" ];
 then
     # mut toate ferestrele o pozitie la dreapta
@@ -78,7 +65,26 @@ then
     tmux move-window -r -t "1"
 fi
 
-tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
+filepath="$1"
+
+_debug "filepath original = $filepath"
+
+if [ ! -z "$filepath" ]; then
+    if [ "${filepath:0:1}" != "/" ]; then
+        filepath="$(pwd)/$filepath"
+
+        # trimit tastele care imi deschide in vim fisierul catre editare
+        # filepath=ul trebuie esacpe-uit ca path corect
+        # de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
+        # TODO: de vazut ce alte caractere mai trebuie escape-uite
+        filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
+
+        _debug "filepath normalized = $filepath"
+    fi
+
+    tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
+fi
+
 tmux select-pane -t "$target_id"
 tmux select-window -t "$target_id"
-
+# tmux move-window -r
