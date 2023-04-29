@@ -1,7 +1,7 @@
 alias x1='xargs -n1'
 alias ll='ls -Alt'
 
-[ $(command -v 'setsid') ] && [ $(command -v 'xdg-open') ] && alias xo='setsid xdg-open'
+# [ $(command -v 'setsid') ] && [ $(command -v 'xdg-open') ] && alias xo='setsid xdg-open'
 
 # alias pentru xclip
 [ $(command -v 'xclip' 2>/dev/null) ] && alias xc='xclip -selection clipboard'
