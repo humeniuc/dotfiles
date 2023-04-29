@@ -1,5 +1,56 @@
 #!/bin/bash
 
+main() {
+    override_if_not_in_tmux
+    target_id=$(ensure_tmux_target)
+
+    open_in_vim "$1" "$target_id"
+    tmux select-pane -t "$target_id"
+    tmux select-window -t "$target_id"
+    # tmux move-window -r
+}
+
+override_if_not_in_tmux() {
+    if [ -z "$TMUX" ]; then
+        _debug 'Not in tmux'
+        exec vim "$1"
+        exit
+    fi
+}
+
+ensure_tmux_target() {
+    # Identificare target_id ca "fereastra care conține vim"
+    target_id=$(tmux list-panes -s -F "#{pane_id} #{pane_current_command}" | awk '$2 == "vim" { print $1 }')
+
+    # Dacă nu există, deschid fereastră nouă și trimit keys să deschidă vim
+    if [ -z "$target_id" ]; then
+        target_id=$(tmux new-window -b -t 1 -P -F "#{pane_id}" bash)
+        tmux send-keys -t "$target_id" vim C-m
+        sleep 0.3
+    fi
+
+    echo "$target_id"
+}
+
+open_in_vim() {
+    filepath="$1"
+    target_id="$2"
+
+    _debug "filepath original = $filepath"
+
+    if [ -f "$filepath" ]; then
+        filepath=$(readlink -e "$filepath")
+        # trimit tastele care imi deschide in vim fisierul catre editare
+        # filepath=ul trebuie esacpe-uit ca path corect
+        # de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
+        # TODO: de vazut ce alte caractere mai trebuie escape-uite
+        filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
+
+        _debug "filepath normalized = $filepath"
+        tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
+    fi
+}
+
 _debug() {
     [ "$TVIM_DEBUG" == "1" ] && echo "$1" >&2
 }
@@ -8,83 +59,4 @@ _error() {
     echo "$1" >&2
 }
 
-if [ -z "$TMUX" ]; then
-    _debug 'Not in tmux'
-    exec vim "$1"
-    exit
-fi
-
-target_id=''
-
-tmuxversion=$(tmux -V | sed 's/tmux //')
-
-# identify first pane with a vim command
-if [ "$tmuxversion" == '1.6' ]; then
-    # tmux <= 1.6 does not know about "pane_current_command"
-    # pstree dependency
-    # 1. identify panes and its process
-    # 2. if a pane has a child vim process, useit
-    while read id pane_pid
-    do
-        #bash---mc---bash---vim
-        proctree=`pstree "$pane_pid"`
-        if [ "${proctree: -6}" == "---vim" ]; then
-            target_id="$id"
-            break
-        fi
-    done < <( tmux list-panes -s -F "#{pane_id} #{pane_pid}" )
-else
-    while read id current_command
-    do
-        if [ "$current_command" == "vim" ]; then
-            target_id="$id"
-            break
-        fi
-    done < <( tmux list-panes -s -F "#{pane_id} #{pane_current_command}" )
-fi
-
-if [ -z "$target_id" ];
-then
-    # mut toate ferestrele o pozitie la dreapta
-    # pentru a putea adauga o fereastra cu vim pe pozitia 1
-    tmux list-window -F "#{window_index}" | sort -r | while read window_id
-    do
-        tmux move-window -s :"$window_id" -t "$(($window_id+1))"
-    done
-
-    # adaug o fereastra noua, pe prima pozitie
-    if [ "$tmuxversion" == '1.6' ]; then
-        target_id=$(tmux new-window -t 1 -P bash)
-    else
-        target_id=$(tmux new-window -t 1 -P -F "#{pane_id}" bash)
-    fi
-
-    tmux send-keys -t "$target_id" vim C-m
-    sleep 0.2
-    # renumerotez ferestrele incepand cu 1
-    tmux move-window -r -t "1"
-fi
-
-filepath="$1"
-
-_debug "filepath original = $filepath"
-
-if [ ! -z "$filepath" ]; then
-    if [ "${filepath:0:1}" != "/" ]; then
-        filepath="$(pwd)/$filepath"
-
-        # trimit tastele care imi deschide in vim fisierul catre editare
-        # filepath=ul trebuie esacpe-uit ca path corect
-        # de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
-        # TODO: de vazut ce alte caractere mai trebuie escape-uite
-        filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
-
-        _debug "filepath normalized = $filepath"
-    fi
-
-    tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
-fi
-
-tmux select-pane -t "$target_id"
-tmux select-window -t "$target_id"
-# tmux move-window -r
+main "$1"
