@@ -1,2 +1,2 @@
 #!/bin/bash
-[ -n "$1" ] && { setsid xdg-open "$1" & }
+[ -n "$1" ] && setsid xdg-open "$1" </dev/null >/dev/null 2>/dev/null
