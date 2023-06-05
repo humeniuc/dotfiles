@@ -64,3 +64,6 @@
 [submodule ".config/vim/pack/plugins/opt/vimspector"]
 	path = .config/vim/pack/plugins/opt/vimspector
 	url = git@github.com:humeniuc/clone-vim-vimspector.git
+[submodule "lib/bash/z"]
+	path = lib/bash/z
+	url = git@github.com:humeniuc/clone-sh-z.git
