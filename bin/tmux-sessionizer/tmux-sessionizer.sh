@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-SESSION_PATH=""
-SESSION_NAME=""
 CMD_ATTACH=()
 CMD_SWITCH=()
 
@@ -36,6 +34,8 @@ choose_session_path() {
 
 tmux_switch_or_attach()
 {
+    local SESSION_NAME="$1"
+
     CMD_ATTACH=("tmux" "attach-session" "-t" "$SESSION_NAME")
     CMD_SWITCH=("tmux" "switch-client" "-t" "$SESSION_NAME")
 
@@ -76,12 +76,21 @@ tmux_attach_in_new_term()
 }
 
 
+session_name()
+{
+    echo $(echo "$1" | tr . _)
+}
+
+
 main() {
+    local SESSION_NAME=""
+    local SESSION_PATH=""
+
     # path && name could be script params. 
     # if not choose from options
-    if [[ $# -eq 1 ]]; then
-        SESSION_PATH=$1
-        SESSION_NAME=$2
+    if [ $# -gt 0 ]; then
+        SESSION_PATH="$1"
+        SESSION_NAME="$2"
     else
         < <(choose_session_path) read SESSION_PATH SESSION_NAME
     fi
@@ -89,13 +98,26 @@ main() {
     # Session path is required.
     [ -z "$SESSION_PATH" ] && _error "No session path"
 
+
+    # The first parameter could be a session name
+    if [ -z "$SESSION_NAME" ]; then
+        _SESSION_NAME=$(session_name "$SESSION_PATH")
+
+        if tmux has-session -t="$_SESSION_NAME" 2>/dev/null; then
+            tmux_switch_or_attach "$_SESSION_NAME"
+            exit 0
+        fi
+    fi
+
+    cd "$SESSION_PATH" 2>/dev/null && SESSION_PATH=$(pwd) || _error "Inexisting path $SESSION_PATH"
+
     # Determine session name from path if not set.
-    [ -z "$SESSION_NAME" ] && SESSION_NAME=$(basename "$SESSION_PATH" | tr . _)
+    [ -z "$SESSION_NAME" ] && SESSION_NAME=$(session_name $(basename "$SESSION_PATH"))
 
     # Ensure tmux session
     tmux has-session -t="$SESSION_NAME" 2>/dev/null || tmux new-session -d -s "$SESSION_NAME" -c "$SESSION_PATH" 
 
-    tmux_switch_or_attach
+    tmux_switch_or_attach "$SESSION_NAME"
 }
 
 main "$@"
