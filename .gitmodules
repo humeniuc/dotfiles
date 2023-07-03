@@ -67,3 +67,6 @@
 [submodule "lib/bash/z"]
 	path = lib/bash/z
 	url = git@github.com:humeniuc/clone-sh-z.git
+[submodule "lib/tmux/pop"]
+	path = lib/tmux/pop
+	url = git@github.com:humeniuc/clone-tmux-pop.git
