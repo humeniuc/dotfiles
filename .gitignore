@@ -3,6 +3,6 @@
 
 # bashrc local include scripts
 /.config/**/*.local.sh
-/.config/**/*.local.config
+/.config/**/*.local.conf
 
 /bin/tmux-sessionizer/tmux-sessionizer-paths.sh
