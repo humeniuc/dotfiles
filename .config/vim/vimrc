@@ -201,6 +201,10 @@ cabbrev grepcss grep --include="*.css"
 augroup ft
     autocmd!
     autocmd BufNewFile,BufRead *.less setlocal filetype=less
+    autocmd BufNewFile,BufRead *.php.sample setlocal filetype=php
+    autocmd BufNewFile,BufRead *.php.example setlocal filetype=php
+    autocmd BufNewFile,BufRead *.yml.sample setlocal filetype=yaml
+    autocmd BufNewFile,BufRead *.yml.example setlocal filetype=yaml
     " autocmd BufNewFile,BufRead *.js setlocal softtabstop=2 shiftwidth=2 softtabstop=2 tabstop=2
 
     " remove trailing spaces
@@ -331,6 +335,6 @@ function! VimspectorEnable()
     packadd vimspector
     nnoremap <leader>dt :call vimspector#Reset()<CR>
     nnoremap <leader>di :call vimspector#StepInto()<CR>
-    nnoremap <leader>du :call vimspector#StepOut() <CR>
-    nnoremap <leader>dv :call vimspector#StepOver()<CR>
+    nnoremap <leader>do :call vimspector#StepOut() <CR>
+    nnoremap <leader>dd :call vimspector#StepOver()<CR>
 endfunction
