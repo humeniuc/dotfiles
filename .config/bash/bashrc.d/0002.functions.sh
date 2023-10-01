@@ -62,3 +62,9 @@ function forget() {
 function debug_path() {
     echo "$PATH"| tr ":" "\n"
 }
+
+
+function hotplug_cd() {
+    dir=$( "${DOTFILES_PATH}/bin/system/hotplug_select" -m | jq -r '.[].mountpoints[]' | fzf) ;
+    [ -n "${dir}" ] && cd "${dir}" || { echo "no dir selected" 1>&2; }
+}

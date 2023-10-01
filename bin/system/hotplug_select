@@ -1,0 +1,28 @@
+#!/bin/bash
+
+mounted=false
+notmounted=false
+
+while getopts "mn" o; do
+    case "${o}" in 
+        m)
+            mounted=true
+            ;;
+        n)
+            notmounted=true
+            ;;
+    esac
+done
+
+filter_mount="";
+
+"${mounted}" && filter_mount=' | select(any(.mountpoints[]; . != null))'
+"${notmounted}" && filter_mount=' | select(all(.mountpoints[]; . == null))'
+#
+lsblk \
+    --json \
+    --paths \
+    --output "label,name,size,type,mountpoints,hotplug" |
+    jq '[ ''.blockdevices[].children?[] | select(.hotplug == true) '"${filter_mount}"']'
+    
+
