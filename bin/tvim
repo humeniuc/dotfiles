@@ -1,12 +1,50 @@
 #!/bin/bash
 
 main() {
-    override_if_not_in_tmux
+    focus=1
+    files=()
+
+    while [ $# -gt 0 ];
+    do
+        case $1
+        in
+            -d) focus=0
+                ;;
+            -h) _help;
+                exit;
+                ;;
+            *)
+                if [ -f "$1" ];
+                then
+                    files+=("$1")
+                else
+                    _error "Inexisting file $1"
+                fi
+                ;;
+        esac
+        shift
+    done
+
+    if [ ${#files[@]} -eq 0 ];
+    then
+        _error "Empty file list"
+        exit;
+    fi
+
+    override_if_not_in_tmux "${files[1]}"
+
     target_id=$(ensure_tmux_target)
 
-    open_in_vim "$1" "$target_id"
-    tmux select-pane -t "$target_id"
-    tmux select-window -t "$target_id"
+    for f in "${files[@]}";
+    do
+        open_in_vim "$f" "$target_id"
+    done
+
+    if [ "$focus" -eq 1 ];
+    then
+        tmux select-pane -t "$target_id"
+        tmux select-window -t "$target_id"
+    fi
     # tmux move-window -r
 }
 
@@ -24,7 +62,7 @@ ensure_tmux_target() {
 
     # Dacă nu există, deschid fereastră nouă și trimit keys să deschidă vim
     if [ -z "$target_id" ]; then
-        target_id=$(tmux new-window -b -t 1 -P -F "#{pane_id}" bash)
+        target_id=$(tmux new-window -d -b -t 1 -P -F "#{pane_id}" bash)
         tmux send-keys -t "$target_id" vim C-m
         sleep 0.3
     fi
@@ -38,17 +76,15 @@ open_in_vim() {
 
     _debug "filepath original = $filepath"
 
-    if [ -f "$filepath" ]; then
-        filepath=$(readlink -e "$filepath")
-        # trimit tastele care imi deschide in vim fisierul catre editare
-        # filepath=ul trebuie esacpe-uit ca path corect
-        # de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
-        # TODO: de vazut ce alte caractere mai trebuie escape-uite
-        filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
+    filepath=$(readlink -e "$filepath")
+    # trimit tastele care imi deschide in vim fisierul catre editare
+    # filepath=ul trebuie esacpe-uit ca path corect
+    # de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
+    # TODO: de vazut ce alte caractere mai trebuie escape-uite
+    filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
 
-        _debug "filepath normalized = $filepath"
-        tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
-    fi
+    _debug "filepath normalized = $filepath"
+    tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
 }
 
 _debug() {
@@ -59,4 +95,13 @@ _error() {
     echo "$1" >&2
 }
 
-main "$1"
+_help()
+{
+    cat << HELP
+tvim [-d] filepath [filepath] ...
+
+-d Do not focus on vim window in TMUX
+HELP
+}
+
+main "$@"
