@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cmd=(
+    'fzf'
+)
+
+if command -v "bat" >/dev/null 2>&1;
+then
+    cmd+=('--preview' 'bat -n --color=always {}')
+else
+    cmd+=('--preview' 'cat {}')
+fi
+
+cmd+=('--bind' 'ctrl-/:toggle-preview' '--bind' 'enter:execute(tvim -d {}),f4:execute(tvim -d {})')
+
+exec "${cmd[@]}"
