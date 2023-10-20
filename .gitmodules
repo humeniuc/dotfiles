@@ -73,3 +73,6 @@
 [submodule ".config/vim/pack/color/opt/iceberg.vim"]
 	path = .config/vim/pack/color/opt/iceberg.vim
 	url = git@github.com:cocopon/iceberg.vim.git
+[submodule "lib/tmux/tmux-extracto"]
+	path = lib/tmux/tmux-extracto
+	url = git@github.com:humeniuc/tmux-extrakto.git
