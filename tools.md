@@ -6,8 +6,8 @@ dex - interpretează fișierele `.desktop`. La loging rulează fișierele `.desk
 firefox
 flameshot - screenshot and edit.
 greenclip - multiple clipboard, rofi integration
+jq
 numlockx
-parcellite - multiple clipboard.
 polybar
 rofi
 screenkey

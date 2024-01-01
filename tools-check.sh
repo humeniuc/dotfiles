@@ -7,6 +7,7 @@ declare -a executables=(
     "firefox"
     "flameshot"
     "greenclip"
+    "jq"
     "numlockx"
     "polybar"
     "rofi"
