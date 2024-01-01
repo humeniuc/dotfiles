@@ -14,8 +14,7 @@ main() {
                 exit;
                 ;;
             *)
-                if [ -f "$1" ];
-                then
+                if [ -f "$1" ]; then
                     files+=("$1")
                 else
                     _error "Inexisting file $1"
@@ -25,35 +24,25 @@ main() {
         shift
     done
 
-    if [ ${#files[@]} -eq 0 ];
-    then
-        _error "Empty file list"
-        exit;
+    # if not in tmux, open first file in vim
+    if [ -z "$TMUX" ]; then
+        if [ -n "${files[1]}" ]; then
+            _debug 'Not in tmux'
+            exec vim "$1"
+        fi
+    else
+        target_id=$(ensure_tmux_target)
     fi
 
-    override_if_not_in_tmux "${files[1]}"
-
-    target_id=$(ensure_tmux_target)
-
-    for f in "${files[@]}";
-    do
+    for f in "${files[@]}"; do
         open_in_vim "$f" "$target_id"
     done
 
-    if [ "$focus" -eq 1 ];
-    then
+    if [ "$focus" -eq 1 ]; then
         tmux select-pane -t "$target_id"
         tmux select-window -t "$target_id"
     fi
     # tmux move-window -r
-}
-
-override_if_not_in_tmux() {
-    if [ -z "$TMUX" ]; then
-        _debug 'Not in tmux'
-        exec vim "$1"
-        exit
-    fi
 }
 
 ensure_tmux_target() {
