@@ -1,6 +1,7 @@
 #!/bin/bash
 
 declare -a executables=(
+    "arandr"
     "autorandr"
     "chromium"
     "dex"
@@ -19,6 +20,7 @@ declare -a executables=(
     "x11-ssh-askpass"
     "xdotool"
     "xpanes"
+    "xrandr"
 )
 
 for executable in "${executables[@]}"

@@ -9,6 +9,8 @@ while pgrep -u $UID -x polybar >/dev/null; do sleep 0.1; done
 activemonitors=$( xrandr --listactivemonitors | tail -n +2 | awk '{print $NF}' )
 
 priority=(
+    "DP-0 144"
+    "HDMI-0 96"
     "DP1 144"
     "HDMI2 96"
     "eDP1 96"
