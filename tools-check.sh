@@ -21,6 +21,7 @@ declare -a executables=(
     "xdotool"
     "xpanes"
     "xrandr"
+    "i3lock"
 )
 
 for executable in "${executables[@]}"
