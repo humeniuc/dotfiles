@@ -14,9 +14,10 @@ declare -a executables=(
     "screenkey"
     "simplescreenrecorder"
     "tmux"
-    "udiskctl"
+    "udisksctl"
     "volumeicon"
     "x11-ssh-askpass"
+    "xdotool"
     "xpanes"
 )
 
