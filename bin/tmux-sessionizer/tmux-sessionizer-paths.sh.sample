@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # Current sessions at the top
-tmux list-sessions -F '#{session_name}'
+tmux list-sessions -F '#{session_name}' 2>/dev/null
 
 # Sample for the executable which display tmux-sessionizer sessions paths
 
 # Only paths. Session name would be determined from dirname.
 # /path/to/session/root
 echo "$HOME"
-[ -n "$DOTFILES_PATH" ] && echo "$DOTFILES_PATH"
+[ -n "$DOTFILES_PATH" ] && echo "$DOTFILES_PATH dotfiles"
 
 echo "$HOME/dotfiles"
 echo "$HOME/dir1"
