@@ -7,7 +7,9 @@ declare -a executables=(
     "dex"
     "firefox"
     "flameshot"
+    "fzf"
     "greenclip"
+    "i3lock"
     "jq"
     "numlockx"
     "polybar"
@@ -21,7 +23,6 @@ declare -a executables=(
     "xdotool"
     "xpanes"
     "xrandr"
-    "i3lock"
 )
 
 for executable in "${executables[@]}"
