@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+# set -e
 
 SCRIPT_PATH=$( if [ "${BASH_SOURCE[0]:0:1}" == "/" ]; then echo "${BASH_SOURCE[0]}"; else echo "$(pwd)/${BASH_SOURCE[0]}"; fi )
 SCRIPT_DIR="${SCRIPT_PATH%/*}"
@@ -12,7 +12,7 @@ REPO_DIR="$HOME/repositories/tabbed"
 
 cd "$REPO_DIR"
 
-stat="$(git rev-parse --is-inside-work-tree)"
+stat="$(git rev-parse --is-inside-work-tree 2>/dev/null)"
 if [ "$stat" != "true" ]; then
     git clone "$REPO_URL" .
 fi
