@@ -73,3 +73,6 @@
 [submodule "lib/tmux/tmux-extracto"]
 	path = lib/tmux/tmux-extracto
 	url = git@github.com:humeniuc/tmux-extrakto.git
+[submodule "lib/bash/z"]
+	path = lib/bash/z
+	url = git@github.com:humeniuc/clone-sh-z.git
