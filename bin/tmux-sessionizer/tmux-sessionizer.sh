@@ -6,6 +6,7 @@ CMD_SWITCH=()
 _error()
 {
     echo "$1" >&2;
+    command -v /bin/notify-send >/dev/null && notify-send -- "$1"
     exit 1;
 }
 
@@ -13,7 +14,16 @@ _error()
 # in TERM use fzf, else start rofi/dmenu
 # The options are from tmux-sessionizer-paths.sh
 choose_session_path() {
-    paths_command=( "bash" "$DOTFILES_PATH/bin/tmux-sessionizer/tmux-sessionizer-paths.sh" )
+    local EXE_NAME="tmux-sessionizer-paths.sh"
+
+
+    if [ -f "${HOME}/.local/bin/${EXE_NAME}" ]; then
+        paths_command=( "bash" "${HOME}/.local/bin/${EXE_NAME}")
+    elif [ -n "${DOTFILES_PATH}" -a -f "${DOTFILES_PATH}/bin/tmux-sessionizer/${EXE_NAME}" ]; then
+        paths_command=( "bash" "$DOTFILES_PATH/bin/tmux-sessionizer/${EXE_NAME}" )
+    else
+        _error "${EXE_NAME} nu este definit"
+    fi
 
     # is termial
     if [ -t "0" ]; then
