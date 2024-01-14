@@ -23,6 +23,7 @@ declare -a executables=(
     "xdotool"
     "xpanes"
     "xrandr"
+    "zathura"
 )
 
 for executable in "${executables[@]}"
