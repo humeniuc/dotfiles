@@ -23,7 +23,7 @@ export HISTTIMEFORMAT="%F %T - "
 export HISTCONTROL=ignoreboth
 
 # Do not record some commands
-export HISTIGNORE="clear:history:exit:[bf]g:* --help"
+export HISTIGNORE="clear:history:exit:mc:[bf]g:* --help"
 
 shopt -s histappend  # merge session histories
 
