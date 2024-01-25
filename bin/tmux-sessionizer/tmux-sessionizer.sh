@@ -27,7 +27,7 @@ choose_session_path() {
 
     # is termial
     if [ -t "0" ]; then
-        "${paths_command[@]}" | fzf
+        "${paths_command[@]}" | fzf --with-nth 1
     else
         prompt='Choose a project'
 

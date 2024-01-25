@@ -1,24 +1,20 @@
 #!/bin/bash
 
 # Current sessions at the top
-tmux list-sessions -F '#{session_name}' 2>/dev/null
+tmux list-sessions -F "#{session_name}" 2>/dev/null
 
 # Sample for the executable which display tmux-sessionizer sessions paths
 
 # Only paths. Session name would be determined from dirname.
-# /path/to/session/root
-echo "$HOME"
-[ -n "$DOTFILES_PATH" ] && echo "$DOTFILES_PATH dotfiles"
+[ -d "${HOME}/dir1" ] && cho "${HOME}/dir1"
 
-echo "$HOME/dotfiles"
-echo "$HOME/dir1"
-echo "$HOME/dir2"
-find "$HOME/path/of/projects/dir" -maxdepth 1 -mindepth 1 -type d
+# path and session name declared
+[ -d "${HOME}/dir2" ] && cho "${HOME}/dir2" "custom-session-name-2"
 
-# With session name. Session name should appear after path
-# /path/to/session/root session_name
-echo "$HOME/dir3" "custom-session-name-3"
-find "$HOME/path/of/projects/dir" -maxdepth 1 -mindepth 1 -type d -printf "%p doc-%f \n"
+echo "${HOME}"
+[ -n "${DOTFILES_PATH}" ] && echo "${DOTFILES_PATH}"
+[ -d "${HOME}/projects" ] && find "$HOME/projects" -maxdepth 1 -mindepth 1 -type d -printf "%p prj-%f \n"
+[ -d "${HOME}/data/documents/work" ] && find "$HOME/data/documents/work" -maxdepth 1 -mindepth 1 -type d -printf "%p doc-%f \n"
 
 [ -d "$HOME/.wine" ] &&  echo "$HOME/.wine"
 [ -d "$HOME/data/.wine_games" ] && echo "$HOME/data/.wine_games"
