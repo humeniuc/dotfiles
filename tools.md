@@ -17,7 +17,11 @@ udiskctl
 volumeicon - widget în tray pentru volum
 x11-ssh-askpass
 xpanes https://github.com/greymd/tmux-xpanes
+pip
 
+pylsp LSP pentru python.
+Se instalaza cu `pip install python-language-server`
+Pe Arch se instalează cu `pacman -S python-lsp-server`
 
 # Misc
 

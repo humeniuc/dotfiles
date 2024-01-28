@@ -24,6 +24,8 @@ declare -a executables=(
     "xpanes"
     "xrandr"
     "zathura"
+    "pip"
+    "pylsp"
 )
 
 for executable in "${executables[@]}"
