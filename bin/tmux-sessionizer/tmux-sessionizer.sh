@@ -62,6 +62,9 @@ tmux_switch_or_attach()
 # start terminal and run the attach command
 tmux_attach_in_new_term()
 {
+    [ -z "${TERMINAL}" ] && _error "\$TERMINAL nu este definit"
+    command -v "${TERMINAL}" >/dev/null || _error "${TERMINAL} nu există"
+
     existing_windows=$( xdotool search --onlyvisible --class "$TERMINAL" | sort )
 
     setsid "$TERMINAL" </dev/null >/dev/null 2>/dev/null &
