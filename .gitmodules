@@ -64,15 +64,18 @@
 [submodule ".config/vim/pack/plugins/opt/vimspector"]
 	path = .config/vim/pack/plugins/opt/vimspector
 	url = git@github.com:humeniuc/clone-vim-vimspector.git
-[submodule "lib/tmux/pop"]
-	path = lib/tmux/pop
-	url = git@github.com:humeniuc/clone-tmux-pop.git
 [submodule ".config/vim/pack/color/opt/iceberg.vim"]
 	path = .config/vim/pack/color/opt/iceberg.vim
 	url = git@github.com:cocopon/iceberg.vim.git
-[submodule "lib/tmux/tmux-extracto"]
-	path = lib/tmux/tmux-extracto
-	url = git@github.com:humeniuc/tmux-extrakto.git
 [submodule "lib/bash/z"]
 	path = lib/bash/z
 	url = git@github.com:humeniuc/clone-sh-z.git
+[submodule ".config/tmux/plugins/pop"]
+	path = .config/tmux/plugins/pop
+	url = git@github.com:humeniuc/clone-tmux-pop.git
+[submodule ".config/tmux/plugins/extrakto"]
+	path = .config/tmux/plugins/extrakto
+	url = git@github.com:humeniuc/tmux-extrakto.git
+[submodule ".config/tmux/plugins/sombre"]
+	path = .config/tmux/plugins/sombre
+	url = git@github.com:humeniuc/clone-sombre.tmux.git
