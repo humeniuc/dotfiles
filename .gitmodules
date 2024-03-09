@@ -70,6 +70,9 @@
 [submodule "lib/bash/z"]
 	path = lib/bash/z
 	url = git@github.com:humeniuc/clone-sh-z.git
+[submodule ".config/tmux/plugins/pop"]
+	path = .config/tmux/plugins/pop
+	url = git@github.com:humeniuc/clone-tmux-pop.git
 [submodule ".config/tmux/plugins/extrakto"]
 	path = .config/tmux/plugins/extrakto
 	url = git@github.com:humeniuc/tmux-extrakto.git
