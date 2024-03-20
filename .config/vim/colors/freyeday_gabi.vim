@@ -35,6 +35,7 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
     let g:terminal_color_15 = '#ffffff'
   endif
   hi Normal guifg=#1c1c1c guibg=#eeeeee gui=NONE cterm=NONE
+  hi Normal guifg=#1c1c1c guibg=#e8e8e8 gui=NONE cterm=NONE
   hi EndOfBuffer guifg=#bcbcbc guibg=NONE gui=NONE cterm=NONE
   hi Statusline guifg=#eeeeee guibg=#5f8787 gui=NONE cterm=NONE
   hi StatuslineNC guifg=#1c1c1c guibg=#bcbcbc gui=NONE cterm=NONE
@@ -86,15 +87,14 @@ if (has('termguicolors') && &termguicolors) || has('gui_running')
   hi SpellLocal guifg=#af5f00 guibg=NONE guisp=#af5f00 gui=undercurl cterm=underline
   hi SpellRare guifg=#d7af5f guibg=NONE guisp=#d7af5f gui=undercurl cterm=underline
   hi Comment guifg=#8a8a8a guibg=NONE gui=NONE cterm=NONE
-
   " hi Identifier guifg=#5f5faf guibg=NONE gui=NONE cterm=NONE
-  " hi Identifier guifg=#9933ff guibg=NONE gui=NONE cterm=NONE
   hi Identifier guifg=#6600cc guibg=NONE gui=NONE cterm=NONE
-
+  hi Identifier guifg=#5700ad guibg=NONE gui=NONE cterm=NONE
   hi Function guifg=#af5f00 guibg=NONE gui=NONE cterm=NONE
   hi Statement guifg=#005faf guibg=NONE gui=NONE cterm=NONE
   hi Constant guifg=#d75f5f guibg=NONE gui=NONE cterm=NONE
-  hi String guifg=#008700 guibg=NONE gui=NONE cterm=NONE
+  " hi String guifg=#008700 guibg=NONE gui=NONE cterm=NONE
+  hi String guifg=#008000 guibg=NONE gui=NONE cterm=NONE
   hi Character guifg=#008700 guibg=NONE gui=NONE cterm=NONE
   hi PreProc guifg=#5f8787 guibg=NONE gui=NONE cterm=NONE
   hi Type guifg=#0087d7 guibg=NONE gui=NONE cterm=NONE
