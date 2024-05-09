@@ -1,7 +1,19 @@
 #!/bin/bash
 
-# force greenclip start.
-# TODO: greenclip crapa cateodata la pornire. ar trebui corectat acolo, in systemctl, sa reincerce
-systemctl --user is-active --quiet greenclip.service || systemctl --user start greenclip.service
+log=""
 
-rofi -monitor 4 -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+if systemctl --user is-active --quiet clipmenud.service; then
+    CM_LAUNCHER=rofi clipmenu
+    exit
+else
+    log="${log}\nclipmenud nu este pornit"
+fi
+
+if systemctl --user is-active --quiet greenclip.service; then
+    rofi -monitor 4 -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+    exit
+else
+    log="${log}\ngreenclip nu este pornit"
+fi
+
+notify-send "Multi clipboard" "Nici un serviciu de clipboard manager nu este pornit. ${log}"
