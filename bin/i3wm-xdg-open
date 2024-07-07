@@ -1,0 +1,14 @@
+#!/bin/bash
+
+[ -z "$1" ] && exit 1
+[ -z "$2" ] && exit 1
+
+workspace="$1"
+path="$2"
+
+if [ "${path:0:1}" != "/" ]; then
+    path="$(pwd)/${path}";
+fi
+
+command=$(printf "workspace %q; exec xdg-open %q" "$workspace" "$path")
+i3-msg "$command"
