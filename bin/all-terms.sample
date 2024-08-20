@@ -1,61 +1,39 @@
 #!/bin/bash
 
-_error_message() {
-    [ -n "$1" ] && {
-        echo "$1" >&2
-        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
-    }
-}
+#  Include all-terms.inc.sh
 
-_exit() {
-    [ -n "$1" ] && _error_message "$1"
-    exit 1
-}
+# v1
+SCRIPT_DIR="$(dirname "$( readlink -f "${BASH_SOURCE[0]}" )")"
+echo "${SCRIPT_DIR}"
+source "${SCRIPT_DIR}/lib/all-terms.inc.sh"
+# v2
+source "${DOTFILES_PATH}/bin/lib/all-terms.inc.sh"
 
-_ssh_ensure_key() {
-    ssh-ensure-key "${1}" || _exit "Nu am putut încărca ${1}"
-}
 
-_TERM="${1:-st}"
+main()
+{
+    # load ssh keys
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa"
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa_1"
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa_2"
 
-_ssh_ensure_key "/home/gabi/.ssh/id_rsa"
-_ssh_ensure_key "/home/gabi/.ssh/id_rsa_1"
-_ssh_ensure_key "/home/gabi/.ssh/id_rsa_2"
+    # define Terminal. 
+    # păstrează unul
+    _TERM="${1:-st}"
+    _TERM="${1:-xfce4-terminal}"
 
-# @param command
-# @param windowname 
-function new_tab()
-{   
-    if [ "$1" == "1" ]; then
-        if [ "$_TERM" == "xfce4-terminal" ]; then
-            xfce4-terminal --tab --title="$3"
-        fi
+    # @todo: Opțiuni pentru configurat terminalul. Ex font. Folosit env ?
+    # tabbed -r 2 -n "tabbed-st" st -w '' -f 'JetBrains Mono:size=10:antialias=true:autohint=true' &
 
-        if [ "$_TERM" == "st" ]; then
-            xdotool key "Ctrl+grave"
-            sleep 0.1
-            xdotool type --delay 0 -- "-t $3"
-            xdotool key "Return"
-            sleep 0.1
-        fi
+    if [ "$_TERM" == "xfce4-terminal" ]; then
+        start_xfce4_terminal
+    elif [ "$_TERM" == "st" ]; then
+        start_st_terminal
     fi
 
-    xdotool type --delay 0 "$2"
-    xdotool key "Return"
+    new_tab "0" "tmux new -A -s \"local\"" "local"
+    new_tab "1" "ssh gabi@server1" "server1"
+    new_tab "2" "ssh gabi@server1" "server2"
 }
 
-if [ "$_TERM" == "xfce4-terminal" ]; then
-    xfce4-terminal --initial-title="local" &
-    xdotool search --sync --onlyvisible --class "xfce4-terminal"
-fi
-
-if [ "$_TERM" == "st" ]; then
-    tabbed -r 2 -n "tabbed-st" st -w '' &
-    xdotool search --sync --onlyvisible --class "tabbed"
-    sleep 0.1
-fi
-
-new_tab "0" "tmux new -A -s \"local\"" "local"
-new_tab "1" "ssh gabi@server1" "server1"
-new_tab "2" "ssh gabi@server1" "server2"
-
+main "$@"
