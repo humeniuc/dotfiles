@@ -3,6 +3,7 @@
 declare -a executables=(
     "arandr"
     "autorandr"
+    "brightnessctl"
     "chromium"
     "dex"
     "firefox"
@@ -12,7 +13,9 @@ declare -a executables=(
     "i3lock"
     "jq"
     "numlockx"
+    "pip"
     "polybar"
+    "pylsp"
     "rofi"
     "screenkey"
     "simplescreenrecorder"
@@ -24,8 +27,6 @@ declare -a executables=(
     "xpanes"
     "xrandr"
     "zathura"
-    "pip"
-    "pylsp"
 )
 
 for executable in "${executables[@]}"
