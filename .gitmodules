@@ -81,4 +81,4 @@
 	url = git@github.com:humeniuc/clone-sombre.tmux.git
 [submodule ".config/vim/pack/plugins/opt/lsp"]
 	path = .config/vim/pack/plugins/opt/lsp
-	url = git@github.com:humeniuc/yegappan-lsp.git
+	url = git@github.com:humeniuc/clone-yegappan-lsp.git
