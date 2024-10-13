@@ -18,6 +18,7 @@ volumeicon - widget în tray pentru volum
 x11-ssh-askpass
 xpanes https://github.com/greymd/tmux-xpanes
 pip
+wezterm
 
 pylsp LSP pentru python.
 Se instalaza cu `pip install python-language-server`

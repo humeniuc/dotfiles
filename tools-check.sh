@@ -22,6 +22,7 @@ declare -a executables=(
     "tmux"
     "udisksctl"
     "volumeicon"
+    "wezterm"
     "x11-ssh-askpass"
     "xdotool"
     "xpanes"
