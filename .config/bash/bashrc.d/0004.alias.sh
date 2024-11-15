@@ -31,3 +31,5 @@ alias ts='$DOTFILES_PATH/bin/tmux-sessionizer/tmux-sessionizer.sh'
     alias xo8="${DOTFILES_PATH}/bin/i3wm-xdg-open 8 "
     alias xo9="${DOTFILES_PATH}/bin/i3wm-xdg-open 9 "
 } 
+
+[ -n "$TMUX" ] && alias ,cd_tmux_session_path='cd $( tmux run-shell '\''printf "%q" "#{session_path}"'\'' )'
