@@ -1,0 +1,12 @@
+#!/bin/bash
+# dunstBright
+
+brightnessctl "$@" > /dev/null
+
+brightnow="$(brightnessctl g)"
+brightmax="$(brightnessctl m)"
+
+brightpercent=$(awk "BEGIN {print ${brightnow}/${brightmax}*100}")
+
+dunstify -a "changeBrightness" -u low -h "string:x-dunst-stack-tag:dunstBrightNotification" \
+	-h int:value:"$brightpercent" "Brightness: ${brightpercent}%"

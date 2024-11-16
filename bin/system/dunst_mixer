@@ -1,0 +1,16 @@
+#!/bin/bash
+# dunstMixer
+
+pamixer "$@" > /dev/null
+
+volume="$(pamixer --get-volume)"
+mute="$(pamixer --get-mute)"
+
+if [[ $volume == 0 || "$mute" == "true" ]]; then
+	dunstify -a "changeVolume" -u low -i audio-volume-muted -h "string:x-dunst-stack-tag:dunstMixerNotification" "Volume muted" 
+else
+	dunstify -a "changeVolume" -u low -i audio-volume-high -h "string:x-dunst-stack-tag:dunstMixerNotification" \
+	-h int:value:"$volume" "Volume: ${volume}%"
+fi
+
+canberra-gtk-play -i audio-volume-change -d "changeVolume"
