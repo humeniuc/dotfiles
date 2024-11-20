@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Test cards
+# Use rofi for fast selection and copy to clipboard
+
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
+    }
+}
+
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit 1
+}
+
+# Card-uri preluate de aici.
+# https://developer.revolut.com/docs/guides/accept-payments/get-started/test-implementation/test-cards
+# @todo: Transformă într-un script python pentru a extrage direct de la url-ul de mai sus
+
+card_list="\
+4111111111111111    VISA standard 
+
+4929420573595709    Revolut, Success: VISA
+5281438801804148    Revolut, Success: MASTERCARD
+
+4242424242424242    Revolut, Error: Payment failed due to 3DS verification error. 
+4929573638125985    Revolut, Error: Payment declined due to insufficient funds.
+4532336743874205    Revolut, Error: Payment declined due to card being expired
+2720998837779594    Revolut, Error: Payment declined due to Do Not Honour.
+5215674115127070    Revolut, Error: Payment failed due to the issuing bank needing additional verification
+2223000010479399    Revolut, Error: Order and payment stuck in processing state. This card is useful to test what would happen with your implementation if the order took longer than expected to complete.
+";
+
+option=$( \
+    printf "%s" "${card_list}" \
+    | \
+    rofi \
+        -dmenu \
+        -i \
+        -monitor -4 \
+        -no-custom \
+        -p "Pick a card" \
+    )
+
+[ -z "${option}" ] && _exit "No card was selected"
+
+card="$(printf "%s" "${option}" | awk '{ print $1 }')"
+
+printf "%s" "${card}" | xclip -in -selection clipboard
+
+_error_message "${card} cpboard"
