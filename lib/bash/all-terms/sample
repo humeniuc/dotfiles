@@ -1,0 +1,27 @@
+#!/bin/bash
+
+#  Include all-terms/inc.sh
+source "${DOTFILES_PATH}/lib/bash/all-terms/inc.sh"
+
+main()
+{
+    # load ssh keys
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa"
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa_1"
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa_2"
+
+    # definește terminalul.
+    # păstrează unul
+    my_term="${1:-xfce4-terminal}"
+    my_term="${1:-st}"
+
+    # pornește terminalul
+    _start_term "${my_term}"
+
+    # new tab
+    _new_tab "${my_term}" "0" "tmux new -A -s \"local\"" "local"
+    _new_tab "${my_term}" "1" "ssh user1@server1" "server1"
+    _new_tab "${my_term}" "1" "ssh user2@server2" "server2"
+}
+
+main "$@"
