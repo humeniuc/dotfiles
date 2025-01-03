@@ -1,2 +1,2 @@
 #!/bin/bash
-[ $(command -v rofi) ] && exec rofi -sort -show run -monitor -4 || exec dmenu_run
+[ $(command -v rofi) ] && exec rofi -sort -show combi -modes combi -combi-modes "drun,run" -monitor -4 || exec dmenu_run
