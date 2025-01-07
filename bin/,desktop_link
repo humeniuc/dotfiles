@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# Function to normalize string to slug
+create_slug() {
+    echo "$1" | iconv -t ascii//TRANSLIT | sed -r 's/[^a-zA-Z0-9]+/-/g' | sed -r 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]'
+}
+
+# Function to check if script is running in terminal
+is_terminal() {
+    [ -t 0 ]
+}
+
+# Function to get input via terminal
+get_terminal_input() {
+    local prompt="$1"
+    local response
+    read -p "$prompt" response
+    echo "$response"
+}
+
+# Function to get input via GUI
+get_gui_input() {
+    local prompt="$1"
+    local response
+    response=$(zenity --entry --text="$prompt" --title="Create Desktop Link" 2>/dev/null)
+    
+    # Check if user cancelled
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
+    echo "$response"
+}
+
+# Create applications directory if it doesn't exist
+mkdir -p ~/.local/share/applications/link
+
+# Get inputs based on environment
+if is_terminal; then
+    url=$(get_terminal_input "Enter URL: ")
+    title=$(get_terminal_input "Enter title: ")
+else
+    url=$(get_gui_input "Enter URL")
+    title=$(get_gui_input "Enter title")
+fi
+
+# Generate slug from title
+slug=$(create_slug "$title")
+
+# Create .desktop file content
+desktop_content="[Desktop Entry]
+Type=Application
+Name=$title
+Exec=xdg-open $url
+Icon=web-browser
+Terminal=false
+Categories=Network;WebBrowser;
+"
+
+# Write to file
+desktop_file=~/.local/share/applications/link/${slug}.desktop
+echo "$desktop_content" > "$desktop_file"
+
+# Make the .desktop file executable
+chmod +x "$desktop_file"
+
+# Show success message
+if is_terminal; then
+    echo "Desktop file created: ${desktop_file}"
+else
+    zenity --info --text="Desktop link created successfully!" --title="Success" 2>/dev/null
+fi
