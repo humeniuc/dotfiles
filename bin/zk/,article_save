@@ -1,0 +1,22 @@
+#!/bin/bash
+
+grab ()
+{
+    f="html"
+    f="${f}-native_divs"
+    f="${f}-native_spans"
+
+    t="markdown_strict"
+    t="${t}-raw_html"
+    t="${t}+grid_tables"
+    t="${t}+multiline_tables"
+    t="${t}+pipe_tables"
+    t="${t}+simple_tables"
+    t="${t}+table_captions"
+
+    curl --show-error --silent --location "$1" \
+        | pandoc \
+        -f "${f}" \
+        -t "${t}"
+}
+
