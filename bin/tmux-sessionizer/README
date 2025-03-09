@@ -1,0 +1,8 @@
+- Crează în $PATH executabilul `tmux-sessionizer-paths.sh` 
+Vezi `tmux-sessionizer-paths.sh.sample` ca exemplu 
+
+Formamtul este `directory [session_name]` pe fiecare linie
+session_name este dedus din numele directorului, dacă lipsește.
+
+- Fă un symlink `ts`/`,ts` către `${DOTFILES_PATH}/bin/tmux-sessionizer/tmux-sessionizer.sh` 
+pentru acces mai rapid din path
