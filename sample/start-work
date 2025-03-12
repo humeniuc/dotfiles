@@ -9,31 +9,28 @@ _error_message() {
 
 _exit() {
     [ -n "$1" ] && _error_message "$1"
-    exit 1
-}
-
-_ssh_ensure_key() {
-    ssh-ensure-key "${1}" || _exit "Nu am putut încărca ${1}"
+    exit "${2:-1}"
 }
 
 main ()
 {
-    nmcli connection up {vpn_connection_name}
+    nmcli connection up {vpn} || _exit "Nu am reușit să mă conectez la {vpn}"
 
-    (
-        # încarc cheieile și declanșez pornirea terminalului și a conexiunilor ssh 
-        _ssh_ensure_key "${HOME}/.ssh/key_1"
-        _ssh_ensure_key "${HOME}/.ssh/key_2"
-        _ssh_ensure_key "${HOME}/.ssh/key_3"
+    ssh-ensure-key "${HOME}/.ssh/key_1" \
+    && ssh-ensure-key "${HOME}/.ssh/key_2" \
+    && ssh-ensure-key "${HOME}/.ssh/key_3" \
+    && i3-msg 'workspace 1; exec "${HOME}/.local/bin/all-terms"' \
+    && sleep 1 \
+    && i3-msg 'workspace 5; exec "/usr/bin/thunderbird"' \
+    && sleep 1 \
+    && i3-msg 'workspace 5; exec "/usr/bin/slack"' \
+    && sleep 1 \
+    && i3-msg 'workspace 4; exec "${HOME}/.local/bin/sqlyog 2>/dev/null"' \
+    && sleep 1 \
+    && i3-msg 'workspace 3; exec "fde"' \
+    && sleep 1 \
+    && i3-msg 'workspace 1' 
 
-        i3-msg 'workspace 1; exec "${HOME}/.local/bin/dotfiles_extended/all-terms"'
-    ) && (
-        # pornesc toate celelalte aplicații 
-        ( i3-msg 'workspace 5; exec "/usr/bin/thunderbird"' & )
-        ( i3-msg 'workspace 5; exec "/usr/bin/slack"' & )
-        ( sleep 1 && "${HOME}/.local/bin/sqlyog" & )
-        ( sleep 2 && i3-msg 'workspace 3; exec "fde"' & )
-    )
 } 
 
 main

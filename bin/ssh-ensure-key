@@ -9,12 +9,19 @@ _error_message() {
 
 _exit() {
     [ -n "$1" ] && _error_message "$1"
-    exit 1
+    exit "${2:-1}"
 }
 
 load_identity()
 {
     ssh-add "$1"
+    STATUS=$?
+
+    if test $STATUS -ne 0 ; then
+        _exit "Nu am putut încărca $1" $STATUS
+    fi
+
+    exit 0
 }
 
 [ -n "$1" ] || _exit "Nu ai specificat un fișier"
@@ -27,15 +34,9 @@ FINGERPRINT=$(ssh-keygen -lf "${IDENTITY_FILE}" 2>/dev/null | awk '{print $2}')
 PRIVATE_KEY_PATH=$(ssh-add -l | grep "${FINGERPRINT}" | awk '{print $3}')
 
 # Dacă nu este un private key path, declanșez încărcarea cheii
-[ -z "${PRIVATE_KEY_PATH}" ] && {
-    load_identity "${IDENTITY_FILE}"
-    exit $?
-}
+[ -z "${PRIVATE_KEY_PATH}" ] && load_identity "${IDENTITY_FILE}"
 
 # În gnome keyring se afișază și cheile neîncărcate
 # Diferența este că dacă este neîncărcat se afișează o adresă de email
 # Dacă este încărcat se afișează un path, deci există minim un "/"
-echo "${PRIVATE_KEY_PATH}" | grep -q "/" && exit 0 || {
-    load_identity "${IDENTITY_FILE}"
-    exit $?
-}
+echo "${PRIVATE_KEY_PATH}" | grep -q "/" && exit 0 || load_identity "${IDENTITY_FILE}"
