@@ -7,12 +7,19 @@ grab ()
     f="${f}-native_spans"
 
     t="markdown_strict"
+    # t="markdown"
+    # t="gfm"
+
     t="${t}-raw_html"
-    t="${t}+grid_tables"
-    t="${t}+multiline_tables"
-    t="${t}+pipe_tables"
-    t="${t}+simple_tables"
-    t="${t}+table_captions"
+
+    # t="${t}+grid_tables"
+    # t="${t}+multiline_tables"
+    # t="${t}+pipe_tables"
+    # t="${t}+simple_tables"
+    # t="${t}+table_captions"
+
+    # t="${t}+backtick_code_blocks"
+    t="${t}+fenced_code_blocks"
 
     curl --show-error --silent --location "$1" \
         | pandoc \
@@ -20,3 +27,13 @@ grab ()
         -t "${t}"
 }
 
+main ()
+{
+    case "$1" in 
+        "grab")
+            grab "$2"
+            ;;
+    esac
+}
+
+main "$@"
