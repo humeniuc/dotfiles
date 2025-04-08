@@ -18,7 +18,7 @@ priority=(
 
 MAIN_STARTED=0
 for f in "${priority[@]}"; do
-    read -r MONITOR DPI <<< "$f"
+   read -r MONITOR DPI <<< "$f"
 
     if printf "%s" "$activemonitors" | grep -E '^'"$MONITOR"'$' -q ; then
         if [ $MAIN_STARTED -eq 0 ]; then

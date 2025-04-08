@@ -1,9 +1,27 @@
 #!/bin/bash
 
-echo "Curent:"
-xrdb -query | grep Xft.dpi
+_dump()
+{
+    dpi=$( xrdb -get Xft.dpi)
 
-[ -z "$1" ] && { echo "Setează un dpi (96/120/140)" 1>&2; exit; }
+    message=(
+        "Curent: ${dpi}"
+        "Setează un dpi (96/120/144/192)"
+    )
+
+    if [ -t "0" ]; then
+        printf "%s\n" "${message[@]}" 1>&2
+    elif command -v zenity > /dev/null 2>%1; then
+        zenity --info --text="$( printf "%s\n" "${message[@]}" )"
+        dunstify "${message[*]}"
+    else
+        dunstify "$( printf "%s\n" "${message[@]}" )"
+    fi
+
+    exit
+}
+
+[ -z "$1" ] && _dump
 
 xrdb -merge <( echo "Xft.dpi: $1" )
 
