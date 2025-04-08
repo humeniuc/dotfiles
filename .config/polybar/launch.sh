@@ -14,6 +14,7 @@ priority=(
     "DP1 144"
     "HDMI2 96"
     "eDP1 96"
+    "eDP-1 144"
 )
 
 MAIN_STARTED=0
