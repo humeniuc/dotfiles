@@ -1,0 +1,24 @@
+#!/bin/bash
+
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
+    }
+}
+
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit "${2:-1}"
+}
+
+
+[ -z "$1" ] && _exit "no workspace"
+
+workspace="$1"
+shift
+path="$(pwd)"
+
+command=$(printf "workspace %s; exec cd %q && %s" "$workspace" "$path" "$*")
+printf "%s" "$command"
+i3-msg "$command"
