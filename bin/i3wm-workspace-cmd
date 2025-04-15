@@ -18,7 +18,8 @@ _exit() {
 workspace="$1"
 shift
 path="$(pwd)"
+cmd="$( printf "%q " "$@")"
 
-command=$(printf "workspace %s; exec cd %q && %s" "$workspace" "$path" "$*")
-printf "%s" "$command"
-i3-msg "$command"
+command=$( printf "workspace %s; exec cd %q && %s " "$workspace" "$path" "$cmd" )
+# printf "%s" "$command"
+i3-msg "$command" >/dev/null 2>&1
