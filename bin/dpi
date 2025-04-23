@@ -11,7 +11,7 @@ _dump()
 
     if [ -t "0" ]; then
         printf "%s\n" "${message[@]}" 1>&2
-    elif command -v zenity > /dev/null 2>%1; then
+    elif command -v zenity > /dev/null 2>&1; then
         zenity --info --text="$( printf "%s\n" "${message[@]}" )"
         dunstify "${message[*]}"
     else
