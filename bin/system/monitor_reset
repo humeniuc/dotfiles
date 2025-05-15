@@ -1,0 +1,14 @@
+#!/bin/bash 
+
+# Problemă: Dacă dau din start autorandr --cylce sau autorandr --change, nu se activează întotdeauna profilul.
+# Așa că selectez primul profil ne-selectabil, îl forțez, apoi apelez --change
+
+# Primul profil 
+first_profile="$( comm -2 -3 <(autorandr --list | sort) <(autorandr --detected | sort) | head -n1)" 
+
+# 
+if [ -n "${first_profile}" ]; then
+    autorandr --load "${first_profile}"; 
+    sleep 1;
+fi
+autorandr --change

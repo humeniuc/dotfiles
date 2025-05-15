@@ -3,8 +3,16 @@
 # Dacă sunt pe monitorul laptopului, atunci DPI=120
 DPI=144
 MONITORS=$(xrandr --query | grep -w connected)
+
+# laptop vechi
 if [ $( wc -l < <( echo "$MONITORS" ) ) -eq 1 ] && [ $( awk '{print $1}' < <( echo "$MONITORS" ) ) == 'eDP1' ]; then
     DPI=120
 fi
 
+# laptop nou
+if [ $( wc -l < <( echo "$MONITORS" ) ) -eq 1 ] && [ $( awk '{print $1}' < <( echo "$MONITORS" ) ) == 'eDP-1' ]; then
+    DPI=192
+fi
+
 xrdb -global -merge <( echo "Xft.dpi: $DPI" )
+xrandr --dpi "$DPI"

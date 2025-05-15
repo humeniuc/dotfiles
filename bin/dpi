@@ -27,3 +27,4 @@ xrdb -merge <( echo "Xft.dpi: $1" )
 
 echo "Schimbat la:"
 xrdb -query | grep Xft.dpi
+xrandr --dpi "$1"

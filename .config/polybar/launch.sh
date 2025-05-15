@@ -12,6 +12,8 @@ priority=(
     "DP-0 144"
     "HDMI-0 96"
     "DP1 144"
+    "DP-1 144"
+    "HDMI-1 144"
     "HDMI2 96"
     "eDP1 96"
     "eDP-1 144"
