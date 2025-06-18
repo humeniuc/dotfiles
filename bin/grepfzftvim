@@ -1,0 +1,10 @@
+#!/bin/bash
+
+res=$(fzf)
+
+[ -z "${res}" ] && exit 0 
+fn=$(echo "${res}" | awk -F ':' '{ print $1 }')
+
+[ -z "${fn}" ] && exit 0 
+tvim "${fn}"
+
