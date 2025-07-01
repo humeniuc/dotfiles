@@ -1,0 +1,3 @@
+#!/bin/bash
+
+WINEPREFIX="${HOME}/data/.wine_games" WINEARCH=win64 wine "$@"
