@@ -37,9 +37,6 @@
 [submodule ".config/vim/pack/plugins/start/vim-snipmate"]
 	path = .config/vim/pack/plugins/start/vim-snipmate
 	url = git@github.com:humeniuc/clone-vim-snipmate.git
-[submodule ".config/vim/pack/plugins/start/vim-editorconfig"]
-	path = .config/vim/pack/plugins/start/vim-editorconfig
-	url = git@github.com:humeniuc/clone-vim-editorconfig.git
 [submodule ".config/vim/pack/plugins/opt/vim-exrc"]
 	path = .config/vim/pack/plugins/opt/vim-exrc
 	url = git@github.com:humeniuc/clone-vim-exrc.vim.git
