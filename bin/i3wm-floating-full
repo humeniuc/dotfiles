@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Fix pentru app wine care face flashing:
+# - setează floating
+# - redimensionează la dimensiune maximă
+
+# sleep 0.2
+
+read X Y <<< $(i3-msg -t get_workspaces | jq -r ".[] | select(.focused==true) | \"\(.rect.x) \(.rect.y)\"")
+read W H <<< $(i3-msg -t get_workspaces | jq -r ".[] | select(.focused==true) | \"\(.rect.width) \(.rect.height)\"")
+
+i3msg_commands="floating enable, move position $X $Y, resize set $W $H"
+
+i3-msg "${i3msg_commands}"
+notify-send "${i3msg_commands}"
