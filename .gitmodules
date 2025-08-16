@@ -82,3 +82,6 @@
 [submodule ".config/vim/pack/plugins/opt/vim-go"]
 	path = .config/vim/pack/plugins/opt/vim-go
 	url = git@github.com:humeniuc/clone-vim-go.git
+[submodule ".config/vim/pack/plugins/opt/copilot.vim"]
+	path = .config/vim/pack/plugins/opt/copilot.vim
+	url = git@github.com:github/copilot.vim.git
