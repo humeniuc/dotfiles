@@ -23,8 +23,11 @@ _dump()
 
 [ -z "$1" ] && _dump
 
-xrdb -merge <( echo "Xft.dpi: $1" )
+xrdb -global -merge <( echo "Xft.dpi: $1" )
+xrandr --dpi "$1"
+command -v wine &>/dev/null && {
+    wine reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d "$1" /f >/dev/null
+}
 
 echo "Schimbat la:"
 xrdb -query | grep Xft.dpi
-xrandr --dpi "$1"
