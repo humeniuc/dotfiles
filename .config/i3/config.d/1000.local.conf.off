@@ -15,4 +15,5 @@ workspace $ws9 output $secondary_monitor
 workspace $ws10 output $secondary_monitor
 
 # flameshot
-bindsym Print exec flameshot gui
+# QT_ENABLE_HIGHDPI_SCALING=0 https://github.com/flameshot-org/flameshot/issues/4205#issuecomment-3235333426
+bindsym Print exec QT_ENABLE_HIGHDPI_SCALING=0 flameshot gui
