@@ -40,8 +40,7 @@ function tmuxSessionName {
 
 
 function tmuxfixenv {
-    tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g"
-    eval $(tmux show-environment | sed -e '/^-/d' -e "s/'/'\\\"/g" -e "s/=\(.*\)/='\\1'/" -e "s/^/export /g")
+    source <( tmux show-environment -s ) && echo OK || echo NOT >&2
 }
 
 function tmuxfixtty {
