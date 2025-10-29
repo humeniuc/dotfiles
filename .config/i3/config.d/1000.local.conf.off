@@ -14,6 +14,9 @@ workspace $ws8 output $secondary_monitor
 workspace $ws9 output $secondary_monitor
 workspace $ws10 output $secondary_monitor
 
+# journal
+bindsym $mod+Shift+o exec --no-startup-id jot
+
 # flameshot
 # QT_ENABLE_HIGHDPI_SCALING=0 https://github.com/flameshot-org/flameshot/issues/4205#issuecomment-3235333426
 bindsym Print exec QT_ENABLE_HIGHDPI_SCALING=0 flameshot gui
