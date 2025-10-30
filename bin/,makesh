@@ -16,8 +16,16 @@ _exit() {
 
 main()
 {   
-    # content here
-    echo "do stuff"
+    if [ ! $# -eq 1 ]; then
+        _exit ",makesh takes one argument"
+    elif [ -e "$1" ]; then
+        _exit "$1 already exists"
+    fi
+
+    cat "${DOTFILES_PATH}/sample/bash_script.sample" > "$1"
+
+    chmod u+x "$1"
+    echo "$(pwd)/$1 was created"
 }
 
 main "$@"

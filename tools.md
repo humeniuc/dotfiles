@@ -19,6 +19,7 @@ x11-ssh-askpass
 xpanes https://github.com/greymd/tmux-xpanes
 pip
 wezterm
+direnv
 
 pylsp LSP pentru python.
 Se instalaza cu `pip install python-language-server`
