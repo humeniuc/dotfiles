@@ -2,6 +2,7 @@ alias x1='xargs -n1'
 alias ll='ls -Alt'
 alias ts='$DOTFILES_PATH/bin/tmux-sessionizer/tmux-sessionizer.sh'
 alias grepie='grep -i -E'
+alias yt-dlp-video='yt-dlp -o "%(id)s.%(ext)s"'
 
 # [ $(command -v 'setsid') ] && [ $(command -v 'xdg-open') ] && alias xo='setsid xdg-open'
 
