@@ -32,6 +32,7 @@ main() {
         fi
     else
         target_id=$(ensure_tmux_target)
+        _debug "target_id=${target_id}"
     fi
 
     for f in "${files[@]}"; do
@@ -46,8 +47,8 @@ main() {
 }
 
 ensure_tmux_target() {
-    # Identificare target_id ca "fereastra care conține vim"
-    target_id=$(tmux list-panes -s -F "#{pane_id} #{pane_current_command}" | awk '$2 == "vim" { print $1 }')
+    # Identificare target_id ca "fereastra care conține vim". Păstrez doar prima potrivire
+    target_id=$(tmux list-panes -s -F "#{pane_id} #{pane_current_command}" | awk '$2 == "vim" { print $1 ; exit }')
 
     # Dacă nu există, deschid fereastră nouă și trimit keys să deschidă vim
     if [ -z "$target_id" ]; then
