@@ -64,17 +64,19 @@ open_in_vim() {
     filepath="$1"
     target_id="$2"
 
-    _debug "filepath original = $filepath"
+    _debug "filepath original = ${filepath}"
 
-    filepath=$(readlink -e "$filepath")
+    absolute_filepath="$(cd "$(dirname "$filepath")" && pwd)/$(basename "$filepath")"
+    _debug "absolute_filepath = ${absolute_filepath}"
+
     # trimit tastele care imi deschide in vim fisierul catre editare
     # filepath=ul trebuie esacpe-uit ca path corect
     # de asemenea in command line-ul vim se escape-uiesc caracterele %, #,
     # TODO: de vazut ce alte caractere mai trebuie escape-uite
-    filepath=$(printf "%q" "$filepath" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
+    encoded_filepath=$(printf "%q" "${absolute_filepath}" | sed -r -e 's/%/\\%/g' -e 's/#/\\#/g' )
 
-    _debug "filepath normalized = $filepath"
-    tmux send-keys -t "$target_id" Escape ":" C-u "edit $filepath" C-m
+    _debug "encoded_filepath = ${encoded_filepath}"
+    tmux send-keys -t "$target_id" Escape ":" C-u "edit ${encoded_filepath}" C-m
 }
 
 _debug() {
