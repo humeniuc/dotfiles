@@ -9,7 +9,7 @@
         --paths \
         --output "label,name,size,type,mountpoints,hotplug" \
     | \
-    awk 'match($0, /^(LABEL="[A-Za-z0-9_]*" NAME="[^"]+") SIZE="[^"]+" TYPE="(part|rom)" MOUNTPOINTS="" HOTPLUG="1"$/, m) {
+    awk 'match($0, /^(LABEL="[A-Za-z0-9_ ]*" NAME="[^"]+") SIZE="[^"]+" TYPE="(part|rom)" MOUNTPOINTS="" HOTPLUG="1"$/, m) {
         print m[1]
     }'
 ) readarray -t UNMOUNTED_DRIVES
@@ -20,7 +20,7 @@
         --paths \
         --output "label,name,size,type,mountpoints,hotplug" \
     | \
-    awk 'match($0, /^(LABEL="[A-Za-z0-9_]*" NAME="[^"]+") SIZE="[^"]+" TYPE="(part|rom)" MOUNTPOINTS="[^"]+" HOTPLUG="1"$/, m) {
+    awk 'match($0, /^(LABEL="[A-Za-z0-9_ ]*" NAME="[^"]+") SIZE="[^"]+" TYPE="(part|rom)" MOUNTPOINTS="[^"]+" HOTPLUG="1"$/, m) {
         print m[1]
     }'
 ) readarray -t MOUNTED_DRIVES
