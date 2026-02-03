@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=i3 with xprofile
+Comment=improved dynamic tiling window manager
+Exec=/home/gabi/.local/share/dotfiles/share/xsessions/i3-xprofile-session
+Type=XSession
+X-LightDM-DesktopName=i3
+DesktopNames=i3
+Keywords=tiling;wm;windowmanager;window;manager;
