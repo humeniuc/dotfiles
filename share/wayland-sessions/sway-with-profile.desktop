@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Sway with profile
+Comment=Sway with profile
+Exec=/bin/sway-with-profile-session
+Type=Application
+DesktopNames=sway;wlroots

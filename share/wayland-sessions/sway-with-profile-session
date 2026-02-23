@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Source X session environment
+[ -f "$HOME/.swayprofile" ] && . "$HOME/.swayprofile"
+
+exec sway \
+    </dev/null \
+    >"$HOME/.sway.log" \
+    2>&1
