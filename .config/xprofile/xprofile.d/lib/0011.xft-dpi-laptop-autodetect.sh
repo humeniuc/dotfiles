@@ -17,6 +17,6 @@ fi
 xrdb -global -merge <( echo "Xft.dpi: $DPI" )
 xrandr --dpi "$DPI"
 
-command -v wine &>/dev/null && {
+# command -v wine &>/dev/null && {
     # wine reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d "$DPI" /f >/dev/null
-}
+# }
