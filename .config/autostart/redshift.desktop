@@ -8,3 +8,4 @@ Icon=redshift
 Exec=bash -c 'killall -q redshift ; killall -q redshift-gtk ; setsid redshift-gtk -P -l 44.4355087534986:26.10252346268249'
 Terminal=false
 Hidden=false
+OnlyShowIn=i3;XFCE;GNOME;

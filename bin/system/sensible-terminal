@@ -1,0 +1,28 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(dirname "$( readlink -f "${BASH_SOURCE[0]}" )")"
+
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
+    }
+}
+
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit "${2:-1}"
+}
+
+main()
+{   
+    for terminal in "$TERMINAL" ghostty xfce4-terminal wezterm x-terminal-emulator mate-terminal gnome-terminal terminator urxvt rxvt termit Eterm aterm uxterm xterm roxterm termite lxterminal terminology st qterminal lilyterm tilix terminix konsole kitty guake tilda alacritty hyper rio; do
+        if command -v "$terminal" > /dev/null 2>&1; then
+            exec "$terminal" "$@"
+        fi
+    done
+
+    _exit "Nu am identificat un terminal"
+}
+
+main "$@"

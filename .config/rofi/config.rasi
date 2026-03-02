@@ -1,5 +1,5 @@
 @theme "nord"
 
 configuration {
- dpi: 196;
+ // dpi: 196;
 }
