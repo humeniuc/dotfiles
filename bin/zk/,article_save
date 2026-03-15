@@ -1,7 +1,21 @@
 #!/bin/bash
 
-grab ()
-{
+SCRIPT_DIR="$(dirname "$( readlink -f "${BASH_SOURCE[0]}" )")"
+
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
+    }
+}
+
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit "${2:-1}"
+}
+
+
+convert() {
     f="html"
     f="${f}-native_divs"
     f="${f}-native_spans"
@@ -21,17 +35,50 @@ grab ()
     # t="${t}+backtick_code_blocks"
     t="${t}+fenced_code_blocks"
 
-    curl --show-error --silent --location "$1" \
-        | pandoc \
+    pandoc \
         -f "${f}" \
         -t "${t}"
 }
 
-main ()
-{
-    case "$1" in 
+grab() {
+    curl --show-error --silent --location "$1" | convert
+}
+
+help() {
+    cat <<'EOF'
+,article_save - Convert HTML articles to markdown
+
+Usage: ,article_save [command] [args]
+       <command> | ,article_save
+
+Commands:
+  grab <url>     Fetch URL and convert HTML to markdown
+  file <path>    Convert local HTML file to markdown
+  help           Show this help
+
+With no arguments: prints this help (or converts from stdin if piped)
+EOF
+}
+
+main() {
+    if [ $# -eq 0 ]; then
+        if [ -t 0 ]; then
+            help
+        else
+            convert
+        fi
+        return
+    fi
+    case "$1" in
         "grab")
             grab "$2"
+            ;;
+        "file")
+            [ -z "$2" ] && _exit "Usage: ,article_save file /path/to/file"
+            convert < "$2"
+            ;;
+        "help"|"-h"|"--help")
+            help
             ;;
     esac
 }

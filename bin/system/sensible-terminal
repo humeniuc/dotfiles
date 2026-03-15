@@ -16,9 +16,17 @@ _exit() {
 
 main()
 {   
-    for terminal in "$TERMINAL" wezterm  xfce4-terminal ghostty x-terminal-emulator mate-terminal gnome-terminal terminator urxvt rxvt termit Eterm aterm uxterm xterm roxterm termite lxterminal terminology st qterminal lilyterm tilix terminix konsole kitty guake tilda alacritty hyper rio; do
+    for terminal in "$TERMINAL" ghostty xfce4-terminal gnome-terminal terminator kitty alacritty st; do
         if command -v "$terminal" > /dev/null 2>&1; then
-            exec "$terminal" "$@"
+            case "$1" in
+                "--query" | "-q")
+                    echo "$terminal"
+                    ;;
+                *)
+                exec "$terminal" "$@"
+                ;;
+            esac
+            exit
         fi
     done
 
