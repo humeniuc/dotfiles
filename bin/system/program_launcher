@@ -1,2 +1,27 @@
 #!/bin/bash
-[ $(command -v rofi) ] && exec rofi -sort -show combi -modes combi -combi-modes "drun,run" -monitor -4 || exec dmenu_run
+
+SCRIPT_DIR="$(dirname "$( readlink -f "${BASH_SOURCE[0]}" )")"
+
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
+    }
+}
+
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit "${2:-1}"
+}
+
+command -v rofi \
+    && exec rofi \
+        -sort \
+        -show combi \
+        -modes combi \
+        -combi-modes "drun,run" -monitor -4
+
+command -v dmenu_run \
+    && exec dmenu_run
+
+_exit "No launcher detected"
