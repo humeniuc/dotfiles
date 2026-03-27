@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# întoarce app_id in funcție de un comand
+
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+    }
+}
+
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit "${2:-1}"
+}
+
+main() {   
+    [ -z "$1" ] && _exit "Missing param"
+
+    case "$1" in
+        # Aplicații care au același nume ca și command-ul
+        "xfce4-terminal"|"kitty")
+            echo "$1"
+            ;;
+
+        "ghostty")
+            echo "com.mitchellh.ghostty"
+            ;;
+
+        *)
+            _exit "Not in database: ${1}"
+        ;;
+    esac
+}
+
+main "$@"

@@ -10,7 +10,7 @@ _error()
     exit 1;
 }
 
-# Choose a session path 
+# Choose a session path
 # in TERM use fzf, else start rofi/dmenu
 # The options are from tmux-sessionizer-paths.sh
 choose_session_path() {
@@ -60,11 +60,39 @@ tmux_switch_or_attach()
 
 
 # start terminal and run the attach command
-tmux_attach_in_new_term()
+tmux_attach_in_new_term ()
 {
     [ -z "${TERMINAL}" ] && _error "\$TERMINAL nu este definit"
     command -v "${TERMINAL}" >/dev/null || _error "${TERMINAL} nu există"
 
+    if [[ "${XDG_SESSION_TYPE}" == "x11" ]]; then
+        tmux_attach_in_new_term_xorg
+    elif [[ ":${XDG_CURRENT_DESKTOP}:" == *:sway:* ]]; then
+        (
+            # app id for terminal
+            app_id="$( command_to_application_id "${TERMINAL}" )"
+            [ -z "${app_id}" ] && _error "Application identifier for ${TERMINAL} could not be found"
+
+            # wait for window to appear
+            window_id=$(sway_wait_for_window "${app_id}");
+
+            # ensure focus
+            swaymsg "[con_id=${window_id}]" focus
+
+            # type the command
+            wtype "${CMD_ATTACH[*]}"
+            wtype -k Return
+        ) &
+
+        "${TERMINAL}" &
+    else
+        _error "window manager not supported"
+    fi
+
+}
+
+tmux_attach_in_new_term_xorg ()
+{
     existing_windows=$( xdotool search --onlyvisible --class "$TERMINAL" | sort )
 
     setsid "$TERMINAL" </dev/null >/dev/null 2>/dev/null &
@@ -79,7 +107,7 @@ tmux_attach_in_new_term()
         winid=$( comm -13 <( echo "$existing_windows" ) <( echo "$new_windows" ) | tail -n1 )
 
         if [ ! -z "$winid" ]; then
-            xdotool type --window "$winid" --delay 0 -- "${CMD_ATTACH[*]}" 
+            xdotool type --window "$winid" --delay 0 -- "${CMD_ATTACH[*]}"
             xdotool key --window "$winid" "Return"
             break
         fi
@@ -99,7 +127,7 @@ main() {
     local SESSION_NAME=""
     local SESSION_PATH=""
 
-    # path && name could be script params. 
+    # path && name could be script params.
     # if not choose from options
     if [ $# -gt 0 ]; then
         SESSION_PATH="$1"
@@ -128,7 +156,7 @@ main() {
     [ -z "$SESSION_NAME" ] && SESSION_NAME=$(session_name $(basename "$SESSION_PATH"))
 
     # Ensure tmux session
-    tmux has-session -t="$SESSION_NAME" 2>/dev/null || tmux new-session -d -s "$SESSION_NAME" -c "$SESSION_PATH" 
+    tmux has-session -t="$SESSION_NAME" 2>/dev/null || tmux new-session -d -s "$SESSION_NAME" -c "$SESSION_PATH"
 
     tmux_switch_or_attach "$SESSION_NAME"
 }

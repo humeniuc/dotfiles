@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Așteaptă până când apare o fereastră a unei aplicații.
+# Întoarce id-ul ei
+# @see command_to_application_id ca să obții id-ul unei aplicații din command
+#
+# Ex
+# window_id=$(sway_wait_for_window "kitty"); 
+# window_id="$( sway_wait_for_window "$( command_to_application_id "ghostty" )" )";
+# echo "window_id=$window_id"
+#
+# ex:
+# sway_wait_for_window "xfce4-terminal"
+# sway_wait_for_window "com.mitchellh.ghostty"
+# sway_wait_for_window "kitty"
+
+sway_wait_for_window () {
+    app_id="$1"
+
+    [ -z "${app_id}" ] && { echo "no app" 1>&2; exit; }
+
+    echo "$(
+        swaymsg -m -t subscribe '["window"]' |
+            while read -r line; do
+                id="$(echo "$line" | jq -r --arg app "$app_id" \
+                    'select(.change=="new" and .container.app_id==$app)
+                | .container.id')"
+
+                if [ -n "$id" -a "$id" != "null" ]; then
+                    echo "$id"
+                    break
+                fi
+            done
+        )"
+}
+
+
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+    sway_wait_for_window "$@"
+fi

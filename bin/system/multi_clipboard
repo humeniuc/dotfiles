@@ -2,6 +2,15 @@
 
 log=""
 
+if [[ ":${XDG_CURRENT_DESKTOP}:" == *:sway:* ]]; then
+    if command -v cliphist >/dev/null; then
+        cliphist list| rofi -dmenu |cliphist decode | wl-copy
+        exit
+    else
+        log="${log}\ncliphist nu este pornit"
+    fi
+fi 
+
 if systemctl --user is-active --quiet clipmenud.service; then
     CM_LAUNCHER=rofi clipmenu
     exit

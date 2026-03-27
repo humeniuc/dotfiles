@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#  Include all-terms/inc.sh
+source "${DOTFILES_PATH}/lib/bash/all-terms/inc.sway.sh"
+
+start_tabs()
+{
+    window_id="$1"
+    my_term="$2"
+
+    # new tab
+    _new_tab "${window_id}" "${my_term}" "0" "pwd" "local"
+    _new_tab "${window_id}" "${my_term}" "1" "ls" "local"
+    _new_tab "${window_id}" "${my_term}" "1" "mc" "local"
+    _new_tab "${window_id}" "${my_term}" "1" "notify-send -- 'gata'" "local"
+}
+
+main()
+{
+    # load ssh keys
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa"
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa_1"
+    _ssh_ensure_key "${HOME}/.ssh/id_rsa_2"
+
+    # definește terminalul.
+    # păstrează unul
+    my_term="${1:-ghostty}"
+    # my_term="${1:-xfce4-terminal}"
+    # my_term="${1:-st}"
+
+    (
+        window_id="$( _start_term_listener "${my_term}" )"
+        echo "www id  = ${window_id}"
+        start_tabs "${window_id}" "${my_term}"
+    ) &
+
+    "${my_term}" & 
+}
+
+main "$@"
