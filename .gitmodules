@@ -85,3 +85,6 @@
 [submodule ".config/vim/pack/plugins/opt/copilot.vim"]
 	path = .config/vim/pack/plugins/opt/copilot.vim
 	url = git@github.com:github/copilot.vim.git
+[submodule ".config/vim/pack/plugins/opt/vim-gh-line.git"]
+	path = .config/vim/pack/plugins/opt/vim-gh-line.git
+	url = git@github.com:ruanyl/vim-gh-line.git
