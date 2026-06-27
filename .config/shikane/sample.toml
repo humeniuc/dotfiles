@@ -1,0 +1,11 @@
+# sample config for shikane
+# Adaugă profilul curent, reload, încarcă profil
+# > shikanectl export "laptop_mode_double" >~/.config/shikane/config.toml
+# shikanectl reload
+# shikanectl switch laptop_mode_double
+
+# Adaugă un hook, la schimbarea profilului, să se execute ,sway-assign-workspaces
+[[profile]]
+name = "..."
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"", ",sway-assign-workspaces.sh"]
+

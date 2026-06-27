@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Shikane
+Comment=Dynamic output configuration for Wayland
+Exec=shikane
+Terminal=false
+Type=Application
+NoDisplay=true
+OnlyShowIn=sway

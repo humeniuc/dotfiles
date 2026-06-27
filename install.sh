@@ -56,12 +56,19 @@ install_rofi() {
     ln -s -f "$DOTFILES_PATH/.config/rofi/config.rasi" "$ROFI_CONFIG_PATH/config.rasi"
 }
 
-install_wezterm() {
-    local INSTALL_PATH="${HOME}/.config/wezterm"
-    mkdir -p "${INSTALL_PATH}"
-    ln -s -f -T "${DOTFILES_PATH}/.config/wezterm/wezterm.lua" "${INSTALL_PATH}/wezterm.lua"
+install_shikane() {
+    SHIKANE_CONFIG_PATH="$HOME/.config/shikane"
+    mkdir -p "$SHIKANE_CONFIG_PATH"
+    ln -s -f "$DOTFILES_PATH/.config/shikane/sample.toml" "$SHIKANE_CONFIG_PATH/sample.toml"
+
 }
 
+install_enironmentd() {
+    local INSTALL_PATH="${HOME}/.config/environment.d/10-dotfiles.conf"
+    DOTFILES_PATH="$DOTFILES_PATH" bash "$DOTFILES_PATH/.config/environment.d/build" > "${INSTALL_PATH}"
+}
+
+# install_enironmentd
 command -v bash >/dev/null && { echo "installing bashrc config."; install_basrc; } || { echo "bash not installed." >&2; }
 command -v Xorg >/dev/null && { echo "installing xprofile config."; install_xprofile; } || { echo "xserver not installed." >&2; }
 command -v vim >/dev/null && { echo "installing vim config." ; install_vim; } || { echo "vim not installed." >&2; }
@@ -70,6 +77,6 @@ command -v i3 >/dev/null && { echo "installing i3 config." ;  install_i3; } || {
 command -v polybar >/dev/null && { echo "installing polybar config." ;  install_polybar; } || { echo "polybar not installed." >&2; }
 command -v tmux >/dev/null && { echo "installing tmux config." ;  install_tmux; } || { echo "tmux not installed." >&2; }
 command -v rofi >/dev/null && { echo "installing rofi config." ;  install_rofi; } || { echo "rofi not installed." >&2; }
-command -v wezterm >/dev/null && { echo "installing wezterm config." ;  install_wezterm; } || _error_message "wezterm not installed."
+command -v shikane >/dev/null && { echo "installing shikane config." ;  install_shikane; } || { echo "shikane not installed." >&2; }
 
 bash "$DOTFILES_PATH/tools-check.sh"
