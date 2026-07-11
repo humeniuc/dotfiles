@@ -73,6 +73,20 @@ _is_tmux() {
     [ -n "$TMUX" ] && return 0 || return 1
 }
 
+_is_screen() {
+    [ -n "$STY" ] && return 0 || return 1
+}
+
+_is_multiplexer() {
+    [ -n "$TMUX" ] || [ -n "$STY" ] && return 0 || return 1
+}
+
+_is_git() {
+    command -v git >/dev/null 2>&1 &&
+        git rev-parse --is-inside-work-tree >/dev/null 2>&1 &&
+        return 0 || return 1
+}
+
 _is_graphical() {
     [ -n "$WAYLAND_DISPLAY" ] || [ -n "$DISPLAY" ] && return 0 || return 1
 }
@@ -160,6 +174,9 @@ Checks:
   xorg, x11    XDG_SESSION_TYPE is x11
   i3wm, i3     XDG_CURRENT_DESKTOP contains i3
   tmux         running inside a tmux session
+  screen       running inside a GNU screen session
+  multiplexer  running inside tmux or screen
+  git          current directory is inside a git work tree
   graphical    WAYLAND_DISPLAY or DISPLAY is set
   headless     no graphical display available
   interactive  stdin is a terminal
