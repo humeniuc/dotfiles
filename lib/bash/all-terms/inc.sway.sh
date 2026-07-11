@@ -15,7 +15,8 @@ _exit() {
 }
 
 _ssh_ensure_key() {
-    ssh-ensure-key "${1}" || _exit "Nu am putut încărca ${1}"
+    # ssh-ensure-key "${2}" || _exit "Nu am putut încărca ${1}"
+    ssh-add -T "${1}" || _exit "Nu am putut încărca ${1}"
 }
 
 new_id=""
