@@ -1,14 +1,44 @@
-#!/bin/bash 
+#!/bin/bash
+SCRIPT_DIR="$(dirname "$( readlink -f "${BASH_SOURCE[0]}" )")"
 
-# Problemă: Dacă dau din start autorandr --cylce sau autorandr --change, nu se activează întotdeauna profilul.
-# Așa că selectez primul profil ne-selectabil, îl forțez, apoi apelez --change
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
+    }
+}
 
-# Primul profil 
-first_profile="$( comm -2 -3 <(autorandr --list | sort) <(autorandr --detected | sort) | head -n1)" 
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit "${2:-1}"
+}
 
-# 
-if [ -n "${first_profile}" ]; then
-    autorandr --load "${first_profile}"; 
-    sleep 1;
-fi
-autorandr --change
+_xorg_autorandr() {
+    # Problemă: Dacă dau din start autorandr --cylce sau autorandr --change, nu se activează întotdeauna profilul.
+    # Așa că selectez primul profil ne-selectabil, îl forțez, apoi apelez --change
+
+    # Primul profil
+    first_profile="$( comm -2 -3 <(autorandr --list | sort) <(autorandr --detected | sort) | head -n1)"
+
+    #
+    if [ -n "${first_profile}" ]; then
+        autorandr --load "${first_profile}";
+        sleep 1;
+    fi
+    autorandr --change
+}
+
+main() {
+    if ,is xorg; then
+        _xorg_autorandr;
+        exit 0
+    fi
+
+    if pgrep --quiet shikane; then
+        shikanectl reload && exit 0 || _exit "Nu am putut reîncărca shikane"
+    fi
+
+    _exit "Nu am găsit nici un hander"
+}
+
+main "$@"
