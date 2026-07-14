@@ -39,6 +39,11 @@ install_i3() {
     DOTFILES_PATH="$DOTFILES_PATH" bash "$DOTFILES_PATH/.config/i3/build" > "$I3_CONFIG_PATH"
 }
 
+install_sway() {
+    ln -s -f -T "$DOTFILES_PATH/.config/sway/config" "${HOME}/.config/sway/config"
+    ln -s -f -T "$DOTFILES_PATH/.config/sway/config.d" "${HOME}/.config/sway/config.d"
+}
+
 install_polybar() {
     ln -s -f -T "$DOTFILES_PATH/.config/polybar" "${HOME}/.config/polybar"
 }
@@ -74,6 +79,7 @@ command -v Xorg >/dev/null && { echo "installing xprofile config."; install_xpro
 command -v vim >/dev/null && { echo "installing vim config." ; install_vim; } || { echo "vim not installed." >&2; }
 command -v ctags >/dev/null && { echo "installing ctags config." ;  install_ctags; } || { echo "ctags not installed." >&2; }
 command -v i3 >/dev/null && { echo "installing i3 config." ;  install_i3; } || { echo "i3 not installed." >&2; }
+command -v sway >/dev/null && { echo "installing sway config." ;  install_sway; } || { echo "sway not installed." >&2; }
 command -v polybar >/dev/null && { echo "installing polybar config." ;  install_polybar; } || { echo "polybar not installed." >&2; }
 command -v tmux >/dev/null && { echo "installing tmux config." ;  install_tmux; } || { echo "tmux not installed." >&2; }
 command -v rofi >/dev/null && { echo "installing rofi config." ;  install_rofi; } || { echo "rofi not installed." >&2; }
