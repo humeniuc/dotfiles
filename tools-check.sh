@@ -33,6 +33,8 @@ declare -a executables=(
     "xpanes"
     "xrandr"
     "zathura"
+    "shikane"
+    "cliphist"
 )
 
 for executable in "${executables[@]}"
