@@ -44,6 +44,10 @@ install_sway() {
     rsync -avhq "$DOTFILES_PATH/.config/sway/" "${HOME}/.config/sway"
 }
 
+install_swayprofile() {
+    DOTFILES_PATH="$DOTFILES_PATH" bash "$DOTFILES_PATH/.config/swayprofile/build" > "$HOME/.swayprofile"
+}
+
 install_polybar() {
     ln -s -f -T "$DOTFILES_PATH/.config/polybar" "${HOME}/.config/polybar"
 }
@@ -91,6 +95,7 @@ command -v vim >/dev/null && { echo "installing vim config." ; install_vim; } ||
 command -v ctags >/dev/null && { echo "installing ctags config." ;  install_ctags; } || { echo "ctags not installed." >&2; }
 command -v i3 >/dev/null && { echo "installing i3 config." ;  install_i3; } || { echo "i3 not installed." >&2; }
 command -v sway >/dev/null && { echo "installing sway config." ;  install_sway; } || { echo "sway not installed." >&2; }
+command -v sway >/dev/null && { echo "installing swayprofile." ;  install_swayprofile; } || { echo "swayprofile not installed." >&2; }
 command -v polybar >/dev/null && { echo "installing polybar config." ;  install_polybar; } || { echo "polybar not installed." >&2; }
 command -v tmux >/dev/null && { echo "installing tmux config." ;  install_tmux; } || { echo "tmux not installed." >&2; }
 command -v rofi >/dev/null && { echo "installing rofi config." ;  install_rofi; } || { echo "rofi not installed." >&2; }

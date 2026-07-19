@@ -1,0 +1,37 @@
+#!/bin/bash
+
+SCRIPT_PATH=$( command -v /bin/realpath > /dev/null && /bin/realpath "${BASH_SOURCE[0]}" || /bin/readlink -f "${BASH_SOURCE[0]}" )
+[ -f "${SCRIPT_PATH%/*}/../.share/common.sh" ] && . "${SCRIPT_PATH%/*}/../.share/common.sh" || exit 1
+
+cat << 'OUT'
+# SSH_AUTH_SOCK
+export $(systemctl --user show-environment | grep '^SSH_AUTH_SOCK=')
+
+OUT
+
+printf "export DOTFILES_PATH=\"%q\"\n\n" "${DOTFILES_PATH}"
+
+AUGMENT=""
+
+if [ -d "$HOME/.local/bin" ]; then
+    SUBPATH="$(find -L "$HOME/.local/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
+    AUGMENT="${AUGMENT%:}:${SUBPATH%:}"
+fi
+
+if [ -d "$DOTFILES_PATH/bin" ]; then
+    SUBPATH="$(find -L "$DOTFILES_PATH/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
+    AUGMENT="${AUGMENT%:}:${SUBPATH%:}"
+fi
+
+AUGMENT="${AUGMENT#:}"
+AUGMENT="${AUGMENT%:}"
+
+
+if test ! -z "$AUGMENT"; then
+printf "export PATH=%q:%s\n\n" "${AUGMENT}" '$PATH'
+fi
+
+cat << 'OUT'
+# TERMINAL 
+export TERMINAL="$( "${DOTFILES_PATH}/bin/system/sensible-terminal" --query )"
+OUT
