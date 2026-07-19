@@ -1,0 +1,33 @@
+#!/bin/bash
+
+SCRIPT_PATH=$( command -v /bin/realpath > /dev/null && /bin/realpath "${BASH_SOURCE[0]}" || /bin/readlink -f "${BASH_SOURCE[0]}" )
+[ -f "${SCRIPT_PATH%/*}/../.share/common.sh" ] && . "${SCRIPT_PATH%/*}/../.share/common.sh" || exit 1
+
+cd "$( dirname "${SCRIPT_PATH}" )"
+
+printf "DOTFILES_PATH=%q\n" "${DOTFILES_PATH}"
+
+AUGMENT=""
+
+if [ -d "$HOME/.local/bin" ]; then
+    SUBPATH="$(find -L "$HOME/.local/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
+    AUGMENT="${AUGMENT%:}:${SUBPATH%:}"
+fi
+
+if [ -d "$DOTFILES_PATH/bin" ]; then
+    SUBPATH="$(find -L "$DOTFILES_PATH/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
+    AUGMENT="${AUGMENT%:}:${SUBPATH%:}"
+fi
+
+AUGMENT="${AUGMENT#:}"
+AUGMENT="${AUGMENT%:}"
+
+
+if test ! -z "$PATH_AUGMENT_LOCAL"; then
+printf "PATH=%q:%s\n" "${AUGMENT}" '$PATH'
+fi
+
+printf "# systemctl daemon-reload\n"
+printf "# systemctl import-environment\n"
+printf "# systemctl --user daemon-reload\n"
+printf "# systemctl --user import-environment\n" 

@@ -1,7 +1,123 @@
 #!/bin/bash
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "$1"
+    }
+}
 
-if [[ ":${XDG_CURRENT_DESKTOP}:" == *:sway:* ]]; then
-    all-terms.sway
-else
-    all-terms.xorg
-fi 
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit 1
+}
+
+_ssh_ensure_key() {
+    ssh-add -T "${1}" || _exit "Nu am putut încărca ${1}"
+}
+
+# sway
+
+# @param command
+# @param windowname 
+_new_tab_sway() {   
+    window_id="${1}"
+    my_term="${2}"
+    create_new_tab="${3}"
+    my_command="${4}"
+    label="${5}"
+
+    # new tab
+    if [ "${create_new_tab}" == "1" ]; then
+        echo "new tab!"
+
+        swaymsg "[con_id=${window_id}]" focus
+
+        case "${my_term}" in 
+            "xfce4-terminal")
+                xfce4-terminal --tab --title="${label}"
+                sleep 0.2
+                ;;
+
+            "ghostty")
+                wtype -M ctrl -M shift t -m ctrl -m shift
+                sleep 0.2
+                ;;
+
+            *)
+                _exit "Terminal greșit configurat"
+                ;;
+        esac
+    fi
+
+    wtype "${my_command}"
+    wtype -k Return
+}
+
+_start_term_listener_sway() {
+    app_id="$( command_to_application_id "$1" )"
+    [ -z "${app_id}" ] && _exit "Application identifier for ${1} could not be found"
+    sway_wait_for_window "${app_id}"
+}
+
+# xorg
+
+_new_tab_xorg() {   
+    window_id="${1}"
+    my_term="${2}"
+    create_new_tab="${3}"
+    my_command="${4}"
+    label="${5}"
+
+    # new tab
+    if [ "${create_new_tab}" == "1" ]; then
+        echo "new tab!"
+        case "${my_term}" in 
+            "xfce4-terminal")
+                xfce4-terminal --tab --title="${label}"
+                sleep 0.1
+                ;;
+            "st")
+                xdotool key "Ctrl+grave"
+                sleep 0.1
+                xdotool type --delay 0 -- "-t ${label}"
+                xdotool key "Return"
+                sleep 0.1
+                ;;
+            *)
+                _exit "Terminal greșit configurat"
+                ;;
+        esac
+    fi
+
+    echo "run command ${my_command}"
+    xdotool type --delay 0 "${my_command}"
+    xdotool key "Return"
+}
+
+_start_term() {
+    case "$1" in
+        "xfce4-terminal")
+            xfce4-terminal --initial-title="local" &
+            xdotool search --sync --onlyvisible --class "xfce4-terminal"
+            ;;
+        "st")
+            tabbed -r 2 -n "tabbed-st" st -w '' &
+            xdotool search --sync --onlyvisible --class "tabbed"
+            sleep 0.1
+            ;;
+        *)
+            _exit "Not a term ${1}"
+        ;;
+    esac
+}
+
+
+_new_tab()
+{
+    if ,is sway; then
+        _new_tab_sway "$@"
+
+    elif ,is xorg; then
+        _new_tab_xorg "$@"
+    fi
+}
