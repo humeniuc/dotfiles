@@ -41,8 +41,7 @@ install_i3() {
 
 install_sway() {
     mkdir -p "${HOME}/.config/sway"
-    cp -r "$DOTFILES_PATH/.config/sway/config" "${HOME}/.config/sway/config"
-    cp -r "$DOTFILES_PATH/.config/sway/config.d" "${HOME}/.config/sway/config.d"
+    rsync -avhq "$DOTFILES_PATH/.config/sway/" "${HOME}/.config/sway"
 }
 
 install_polybar() {
