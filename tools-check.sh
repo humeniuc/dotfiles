@@ -12,7 +12,7 @@ declare -a executables=(
     "gammastep"
     "ghostty"
     "ghostty"
-    "greenclip"
+    #"greenclip"
     "i3lock"
     "jq"
     "numlockx"
