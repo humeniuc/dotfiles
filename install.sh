@@ -40,8 +40,8 @@ install_i3() {
 }
 
 install_sway() {
-    ln -s -f -T "$DOTFILES_PATH/.config/sway/config" "${HOME}/.config/sway/config"
-    ln -s -f -T "$DOTFILES_PATH/.config/sway/config.d" "${HOME}/.config/sway/config.d"
+    cp -r "$DOTFILES_PATH/.config/sway/config" "${HOME}/.config/sway/config"
+    cp -r "$DOTFILES_PATH/.config/sway/config.d" "${HOME}/.config/sway/config.d"
 }
 
 install_polybar() {
@@ -61,11 +61,22 @@ install_rofi() {
     ln -s -f "$DOTFILES_PATH/.config/rofi/config.rasi" "$ROFI_CONFIG_PATH/config.rasi"
 }
 
+install_ghostty() {
+    GHOSTTY_CONFIG_PATH="$HOME/.config/ghostty"
+    mkdir -p "$GHOSTTY_CONFIG_PATH"
+    (
+        cd "${DOTFILES_PATH}/.config/ghostty";
+
+        find "." -type f -exec bash -c '
+            ln -s -f -T "${PWD}/$1" "$2/$1"
+            ' _ {} "${GHOSTTY_CONFIG_PATH}" \;
+    )
+}
+
 install_shikane() {
     SHIKANE_CONFIG_PATH="$HOME/.config/shikane"
     mkdir -p "$SHIKANE_CONFIG_PATH"
     ln -s -f "$DOTFILES_PATH/.config/shikane/sample.toml" "$SHIKANE_CONFIG_PATH/sample.toml"
-
 }
 
 install_enironmentd() {
@@ -84,5 +95,6 @@ command -v polybar >/dev/null && { echo "installing polybar config." ;  install_
 command -v tmux >/dev/null && { echo "installing tmux config." ;  install_tmux; } || { echo "tmux not installed." >&2; }
 command -v rofi >/dev/null && { echo "installing rofi config." ;  install_rofi; } || { echo "rofi not installed." >&2; }
 command -v shikane >/dev/null && { echo "installing shikane config." ;  install_shikane; } || { echo "shikane not installed." >&2; }
+command -v ghostty >/dev/null && { echo "installing ghostty config." ;  install_ghostty; } || { echo "ghostty not installed." >&2; }
 
 bash "$DOTFILES_PATH/tools-check.sh"

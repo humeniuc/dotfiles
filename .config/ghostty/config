@@ -1,0 +1,19 @@
+font-family=CaskaydiaMono Nerd Font Mono
+font-size=12
+
+#theme=Catppuccin Latte
+#theme=Dayfox
+#theme=Farmhouse Light
+#theme=Iceberg Light
+theme=Material
+#theme=Nord Light
+#theme=Pencil Light
+#theme=Zenwritten Light
+
+shell-integration-features=ssh-env
+
+# gtk-wide-tabs = false
+# gtk-tabs-location = bottom
+
+# window-theme = ghostty
+gtk-custom-css = tab-style.css

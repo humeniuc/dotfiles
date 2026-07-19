@@ -11,6 +11,7 @@ declare -a executables=(
     "fzf"
     "gammastep"
     "ghostty"
+    "ghostty"
     "greenclip"
     "i3lock"
     "jq"

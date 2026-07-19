@@ -1,0 +1,52 @@
+/*
+debug: env GTK_DEBUG=interactive ghostty
+https://docs.gtk.org/gtk4/css-overview.html
+https://docs.gtk.org/gtk4/css-properties.html
+*/
+
+
+headerbar {
+  /* min-height: 24px; */
+  /* padding: 0; */
+  /* margin: 0; */
+}
+
+tabbar {
+    background-color:#cccccc;
+    border:0;
+}
+
+tabbar tabbox {
+    min-height: 10px;
+    font-size: 10px;
+    margin: 0;
+    padding: 2px;
+    /* min-height: 10px; */
+    /* font-family: monospace; */
+}
+
+tabbar tabbox tab {
+    margin: 0;
+    padding: 0;
+    border-radius: 0px;
+    /* outline:1px solid green; */
+    /* outline-offset:-2px; */
+}
+
+tabbar tabbox tab * {
+    border-radius: 0px;
+    /* outline:1px solid red; */
+    /* outline-offset:-1px; */
+}
+
+tabbar tabbox tab:selected {
+    background-color: #eeeeee;
+    /* border-bottom: 3px solid blue */
+}
+
+tabbar tabbox tab label {
+    border-radius: 1px;
+    font-size: 13px;
+    /* outline:1px solid green; */
+    /* outline-offset:-1px; */
+}
