@@ -61,10 +61,18 @@ declare -A wsmap=(
     [10]="$secondary"
 )
 
-current_ws=$(swaymsg -t get_workspaces -r | jq -r '.[] | select(.focused) | .num')
+workspaces_json=$(swaymsg -t get_workspaces -r)
+current_ws=$(jq -r '.[] | select(.focused) | .num' <<< "$workspaces_json")
+declare -A existing_ws
+while read -r num; do
+    existing_ws[$num]=1
+done < <(jq -r '.[].num' <<< "$workspaces_json")
 
 for ws in {1..10}; do
-    swaymsg "workspace number $ws; move workspace to output ${wsmap[$ws]}"
+    swaymsg "workspace $ws output ${wsmap[$ws]}"
+    if [[ -n "${existing_ws[$ws]:-}" ]]; then
+        swaymsg "workspace number $ws; move workspace to output ${wsmap[$ws]}"
+    fi
 done
 
 swaymsg "workspace number $current_ws"
