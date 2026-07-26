@@ -70,8 +70,10 @@ done < <(jq -r '.[].num' <<< "$workspaces_json")
 
 for ws in {1..10}; do
     swaymsg "workspace $ws output ${wsmap[$ws]}"
+    echo swaymsg "workspace $ws output ${wsmap[$ws]}" >&2
     if [[ -n "${existing_ws[$ws]:-}" ]]; then
         swaymsg "workspace number $ws; move workspace to output ${wsmap[$ws]}"
+        swaymsg "workspace number $ws; move workspace to output ${wsmap[$ws]}" >&2
     fi
 done
 
