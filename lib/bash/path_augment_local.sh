@@ -1,38 +1,48 @@
-# $HOME/.local/bin and its's recursive subdirectories added in $PATH.
-# $DOTFILES_PATH/bin and its's recursive subdirectories added in $PATH.
-# That way, if I symlink dotfiles/bin to $HOME/.local/bin/dotfiles, the dotfiles/bin executables whould be accesible.
-# PATH_AUGMENT_LOCAL prevents re-augment PATH when starting bash from bash or bash > mc or bash > tmux > bash > mc, etc.
+# Collect directories under $HOME/.local/bin and $DOTFILES_PATH/bin that are
+# not already present in the given path string (defaults to $PATH).
+# Prints a colon-separated list of new directories.
+function _path_augment_local_collect() {
+    local path_ref="${1-$PATH}"
+    local dir
+    local root
+    local collected=""
+
+    for root in "$HOME/.local/bin" "$DOTFILES_PATH/bin"; do
+        if [ ! -d "$root" ]; then
+            continue
+        fi
+
+        while IFS= read -r -d '' dir; do
+            case ":$path_ref:" in
+                *":$dir:"*) ;;
+                *)
+                    if [ -z "$collected" ]; then
+                        collected="$dir"
+                    else
+                        collected="${collected}:${dir}"
+                    fi
+                    # Also treat as present for subsequent checks
+                    path_ref="${dir}:${path_ref}"
+                    ;;
+            esac
+        done < <(find -L "$root" -type d -print0)
+    done
+
+    printf '%s' "$collected"
+}
+
+# Prepend collected directories to PATH and export.
 function _path_augment_local() {
-    if [ ! -z "$PATH_AUGMENT_LOCAL" ]; then
-        PATH=":$PATH:"
-        PATH="${PATH/:$PATH_AUGMENT_LOCAL:/:}"
-        PATH="${PATH#:}"
-        PATH="${PATH%:}"
-    fi
+    local collected
+    collected="$(_path_augment_local_collect)"
 
-    PATH_AUGMENT_LOCAL=""
-    local SUBPATH
-
-    if [ -d "$HOME/.local/bin" ]; then
-        SUBPATH="$(find -L "$HOME/.local/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
-        PATH_AUGMENT_LOCAL="${PATH_AUGMENT_LOCAL%:}:${SUBPATH%:}"
-    fi
-
-
-    if [ -d "$DOTFILES_PATH/bin" ]; then
-        SUBPATH="$(find -L "$DOTFILES_PATH/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
-        PATH_AUGMENT_LOCAL="${PATH_AUGMENT_LOCAL%:}:${SUBPATH%:}"
-    fi
-
-    PATH_AUGMENT_LOCAL="${PATH_AUGMENT_LOCAL#:}"
-    PATH_AUGMENT_LOCAL="${PATH_AUGMENT_LOCAL%:}"
-
-    if test ! -z "$PATH_AUGMENT_LOCAL"; then
-        PATH="${PATH_AUGMENT_LOCAL}:${PATH}"
+    if [ -n "$collected" ]; then
+        PATH="${collected}:${PATH}"
     fi
 
     export PATH
-    export PATH_AUGMENT_LOCAL
 }
 
-_path_augment_local
+if [ "${1:-}" = "--augment-path" ]; then
+    _path_augment_local
+fi

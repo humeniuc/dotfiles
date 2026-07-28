@@ -88,7 +88,7 @@ install_enironmentd() {
     DOTFILES_PATH="$DOTFILES_PATH" bash "$DOTFILES_PATH/.config/environment.d/build" > "${INSTALL_PATH}"
 }
 
-# install_enironmentd
+install_enironmentd
 command -v bash >/dev/null && { echo "installing bashrc config."; install_basrc; } || { echo "bash not installed." >&2; }
 command -v Xorg >/dev/null && { echo "installing xprofile config."; install_xprofile; } || { echo "xserver not installed." >&2; }
 command -v vim >/dev/null && { echo "installing vim config." ; install_vim; } || { echo "vim not installed." >&2; }

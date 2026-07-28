@@ -4,7 +4,7 @@
 # Arch
 [ -r /etc/bash.bashrc ] && source /etc/bash.bashrc
 
-source "$DOTFILES_PATH/lib/bash/path_augment_local.sh"
+source "$DOTFILES_PATH/lib/bash/path_augment_local.sh" --augment-path
 
 # Large history.
 export HISTSIZE=1000000

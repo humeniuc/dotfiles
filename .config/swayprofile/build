@@ -11,24 +11,11 @@ OUT
 
 printf "export DOTFILES_PATH=\"%q\"\n\n" "${DOTFILES_PATH}"
 
-AUGMENT=""
-
-if [ -d "$HOME/.local/bin" ]; then
-    SUBPATH="$(find -L "$HOME/.local/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
-    AUGMENT="${AUGMENT%:}:${SUBPATH%:}"
-fi
-
-if [ -d "$DOTFILES_PATH/bin" ]; then
-    SUBPATH="$(find -L "$DOTFILES_PATH/bin" -type d -print0 | sed "s/\x0$//; s/\x0/:/g")"
-    AUGMENT="${AUGMENT%:}:${SUBPATH%:}"
-fi
-
-AUGMENT="${AUGMENT#:}"
-AUGMENT="${AUGMENT%:}"
-
+. "${DOTFILES_PATH}/lib/bash/path_augment_local.sh"
+AUGMENT="$(_path_augment_local_collect "")"
 
 if test ! -z "$AUGMENT"; then
-printf "export PATH=%q:%s\n\n" "${AUGMENT}" '$PATH'
+    printf "export PATH=%q:%s\n\n" "${AUGMENT}" '$PATH'
 fi
 
 cat << 'OUT'
