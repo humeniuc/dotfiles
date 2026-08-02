@@ -7,5 +7,5 @@
 # Adaugă un hook, la schimbarea profilului, să se execute ,sway-assign-workspaces
 [[profile]]
 name = "..."
-exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"", ",sway-assign-workspaces.sh"]
+exec = ["notify-send shikane \"Profile $SHIKANE_PROFILE_NAME has been applied\"", "$DOTFILES_PATH/bin/,sway-assign-workspaces.sh"]
 
