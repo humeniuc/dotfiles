@@ -1,0 +1,32 @@
+#%PAM-1.0
+
+# AUTHENTICATION PHASE
+auth       required     pam_securetty.so
+# Allow root login only from secure TTYs defined in /etc/securetty.
+
+auth       requisite    pam_nologin.so
+# Deny login if /etc/nologin exists (used during system maintenance).
+
+auth       include      system-local-login
+# Pull in the standard Arch authentication stack (password verification,
+# faillock, environment setup, etc.).
+
+auth       optional     pam_gnome_keyring.so
+# Captures the user's login password and stores it temporarily so the
+# GNOME keyring module can unlock the keyring later during the session phase.
+
+
+# ACCOUNT PHASE
+account    include      system-local-login
+# Performs account checks (account expiration, access restrictions,
+# group policies, etc.) using the standard Arch login stack.
+
+
+# SESSION PHASE
+session    include      system-local-login
+# Initializes the user session (sets limits, environment variables,
+# creates login records, etc.) using the standard Arch stack.
+
+session    optional     pam_gnome_keyring.so auto_start
+# Starts gnome-keyring-daemon if needed and unlocks the "login" keyring
+# using the password captured earlier during the auth phase.
