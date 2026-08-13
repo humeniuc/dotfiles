@@ -48,6 +48,14 @@ option=$( \
 
 card="$(printf "%s" "${option}" | awk '{ print $1 }')"
 
-printf "%s" "${card}" | xclip -in -selection clipboard
+,is xorg && command -v xclip >/dev/null && {
+    printf "%s" "${card}" | xclip -in -selection clipboard
+    exit 0
+}
+
+,is wayland && command -v wl-copy >/dev/null && {
+    printf "%s" "${card}" | wl-copy
+    exit 0
+}
 
 _error_message "${card} cpboard"
