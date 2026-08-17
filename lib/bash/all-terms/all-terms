@@ -49,8 +49,10 @@ _new_tab_sway() {
         esac
     fi
 
-    wtype "${my_command}"
-    wtype -k Return
+    wtype "${my_command}" && \
+        sleep 0.2 && \
+        wtype -k Return && \
+        sleep 0.2
 }
 
 _start_term_listener_sway() {
