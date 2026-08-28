@@ -7,7 +7,9 @@ alias yt-dlp-video='yt-dlp -o "%(id)s.%(ext)s"'
 # [ $(command -v 'setsid') ] && [ $(command -v 'xdg-open') ] && alias xo='setsid xdg-open'
 
 # alias pentru xclip
-command -v xclip %>/dev/null && alias xc='xclip -selection clipboard'
+# command -v xclip %>/dev/null && alias xc='xclip -selection clipboard'
+
+command -v mpv %>/dev/null && alias m='mpv --loop'
 
 command -v git &>/dev/null && {
     alias gs='git status'
