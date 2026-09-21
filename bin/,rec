@@ -1,0 +1,188 @@
+#!/bin/bash
+
+SCRIPT_DIR="$(dirname "$( readlink -f "${BASH_SOURCE[0]}" )")"
+
+_error_message() {
+    [ -n "$1" ] && {
+        echo "$1" >&2
+        command -v /bin/notify-send >/dev/null && notify-send -- "screenrec" "$1"
+    }
+}
+
+_notify() {
+    [ -n "$1" ] && {
+        echo "$1"
+        command -v /bin/notify-send >/dev/null && notify-send -- "screenrec" "$1"
+    }
+}
+
+_exit() {
+    [ -n "$1" ] && _error_message "$1"
+    exit "${2:-1}"
+}
+
+_runtime_dir() {
+    printf '%s' "${XDG_RUNTIME_DIR}/,screenrec"
+}
+
+_pidfile() {
+    printf '%s' "$(_runtime_dir)/pid"
+}
+
+_outfile_file() {
+    printf '%s' "$(_runtime_dir)/outfile"
+}
+
+_cleanup_runtime() {
+    rm -f -- "$(_pidfile)" "$(_outfile_file)"
+    rmdir -- "$(_runtime_dir)" 2>/dev/null || true
+}
+
+_recorder_pid_is_live() {
+    local pid="$1"
+    local comm
+    [[ "$pid" =~ ^[0-9]+$ ]] || return 1
+    [ -d "/proc/$pid" ] || return 1
+    comm="$(tr -d '\0' < "/proc/$pid/comm" 2>/dev/null)" || return 1
+    [ "$comm" = "wf-recorder" ]
+}
+
+_wait_for_pid() {
+    local pid="$1"
+    if command -v tail >/dev/null; then
+        tail --pid="$pid" -f /dev/null 2>/dev/null && return 0
+    fi
+    while _recorder_pid_is_live "$pid" || kill -0 "$pid" 2>/dev/null; do
+        sleep 0.1
+    done
+}
+
+_stop_if_running() {
+    local pidfile outfile_file pid outfile
+    pidfile="$(_pidfile)"
+    [ -f "$pidfile" ] || return 1
+    pid="$(cat -- "$pidfile" 2>/dev/null)"
+    if ! _recorder_pid_is_live "$pid"; then
+        _cleanup_runtime
+        return 1
+    fi
+
+    kill -INT "$pid" || _exit "Failed to stop recording (pid $pid)"
+    _notify "Stopping…"
+    _wait_for_pid "$pid"
+
+    outfile_file="$(_outfile_file)"
+    outfile="$(cat -- "$outfile_file" 2>/dev/null)"
+    _cleanup_runtime
+
+    if [ -n "$outfile" ] && [ -s "$outfile" ]; then
+        _notify "Saved: $outfile"
+        return 0
+    fi
+    _exit "Recording failed"
+}
+
+_slugify() {
+    printf '%s' "$1" \
+        | tr '[:upper:]' '[:lower:]' \
+        | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//; s/-+/-/g'
+}
+
+_prompt_name() {
+    local prompt="Recording name"
+    local default="recording"
+
+    if command -v rofi >/dev/null; then
+        printf '%s' "$default" | rofi -dmenu -p "$prompt" -monitor -4
+    elif command -v zenity >/dev/null; then
+        zenity --entry --text="$prompt" --entry-text="$default" --title="screenrec" 2>/dev/null
+    elif [ -t 0 ]; then
+        read -r -p "$prompt [$default]: " name
+        printf '%s' "${name:-$default}"
+    else
+        _exit "No prompt available (install rofi or zenity)"
+    fi
+}
+
+_muxer_for_format() {
+    case "$1" in
+        mkv) printf '%s' "matroska" ;;
+        *)   printf '%s' "$1" ;;
+    esac
+}
+
+_format_is_valid() {
+    local muxer
+    muxer="$(_muxer_for_format "$1")"
+    ffmpeg -hide_banner -muxers 2>/dev/null \
+        | awk '$1 ~ /E/ { print $2 }' \
+        | grep -qx -- "$muxer"
+}
+
+_codec_for_format() {
+    case "$1" in
+        webm) printf '%s' "libvpx-vp9" ;;
+        gif)  printf '%s' "gif" ;;
+        *)    printf '%s' "libx264" ;;
+    esac
+}
+
+main()
+{
+    command -v wf-recorder >/dev/null || _exit "wf-recorder is not installed"
+    command -v slurp >/dev/null || _exit "slurp is not installed"
+    command -v ffmpeg >/dev/null || _exit "ffmpeg is not installed"
+
+    [ -n "$XDG_RUNTIME_DIR" ] || _exit "XDG_RUNTIME_DIR is unset"
+
+    if _stop_if_running; then
+        return 0
+    fi
+
+    local out_dir="${SCREENREC_DIR:-$HOME/Videos}"
+    [ -n "$out_dir" ] || _exit "SCREENREC_DIR is empty"
+    mkdir -p -- "$out_dir" || _exit "Cannot create directory: $out_dir"
+
+    local format="${SCREENREC_FORMAT:-mp4}"
+    format="${format#.}"
+    format="$(printf '%s' "$format" | tr '[:upper:]' '[:lower:]')"
+    [ -n "$format" ] || _exit "SCREENREC_FORMAT is empty"
+    _format_is_valid "$format" || _exit "Invalid format: $format"
+
+    local name
+    name="$(_prompt_name)"
+    name="$(_slugify "$name")"
+    [ -n "$name" ] || _exit "Recording name is empty"
+
+    local geometry
+    geometry="$(slurp)" || _exit "Selection cancelled"
+    [ -n "$geometry" ] || _exit "Selection cancelled"
+
+    local timestamp outfile codec runtime_dir pidfile outfile_file wf_pid
+    timestamp="$(date +%Y-%m-%dT%H-%M-%S)"
+    outfile="${out_dir}/${timestamp}_${name}.${format}"
+    codec="$(_codec_for_format "$format")"
+    runtime_dir="$(_runtime_dir)"
+    pidfile="$(_pidfile)"
+    outfile_file="$(_outfile_file)"
+
+    mkdir -p -- "$runtime_dir" || _exit "Cannot create directory: $runtime_dir"
+
+    wf-recorder -g "$geometry" -f "$outfile" -c "$codec" &
+    wf_pid=$!
+    disown "$wf_pid" 2>/dev/null || true
+    printf '%s\n' "$wf_pid" > "$pidfile" || {
+        kill -INT "$wf_pid" 2>/dev/null
+        _cleanup_runtime
+        _exit "Cannot write pid file"
+    }
+    printf '%s\n' "$outfile" > "$outfile_file" || {
+        kill -INT "$wf_pid" 2>/dev/null
+        _cleanup_runtime
+        _exit "Cannot write outfile path"
+    }
+
+    echo "Recording… (run again to stop)" >&2
+}
+
+main "$@"
