@@ -1,0 +1,310 @@
+#!/bin/bash
+
+# Open a file in the current Cursor or VS Code window from an external terminal.
+# Both remote servers listen on vscode-ipc sockets. This finds the matching
+# server-main process and execs that install's remote-cli/code.
+#
+# ,code -r|--ready exits 0 when a targeted server can open a file, and 1 otherwise.
+# ,code -r && ,code "$file" || tvim "$file"
+
+# cursor, vscode, or empty for whichever is newest.
+TARGET=""
+DEBUG=0
+
+# Print an error and stop.
+_die() {
+    echo ",code: $1" >&2
+    exit 1
+}
+
+# Trace a decision. Only when --debug/-d is set.
+_debug() {
+    [ "$DEBUG" -eq 1 ] || return 0
+    echo ",code: $*" >&2
+}
+
+_help() {
+    cat << 'HELP'
+,code [--cursor | --vscode] [-r | --ready] [-d | --debug]
+,code [-c | --cleanup] [-d | --debug]
+,code [-h | --help]
+,code [--cursor | --vscode] [-d | --debug] [editor options] [path...]
+
+--cursor      Open with the Cursor remote server.
+--vscode      Open with the VS Code remote server.
+              With neither flag, the newest listening server is used.
+-r, --ready   Exit 0 when the targeted editor can open a file. No output.
+              Only --cursor, --vscode, or --debug may be passed with it.
+-c, --cleanup Remove vscode-ipc socket files that no process is using.
+-d, --debug   Print the socket choice, and each cleanup path, to stderr.
+-h, --help    Show this help.
+
+Any other arguments are passed to that editor's remote CLI.
+The editor's reuse-window flag is --reuse-window.
+HELP
+}
+
+# True when this command line is a CLI listener for the targeted editor.
+# server-main holds the socket once a terminal exists. Before that, the
+# extension host is the listener that accepts open-file requests.
+_matches_target() {
+    case "$TARGET" in
+        cursor)
+            case "$1" in
+                *cursor-server*out/server-main.js*|*cursor-server*--type=extensionHost*) return 0 ;;
+            esac
+            ;;
+        vscode)
+            case "$1" in
+                *vscode-server*server-main.js*|*vscode-server*--type=extensionHost*) return 0 ;;
+            esac
+            ;;
+        "")
+            case "$1" in
+                *cursor-server*out/server-main.js*|*cursor-server*--type=extensionHost*|*vscode-server*server-main.js*|*vscode-server*--type=extensionHost*) return 0 ;;
+            esac
+            ;;
+    esac
+    return 1
+}
+
+# Sets SELECTED_SOCK and SELECTED_CLI to the newest matching listener.
+# ss already lists listening sockets and the pid that holds each one.
+_select_server() {
+    local line sock pid cmd exe cli mtime
+    local best_mtime=-1
+    local best_sock="" best_cli=""
+
+    SELECTED_SOCK=""
+    SELECTED_CLI=""
+
+    # One ss call. Leftover socket files are not listeners, so they never appear.
+    while IFS= read -r line; do
+        [[ "$line" =~ (/run/user/[0-9]+/vscode-ipc-[^[:space:]]+\.sock) ]] || continue
+        sock="${BASH_REMATCH[1]}"
+        [[ "$line" =~ pid=([0-9]+) ]] || continue
+        pid="${BASH_REMATCH[1]}"
+
+        # ss can still name a socket after its file was removed.
+        if [ ! -S "$sock" ]; then
+            _debug "skip pid=$pid missing sock=$sock"
+            continue
+        fi
+
+        [ -r "/proc/$pid/cmdline" ] || continue
+        cmd="$(tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null || true)"
+        # server-main or the extension host. Other listeners are ignored.
+        if ! _matches_target "$cmd"; then
+            _debug "skip pid=$pid sock=$sock"
+            continue
+        fi
+
+        # CLI that belongs to this running server, not an older install.
+        exe="$(readlink -f "/proc/$pid/exe" 2>/dev/null || true)"
+        [ -n "$exe" ] || continue
+        cli="$(dirname "$exe")/bin/remote-cli/code"
+        if [ ! -x "$cli" ]; then
+            _debug "skip pid=$pid missing cli $cli"
+            continue
+        fi
+
+        # Newest listening socket wins.
+        mtime="$(stat -c %Y "$sock" 2>/dev/null || echo 0)"
+        _debug "candidate pid=$pid mtime=$mtime sock=$sock"
+        if [ "$mtime" -gt "$best_mtime" ]; then
+            best_mtime="$mtime"
+            best_sock="$sock"
+            best_cli="$cli"
+        fi
+    done < <(ss -xlpH 2>/dev/null)
+
+    if [ -n "$best_sock" ]; then
+        SELECTED_SOCK="$best_sock"
+        SELECTED_CLI="$best_cli"
+        _debug "selected sock=$SELECTED_SOCK"
+        _debug "selected cli=$SELECTED_CLI"
+        return 0
+    fi
+
+    _debug "no matching listener"
+    return 1
+}
+
+# Delete a socket file only when it is confirmed unused.
+# A running Cursor or VS Code process, or a listening ss entry, keeps the file.
+# If an editor is running and no socket can be confirmed, delete nothing.
+_cleanup_sockets() {
+    local runtime="/run/user/$(id -u)"
+    local cmdfile pid cmd inode path sock
+    local editors=0 live=0 removed=0
+    declare -A held_inode=()
+    declare -A in_use=()
+
+    # Any open vscode-ipc inode is in use, including Cursor and VS Code.
+    while IFS= read -r cmdfile; do
+        cmd="$( { tr '\0' ' ' < "$cmdfile"; } 2>/dev/null )" || continue
+        case "$cmd" in
+            *.cursor-server*|*.vscode-server*) editors=$((editors + 1)) ;;
+        esac
+    done < <(grep -l -a -F -e '.cursor-server' -e '.vscode-server' /proc/[0-9]*/cmdline 2>/dev/null)
+
+    # One pass over open fds. A bash loop here takes many seconds.
+    while read -r pid inode path; do
+        [ -n "$path" ] || continue
+        held_inode["$inode"]=1
+        in_use["$path"]=1
+        _debug "in use by pid=$pid $path"
+    done < <(python3 - << 'PY'
+import os
+inode_path = {}
+with open("/proc/net/unix") as fh:
+    next(fh)
+    for line in fh:
+        parts = line.split()
+        if len(parts) >= 8 and parts[-1].startswith("/") and "vscode-ipc-" in parts[-1]:
+            inode_path[parts[6]] = parts[-1]
+for pid in os.listdir("/proc"):
+    if not pid.isdigit():
+        continue
+    fd_dir = "/proc/" + pid + "/fd"
+    try:
+        fds = os.listdir(fd_dir)
+    except OSError:
+        continue
+    for fd in fds:
+        try:
+            target = os.readlink(fd_dir + "/" + fd)
+        except OSError:
+            continue
+        if not (target.startswith("socket:[") and target.endswith("]")):
+            continue
+        inode = target[8:-1]
+        path = inode_path.get(inode)
+        if path:
+            print(pid, inode, path)
+PY
+)
+
+    # Listening names from ss. This is a second source, not the only one.
+    if ! ss -xlpH >/dev/null 2>&1; then
+        _die "refusing to cleanup: cannot list listening sockets"
+    fi
+    while IFS= read -r line; do
+        [[ "$line" =~ (/run/user/[0-9]+/vscode-ipc-[^[:space:]]+\.sock) ]] || continue
+        in_use["${BASH_REMATCH[1]}"]=1
+        _debug "in use by ss ${BASH_REMATCH[1]}"
+    done < <(ss -xlpH 2>/dev/null)
+
+    if [ "$editors" -gt 0 ] && [ "${#in_use[@]}" -eq 0 ]; then
+        _die "refusing to cleanup: an editor is running but no socket could be confirmed in use"
+    fi
+
+    shopt -s nullglob
+    for sock in "$runtime"/vscode-ipc-*.sock; do
+        if [ -n "${in_use[$sock]:-}" ]; then
+            live=$((live + 1))
+            _debug "keep $sock"
+            continue
+        fi
+        # The name can differ from the kernel path. Keep a file whose inode is open.
+        inode="$(stat -c %i "$sock" 2>/dev/null || true)"
+        if [ -n "$inode" ] && [ -n "${held_inode[$inode]:-}" ]; then
+            live=$((live + 1))
+            _debug "keep $sock (open inode)"
+            continue
+        fi
+        rm -f -- "$sock"
+        removed=$((removed + 1))
+        _debug "remove $sock"
+    done
+
+    echo ",code: removed $removed unused socket(s), kept $live in use" >&2
+}
+
+_no_server_message() {
+    case "$TARGET" in
+        cursor) echo "no Cursor remote server is running" ;;
+        vscode) echo "no VS Code remote server is running" ;;
+        *) echo "no Cursor or VS Code remote server is running" ;;
+    esac
+}
+
+# Pull --cursor, --vscode, -r, and -h out of the editor arguments.
+_parse_args() {
+    local ready=0 cleanup=0
+    PASS_ARGS=()
+
+    while [ $# -gt 0 ]; do
+        case "$1" in
+            -h|--help)
+                _help
+                exit 0
+                ;;
+            --cursor)
+                [ -n "$TARGET" ] && [ "$TARGET" != cursor ] && _die "pass only one of --cursor or --vscode"
+                TARGET="cursor"
+                ;;
+            --vscode)
+                [ -n "$TARGET" ] && [ "$TARGET" != vscode ] && _die "pass only one of --cursor or --vscode"
+                TARGET="vscode"
+                ;;
+            -d|--debug)
+                DEBUG=1
+                ;;
+            -c|--cleanup)
+                cleanup=1
+                ;;
+            -r|--ready)
+                ready=1
+                ;;
+            --)
+                shift
+                PASS_ARGS+=("$@")
+                break
+                ;;
+            *)
+                PASS_ARGS+=("$1")
+                ;;
+        esac
+        shift
+    done
+
+    if [ "$ready" -eq 1 ] && [ "$cleanup" -eq 1 ]; then
+        _die "pass only one of -r/--ready or -c/--cleanup"
+    fi
+
+    # -c removes leftovers and stops. It does not open a file.
+    if [ "$cleanup" -eq 1 ]; then
+        [ "${#PASS_ARGS[@]}" -eq 0 ] || _die "-c/--cleanup takes no other arguments"
+        _cleanup_sockets
+        exit 0
+    fi
+
+    # -r is the probe. A path still belongs to the editor, via --reuse-window.
+    if [ "$ready" -eq 1 ]; then
+        [ "${#PASS_ARGS[@]}" -eq 0 ] || _die "-r/--ready takes no other arguments"
+        _debug "target=${TARGET:-newest}"
+        _select_server
+        exit $?
+    fi
+}
+
+main() {
+    _parse_args "$@"
+
+    # Find the live server, then hand off to its remote CLI.
+    _debug "target=${TARGET:-newest}"
+    if ! _select_server; then
+        _die "$(_no_server_message)"
+    fi
+
+    [ -n "$SELECTED_SOCK" ] || _die "no CLI socket was found"
+    [ -x "$SELECTED_CLI" ] || _die "remote CLI not found"
+
+    # Same variable the embedded terminal sets before running `code`.
+    export VSCODE_IPC_HOOK_CLI="$SELECTED_SOCK"
+    _debug "exec $SELECTED_CLI ${PASS_ARGS[*]}"
+    exec "$SELECTED_CLI" "${PASS_ARGS[@]}"
+}
+
+main "$@"
